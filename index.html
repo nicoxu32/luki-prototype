@@ -1,316 +1,820 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>luki · 今日</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=PingFang+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
-.emotion-block{background:var(--bg-card);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card);border:1px solid var(--border-light);margin-bottom:12px}
-.emotion-top{padding:18px 18px 14px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border-light)}
-.luki-ip{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#FF8A65,var(--primary));display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;box-shadow:0 4px 16px rgba(255,112,67,.3);animation:pulse 2.5s ease-in-out infinite}
-.score-num{font-family:'Nunito','Inter',sans-serif;font-size:52px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--primary),#FF8A65);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.score-desc{font-size:13px;color:var(--text-secondary);margin-top:2px;font-weight:500}
-.score-date{font-size:11px;color:var(--text-muted);margin-top:1px}
-.emotion-bottom{padding:14px 18px}
-.kw-tag{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:var(--radius-full);font-size:12px;font-weight:600;cursor:pointer;transition:.15s;margin:0 4px 4px 0}
-.kw-positive{background:#E8F5E9;color:#2E7D32}
-.kw-curious{background:var(--luki-blue-light);color:var(--luki-blue)}
-.kw-neutral{background:var(--bg-muted);color:var(--text-secondary)}
-.kw-alert{background:#FFEBEE;color:#C62828}
-.alert-strip{display:flex;align-items:flex-start;gap:10px;background:#FFF8E1;border:1px solid #FFE082;border-radius:var(--radius-md);padding:10px 12px;font-size:12px;color:#5D4037;line-height:1.5;margin-top:10px}
-.chart-card{background:var(--bg-card);border-radius:var(--radius-lg);padding:16px;box-shadow:var(--shadow-card);border:1px solid var(--border-light);margin-bottom:12px}
-.chart-title{font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.inspiration-card{background:linear-gradient(135deg,#FFF5F0 0%,#FFF0E8 100%);border-radius:var(--radius-lg);padding:16px;border:1px solid #FFD5C0;margin-bottom:12px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
-.inspiration-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,112,67,.08)}
-.inspiration-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(255,112,67,.15)}
-.ins-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--primary);margin-bottom:6px;display:flex;align-items:center;gap:5px}
-.ins-title{font-family:'Nunito','Inter',sans-serif;font-size:15px;font-weight:800;color:var(--text-primary);line-height:1.4;margin-bottom:6px}
-.ins-desc{font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:10px}
-.ins-footer{display:flex;align-items:center;justify-content:space-between}
-.ins-time{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:4px}
-.ins-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:var(--primary);color:white;border-radius:var(--radius-full);font-size:12px;font-weight:600;box-shadow:0 2px 8px rgba(255,112,67,.3)}
-.c-card{background:var(--bg-card);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow-card);border:1px solid var(--border-light);cursor:pointer;transition:.2s;position:relative;overflow:hidden}
-.c-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.1)}
-.c-card:active{transform:scale(.99)}
-.c-card.c-parent{background:linear-gradient(to bottom,#FFF8F5,var(--bg-card) 60%);border-top:2.5px solid var(--primary)}
-.c-card.c-luki{background:linear-gradient(to bottom,#EEF4FF,var(--bg-card) 60%);border-top:2.5px solid var(--luki-blue)}
-.c-card.c-privacy{cursor:default;opacity:.8}
-.c-card.c-privacy:hover{transform:none;box-shadow:var(--shadow-card)}
-.c-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.c-who{display:flex;align-items:center;gap:8px}
-.c-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
-.c-av-child{background:linear-gradient(135deg,#FFB89A,var(--primary));color:white}
-.c-av-parent{background:linear-gradient(135deg,#FF7043,#E64A19);color:white}
-.c-av-luki{background:linear-gradient(135deg,var(--luki-blue),#7AAFF5);color:white}
-.c-name{font-size:12px;font-weight:700;color:var(--text-secondary)}
-.c-right{display:flex;align-items:center;gap:6px}
-.c-time{font-size:11px;color:var(--text-muted)}
-.c-healing{font-family:'Nunito','Inter',sans-serif;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:5px;line-height:1.4}
-.c-summary{font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:8px}
-.c-privacy-msg{font-size:12px;color:var(--text-muted);font-style:italic;display:flex;align-items:center;gap:5px;margin-bottom:8px}
-.c-audio{display:flex;align-items:center;gap:8px;background:var(--bg-muted);border-radius:var(--radius-full);padding:6px 12px;margin-bottom:8px}
-.c-play{width:28px;height:28px;border-radius:50%;background:var(--primary);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:white;font-size:10px;flex-shrink:0;box-shadow:0 2px 6px rgba(255,112,67,.3)}
-.c-wave{flex:1;height:20px;background:linear-gradient(to right,var(--primary-mid) 0%,var(--primary-mid) 40%,var(--border) 40%);border-radius:var(--radius-full)}
-.c-dur{font-size:11px;color:var(--text-muted);font-weight:500}
-.c-tags{display:flex;flex-wrap:wrap;gap:5px}
-.c-tag{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:var(--radius-full);font-size:11px;font-weight:600}
-.c-tag-green{background:#E8F5E9;color:#388E3C}
-.c-tag-blue{background:var(--luki-blue-light);color:var(--luki-blue)}
-.c-tag-orange{background:var(--primary-light);color:var(--primary)}
-.c-tag-yellow{background:#FFF8E1;color:#F57F17}
-.c-tag-muted{background:var(--bg-muted);color:var(--text-muted)}
-.c-agent{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:var(--secondary-light);color:var(--secondary);border-radius:var(--radius-full);font-size:10px;font-weight:700;margin-bottom:6px}
+/* ── 字体覆盖：使用中文友好字体 ── */
+body {
+  font-family: 'Noto Sans SC', 'PingFang SC', -apple-system, 'Helvetica Neue', sans-serif;
+  letter-spacing: .01em;
+}
+
+/* ── 顶部区域：极简风格 ── */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px 10px;
+}
+.top-greeting {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 400;
+  line-height: 1.4;
+}
+.top-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-top: 1px;
+}
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.top-bell {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 15px;
+  position: relative;
+  text-decoration: none;
+  box-shadow: var(--shadow-xs);
+}
+.top-bell .dot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 1.5px solid var(--bg);
+}
+.top-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF8A65, var(--primary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+/* ── 情绪卡片：简洁重构 ── */
+.mood-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-light);
+  margin-bottom: 12px;
+}
+.mood-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.mood-emoji {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFE0CC, #FFB89A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  flex-shrink: 0;
+}
+.mood-score-num {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.mood-score-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 3px;
+}
+.mood-score-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.mood-delta {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+.mood-delta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #E8F5E9;
+  color: #2E7D32;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.mood-delta-hint {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* ── 关键词：标签云美化 ── */
+.kw-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: .05em;
+  margin-bottom: 10px;
+}
+.kw-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.kw-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  transition: .15s;
+  cursor: default;
+}
+.kw-chip.positive { background: #E8F5E9; color: #2E7D32; }
+.kw-chip.curious  { background: #EBF1FD; color: #3B6FD4; }
+.kw-chip.neutral  { background: #F4F2EF; color: #6B6560; }
+.kw-chip.food     { background: #FFF8E1; color: #E65100; }
+.kw-chip.alert    { background: #FFEBEE; color: #C62828; font-weight: 600; }
+.kw-chip .kw-dot  { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── 情绪预警卡片：高中低三级 ── */
+.alert-card {
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+/* 低级 — 蓝绿色，关怀提示 */
+.alert-card.level-low {
+  background: linear-gradient(135deg, #F0F9FF, #E8F5F0);
+  border-left: 3px solid #4CAF50;
+}
+/* 中级 — 橙色，需要关注 */
+.alert-card.level-mid {
+  background: linear-gradient(135deg, #FFF8F0, #FFF3E0);
+  border-left: 3px solid #FF9800;
+}
+/* 高级 — 红色，立即关注 */
+.alert-card.level-high {
+  background: linear-gradient(135deg, #FFF5F5, #FFEBEE);
+  border-left: 3px solid #F44336;
+}
+.alert-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.level-low  .alert-icon-wrap { background: #E8F5E9; }
+.level-mid  .alert-icon-wrap { background: #FFF3E0; }
+.level-high .alert-icon-wrap { background: #FFEBEE; }
+.alert-body { flex: 1; }
+.alert-level-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-bottom: 5px;
+}
+.level-low  .alert-level-tag { background: #C8E6C9; color: #1B5E20; }
+.level-mid  .alert-level-tag { background: #FFE0B2; color: #BF360C; }
+.level-high .alert-level-tag { background: #FFCDD2; color: #B71C1C; }
+.alert-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.alert-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.alert-action {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+}
+
+/* ── 今日小任务 ── */
+.task-card {
+  background: linear-gradient(135deg, #FFF5F0 0%, #FFF0E8 100%);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  border: 1px solid #FFD5C0;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.task-card::after {
+  content: '🦕';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  opacity: .15;
+  pointer-events: none;
+}
+.task-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: .06em;
+  margin-bottom: 5px;
+}
+.task-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: 6px;
+  max-width: 240px;
+}
+.task-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  max-width: 240px;
+}
+.task-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.task-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.task-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: var(--primary);
+  color: white;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(255,112,67,.3);
+  text-decoration: none;
+}
+
+/* ── 时光流卡片：重构 ── */
+.flow-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 12px;
+}
+.flow-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.flow-section-link {
+  font-size: 12px;
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* 时光流卡片基础 */
+.flow-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  cursor: pointer;
+  transition: .15s;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+.flow-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.flow-card:active { transform: scale(.99); }
+
+/* 图片占位区 */
+.flow-img {
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(135deg, #E8E4DF, #D4CFC9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.flow-img-emoji {
+  font-size: 48px;
+  opacity: .5;
+}
+.flow-img-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0,0,0,.18), transparent);
+}
+.flow-img-time {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,.9);
+  background: rgba(0,0,0,.25);
+  padding: 2px 7px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+.flow-img-agent {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  background: rgba(0,0,0,.3);
+  padding: 3px 9px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 卡片内容区 */
+.flow-body {
+  padding: 14px 16px;
+}
+.flow-healing {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+.flow-healing::before { content: '"'; color: var(--primary); }
+.flow-healing::after  { content: '"'; color: var(--primary); }
+
+.flow-summary {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+/* 底部元数据行 */
+.flow-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.flow-agent-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.flow-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  color: var(--text-secondary);
+}
+.flow-privacy-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  color: var(--text-muted);
+}
+.flow-audio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-muted);
+  border-radius: 999px;
+  padding: 6px 12px;
+  margin-bottom: 10px;
+}
+.flow-play {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(255,112,67,.3);
+}
+.flow-wave {
+  flex: 1;
+  height: 18px;
+  background: linear-gradient(to right, var(--primary-mid) 40%, var(--border) 40%);
+  border-radius: 999px;
+}
+.flow-dur { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+
+/* 隐私模式卡片 */
+.flow-card.privacy-card { opacity: .82; }
+.privacy-blur {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.privacy-stat {
+  flex: 1;
+  background: var(--bg-muted);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  text-align: center;
+}
+.privacy-stat-emoji { font-size: 18px; }
+.privacy-stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+
+/* 里程碑高亮 */
+.flow-card.milestone-card {
+  border: 1.5px solid var(--primary-mid);
+  background: linear-gradient(135deg, #FFFAF8, #FFF5F0);
+}
+.milestone-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--primary);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 11px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+/* luki 主动消息卡片 */
+.flow-card.luki-card {
+  background: linear-gradient(135deg, #EEF4FF, var(--bg-card) 60%);
+  border-top: 2px solid var(--luki-blue);
+}
+/* 家长消息卡片 */
+.flow-card.parent-card {
+  background: linear-gradient(135deg, #FFF5F0, var(--bg-card) 60%);
+  border-top: 2px solid var(--primary);
+}
+
+/* 隐私提示条 */
+.privacy-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #FFFBF0;
+  border: 1px solid #FFE082;
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  font-size: 12px;
+  color: #5D4037;
+  line-height: 1.6;
+}
+
+/* 页面滚动容器 */
+.page-scroll { overflow-y: auto; }
 </style>
 </head>
 <body>
-<div class="status-bar"><span class="s-time">9:41</span><div class="s-icons"><i class="fa fa-signal"></i><i class="fa fa-wifi"></i><i class="fa fa-battery-full"></i></div></div>
 
-<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 20px 4px">
-  <div>
-    <div style="font-size:13px;color:var(--text-muted);font-weight:500">早上好，妈妈 👋</div>
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:22px;font-weight:800;color:var(--text-primary);line-height:1.2">今日动态</div>
-    <div style="font-size:12px;color:var(--text-secondary);margin-top:1px">周二，4月1日 · 小莉今天和 luki 在一起</div>
+<!-- 状态栏 -->
+<div class="status-bar">
+  <span class="s-time">9:41</span>
+  <div class="s-icons">
+    <i class="fa fa-signal"></i>
+    <i class="fa fa-wifi"></i>
+    <i class="fa fa-battery-full"></i>
   </div>
-  <div style="display:flex;gap:12px;align-items:center">
-    <div style="position:relative;cursor:pointer">
-      <i class="fa fa-bell" style="font-size:20px;color:var(--text-muted)"></i>
-      <div style="position:absolute;top:-2px;right:-2px;width:8px;height:8px;background:var(--primary);border-radius:50%;border:2px solid var(--bg)"></div>
-    </div>
-    <a href="profile.html" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#FFB89A,var(--primary));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:14px">S</a>
+</div>
+
+<!-- 顶部：极简问候 -->
+<div class="top-bar">
+  <div>
+    <div class="top-greeting">早上好，妈妈 👋</div>
+    <div class="top-title">今日动态</div>
+  </div>
+  <div class="top-actions">
+    <a href="messages-parent.html" class="top-bell">
+      <i class="fa fa-bell"></i>
+      <span class="dot"></span>
+    </a>
+    <a href="profile.html" class="top-avatar">妈</a>
   </div>
 </div>
 
 <div class="page-content">
 
-  <!-- Emotion Block -->
-  <div class="emotion-block fade-in-up">
-    <div class="emotion-top">
-      <div class="luki-ip">😊</div>
-      <div style="flex:1">
-        <div style="font-size:11px;color:var(--text-muted);font-weight:600;margin-bottom:2px">小莉今日心情</div>
-        <div class="score-num">82</div>
-        <div class="score-desc">开心又好奇</div>
-        <div class="score-date">基于今日 5 次对话 · 下午 3:40 更新</div>
+  <!-- ── 今日心情总结 ── -->
+  <div class="mood-card">
+    <!-- 分数行 -->
+    <div class="mood-top">
+      <div class="mood-emoji">😊</div>
+      <div>
+        <div class="mood-score-num">82</div>
+        <div class="mood-score-label">开心又好奇</div>
+        <div class="mood-score-sub">今日 5 次对话 · 下午 3:40 更新</div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-        <div style="display:flex;align-items:center;gap:4px;background:#E8F5E9;color:#2E7D32;padding:4px 9px;border-radius:999px;font-size:11px;font-weight:700"><i class="fa fa-arrow-trend-up" style="font-size:10px"></i>+7</div>
-        <div style="font-size:10px;color:var(--text-muted)">较昨日</div>
-      </div>
-    </div>
-    <div class="emotion-bottom">
-      <div style="font-size:11px;color:var(--text-muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px">今日关键词</div>
-      <div style="display:flex;flex-wrap:wrap">
-        <span class="kw-tag kw-positive"><i class="fa fa-star" style="font-size:9px"></i> 交了新朋友</span>
-        <span class="kw-tag kw-curious"><i class="fa fa-magnifying-glass" style="font-size:9px"></i> 好奇恐龙</span>
-        <span class="kw-tag kw-neutral">学校还不错</span>
-        <span class="kw-tag kw-neutral">想吃披萨</span>
-        <span class="kw-tag kw-alert"><i class="fa fa-triangle-exclamation" style="font-size:9px"></i> 担心数学考试</span>
-      </div>
-      <div class="alert-strip">
-        <i class="fa fa-triangle-exclamation" style="color:#F57F17;font-size:14px;flex-shrink:0;margin-top:1px"></i>
-        <span><strong>温馨提示：</strong> 小莉提到有点担心下周's 数学考试，说 "I don't want to fail." 今晚可以给她一些鼓励哦 💛</span>
+      <div class="mood-delta">
+        <div class="mood-delta-badge">
+          <i class="fa fa-arrow-trend-up" style="font-size:10px"></i> +7
+        </div>
+        <div class="mood-delta-hint">较昨日</div>
       </div>
     </div>
-  </div>
 
-  <!-- Emotion Timeline -->
-  <div class="chart-card fade-in-up" style="animation-delay:.1s">
-    <div class="chart-title"><i class="fa fa-chart-line" style="color:var(--primary)"></i> 今日心情曲线</div>
-    <div style="position:relative;height:90px;margin-bottom:6px">
-      <svg viewBox="0 0 340 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-        <defs>
-          <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#FF7043" stop-opacity=".18"/>
-            <stop offset="100%" stop-color="#FF7043" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <line x1="0" y1="20" x2="340" y2="20" stroke="#F0EDE8" stroke-width="1"/>
-        <line x1="0" y1="40" x2="340" y2="40" stroke="#F0EDE8" stroke-width="1"/>
-        <line x1="0" y1="60" x2="340" y2="60" stroke="#F0EDE8" stroke-width="1"/>
-        <path d="M30,58 C70,52 90,22 120,26 C150,30 165,52 195,54 C220,56 240,18 270,14 C290,12 305,36 315,42" fill="url(#areaGrad)"/>
-        <path d="M30,58 C70,52 90,22 120,26 C150,30 165,52 195,54 C220,56 240,18 270,14 C290,12 305,36 315,42" stroke="#FF7043" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <circle cx="30" cy="58" r="5" fill="white" stroke="#FF7043" stroke-width="2.5"/>
-        <circle cx="120" cy="26" r="5" fill="white" stroke="#FF7043" stroke-width="2.5"/>
-        <circle cx="195" cy="54" r="5" fill="white" stroke="#E57373" stroke-width="2.5"/>
-        <circle cx="270" cy="14" r="5" fill="white" stroke="#66BB6A" stroke-width="2.5"/>
-        <circle cx="315" cy="42" r="6" fill="#FF7043" stroke="white" stroke-width="2.5"/>
-        <rect x="268" y="2" width="56" height="16" rx="6" fill="#FF7043"/>
-        <text x="296" y="13" font-size="9" fill="white" text-anchor="middle" font-family="Inter" font-weight="700">😊 Now</text>
-      </svg>
+    <!-- 关键词标签云 -->
+    <div class="kw-section-label">今日关键词</div>
+    <div class="kw-grid">
+      <span class="kw-chip positive">
+        <span class="kw-dot" style="background:#4CAF50"></span>
+        交了新朋友
+      </span>
+      <span class="kw-chip curious">
+        <span class="kw-dot" style="background:#5B8DEF"></span>
+        好奇恐龙
+      </span>
+      <span class="kw-chip neutral">学校还不错</span>
+      <span class="kw-chip food">想吃披萨</span>
+      <span class="kw-chip alert">
+        <i class="fa fa-circle-exclamation" style="font-size:11px"></i>
+        担心数学考试
+      </span>
     </div>
-    <div style="display:flex;justify-content:space-between;padding:0 2px">
-      <span style="font-size:10px;color:var(--text-muted)">8:30am</span>
-      <span style="font-size:10px;color:var(--text-muted)">10:15am</span>
-      <span style="font-size:10px;color:var(--text-muted)">1:40pm</span>
-      <span style="font-size:10px;color:var(--text-muted)">4:20pm</span>
-      <span style="font-size:10px;color:var(--primary);font-weight:700">Now</span>
-    </div>
-  </div>
 
-  <!-- Today's Inspiration -->
-  <div class="inspiration-card fade-in-up" style="animation-delay:.2s" onclick="location.href='task-detail.html'">
-    <div class="ins-label"><i class="fa fa-lightbulb"></i> 今日灵感 · AI 生成</div>
-    <div class="ins-title">小莉在研究恐龙 — 一起探索吧！🦕</div>
-    <div class="ins-desc">她今天问了 luki 3 个关于霸王龙的问题。 今晚吃饭时，可以玩"恐龙知识问答" — 让她来当小老师！</div>
-    <div class="ins-footer">
-      <span class="ins-time"><i class="fa fa-clock"></i> 约 10 分钟 · 下午 4 点后最佳</span>
-      <span class="ins-btn"><i class="fa fa-play"></i> Start</span>
-    </div>
-  </div>
-
-  <!-- Time Flow -->
-  <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 12px">
-    <span style="font-family:'Nunito','Inter',sans-serif;font-size:15px;font-weight:700;color:var(--text-primary)">今日时光流</span>
-    <span style="font-size:12px;color:var(--text-muted)">5 moments · <span style="color:var(--primary);font-weight:600">查看全部</span></span>
-  </div>
-
-  <!-- luki morning message -->
-  <div class="c-card c-luki fade-in-up" style="animation-delay:.25s">
-    <div class="c-head">
-      <div class="c-who">
-        <div class="c-av c-av-luki"><i class="fa fa-robot"></i></div>
-        <div>
-          <div class="c-name" style="color:var(--luki-blue)">luki · 早安问候</div>
-          <div style="font-size:10px;color:var(--text-muted)">主动问候</div>
+    <!-- 情绪预警：中级示例 -->
+    <div class="alert-card level-mid">
+      <div class="alert-icon-wrap">⚠️</div>
+      <div class="alert-body">
+        <div class="alert-level-tag">
+          <i class="fa fa-circle" style="font-size:7px"></i> 中度关注
+        </div>
+        <div class="alert-title">小莉有点担心数学考试</div>
+        <div class="alert-desc">
+          她说"我不想考砸"，语气有些紧张。今晚可以用轻松的方式聊聊，给她一些鼓励。
+        </div>
+        <div class="alert-action">
+          查看建议 <i class="fa fa-chevron-right" style="font-size:9px"></i>
         </div>
       </div>
-      <span class="c-time">8:02 AM</span>
-    </div>
-    <div class="c-summary" style="color:#1565C0;font-style:italic">"Good morning Lily! I dreamed we went on a dinosaur adventure last night. What do you think dinosaurs ate for breakfast? 🦕"</div>
-    <div class="c-audio">
-      <button class="c-play"><i class="fa fa-play"></i></button>
-      <div class="c-wave"></div>
-      <span class="c-dur">0:08</span>
     </div>
   </div>
 
-  <!-- Conversation (unlocked) -->
-  <div class="c-card fade-in-up" style="animation-delay:.3s" onclick="location.href='capsule-detail.html'">
-    <div class="c-agent"><i class="fa fa-robot"></i> 树洞 · 情感陪伴</div>
-    <div class="c-head">
-      <div class="c-who">
-        <div class="c-av c-av-child">L</div>
-        <div>
-          <div class="c-name">小莉 &amp; luki</div>
-          <div style="font-size:10px;color:var(--text-muted)">早晨聊天 · 12 轮对话</div>
+  <!-- ── 今日小任务 ── -->
+  <div class="task-card">
+    <div class="task-label">今日小任务</div>
+    <div class="task-title">和小莉来一场恐龙知识问答 🦕</div>
+    <div class="task-desc">她今天问了 luki 3 个关于霸王龙的问题，让她来当小老师考考你！</div>
+    <div class="task-footer">
+      <span class="task-meta"><i class="fa fa-clock"></i> 约 10 分钟</span>
+      <a href="task-detail.html" class="task-btn">
+        <i class="fa fa-pen-to-square" style="font-size:12px"></i> 记录
+      </a>
+    </div>
+  </div>
+
+  <!-- ── 今日时光流 ── -->
+  <div class="flow-section-header">
+    <div class="flow-section-title">今日时光流</div>
+    <a href="growth-history.html" class="flow-section-link">查看全部 →</a>
+  </div>
+
+  <!-- 卡片 1：luki 早安问候（纯文字，无图） -->
+  <div class="flow-card luki-card" style="cursor:default">
+    <div class="flow-body">
+      <div class="flow-healing" style="font-size:13px;font-style:normal;color:var(--luki-blue)">
+        早上好，小莉！我昨晚梦见我们一起去恐龙世界探险了。你觉得恐龙早餐吃什么呢？🦕
+      </div>
+      <div class="flow-audio">
+        <button class="flow-play"><i class="fa fa-play"></i></button>
+        <div class="flow-wave"></div>
+        <span class="flow-dur">0:08</span>
+      </div>
+      <div class="flow-meta">
+        <span class="flow-agent-tag" style="background:var(--luki-blue-light);color:var(--luki-blue)">
+          <i class="fa fa-robot" style="font-size:10px"></i> luki 早安问候
+        </span>
+        <span class="flow-tag">8:02</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 卡片 2：树洞·情感陪伴（有图） -->
+  <a href="capsule-detail.html" class="flow-card">
+    <div class="flow-img" style="background:linear-gradient(135deg,#FFE8D6,#FFCBA4)">
+      <div class="flow-img-emoji">🌳</div>
+      <div class="flow-img-overlay"></div>
+      <div class="flow-img-agent"><i class="fa fa-robot" style="font-size:9px"></i> 树洞</div>
+      <div class="flow-img-time">9:15</div>
+    </div>
+    <div class="flow-body">
+      <div class="flow-healing">每一个新朋友，都是你天空里新添的一颗星 ✨</div>
+      <div class="flow-summary">
+        小莉在午饭时认识了艾玛，发现两人都喜欢独角兽，开心极了。
+      </div>
+      <div class="flow-meta">
+        <span class="flow-agent-tag" style="background:var(--primary-light);color:var(--primary)">树洞</span>
+        <span class="flow-tag">😊 开心</span>
+        <span class="flow-tag">交新朋友</span>
+        <span class="flow-tag">12 轮</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 卡片 3：家长语音留言 -->
+  <div class="flow-card parent-card" style="cursor:default">
+    <div class="flow-body">
+      <div class="flow-healing" style="font-size:13px;font-style:normal;color:var(--primary)">
+        宝贝，妈妈在开会。好好吃午饭，今晚给你带最爱的排骨面回来！🍜
+      </div>
+      <div class="flow-audio">
+        <button class="flow-play"><i class="fa fa-play"></i></button>
+        <div class="flow-wave"></div>
+        <span class="flow-dur">0:18</span>
+      </div>
+      <div class="flow-meta">
+        <span class="flow-agent-tag" style="background:var(--primary-light);color:var(--primary)">
+          <i class="fa fa-heart" style="font-size:10px"></i> 家长留言
+        </span>
+        <span class="flow-tag">12:30</span>
+        <span class="flow-tag" style="background:#E8F5E9;color:#2E7D32">
+          <i class="fa fa-check" style="font-size:9px"></i> 已送达
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 卡片 4：树洞·隐私模式 -->
+  <div class="flow-card privacy-card" style="cursor:default">
+    <div class="flow-body">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span class="flow-agent-tag" style="background:var(--bg-muted);color:var(--text-secondary)">
+          <i class="fa fa-lock" style="font-size:10px"></i> 树洞 · 隐私模式
+        </span>
+        <span style="font-size:11px;color:var(--text-muted)">14:10</span>
+      </div>
+      <div class="privacy-blur">
+        <div class="privacy-stat">
+          <div class="privacy-stat-emoji">😟</div>
+          <div class="privacy-stat-label">有点焦虑</div>
+        </div>
+        <div class="privacy-stat">
+          <div class="privacy-stat-emoji">🏫</div>
+          <div class="privacy-stat-label">学校话题</div>
+        </div>
+        <div class="privacy-stat">
+          <div class="privacy-stat-emoji">⏱️</div>
+          <div class="privacy-stat-label">约 6 分钟</div>
         </div>
       </div>
-      <div class="c-right">
-        <span class="c-time">9:15 AM</span>
-        <i class="fa fa-unlock" style="font-size:12px;color:#4CAF50"></i>
+      <div class="privacy-hint">
+        <i class="fa fa-lightbulb" style="color:#F57F17;font-size:14px;flex-shrink:0;margin-top:1px"></i>
+        小莉下午好像有点担心什么。今晚给她一个大大的拥抱吧 💛
       </div>
-    </div>
-    <div class="c-healing">"每一个新朋友，都是你天空里新添的一颗星 ✨"</div>
-    <div class="c-summary">小莉兴奋地告诉 luki，她在午饭时坐到了艾玛旁边， 发现两人都喜欢独角兽。 她很开心，问 luki 能不能把艾玛带回家玩。</div>
-    <div class="c-audio">
-      <button class="c-play"><i class="fa fa-play"></i></button>
-      <div class="c-wave"></div>
-      <span class="c-dur">1:24</span>
-    </div>
-    <div class="c-tags">
-      <span class="c-tag c-tag-green"><i class="fa fa-face-smile"></i> 开心 😊</span>
-      <span class="c-tag c-tag-blue"><i class="fa fa-user-group"></i> 交新朋友</span>
-      <span class="c-tag c-tag-orange">学校生活</span>
     </div>
   </div>
 
-  <!-- Parent voice message -->
-  <div class="c-card c-parent fade-in-up" style="animation-delay:.35s">
-    <div class="c-head">
-      <div class="c-who">
-        <div class="c-av c-av-parent">M</div>
-        <div>
-          <div class="c-name" style="color:var(--primary)">妈妈的语音留言</div>
-          <div style="font-size:10px;color:var(--text-muted)">通过 luki 发送给小莉</div>
-        </div>
+  <!-- 卡片 5：英语小教练·里程碑（有图） -->
+  <a href="capsule-detail.html" class="flow-card milestone-card">
+    <div class="flow-img" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB)">
+      <div class="flow-img-emoji">🌱</div>
+      <div class="flow-img-overlay"></div>
+      <div class="flow-img-agent"><i class="fa fa-robot" style="font-size:9px"></i> 英语小教练</div>
+      <div class="flow-img-time">15:40</div>
+    </div>
+    <div class="flow-body">
+      <div class="milestone-badge">
+        <i class="fa fa-trophy" style="font-size:10px"></i> 里程碑达成！
       </div>
-      <span class="c-time">12:30 PM</span>
+      <div class="flow-healing">你说的每一个单词，都是一粒小小的勇气种子 🌱</div>
+      <div class="flow-summary">
+        小莉今天第一次完整地用英语做了自我介绍，luki 给了她超大的鼓励！
+      </div>
+      <div class="flow-meta">
+        <span class="flow-agent-tag" style="background:var(--luki-blue-light);color:var(--luki-blue)">英语小教练</span>
+        <span class="flow-tag" style="background:#FFF8E1;color:#F57F17">🤩 超兴奋</span>
+        <span class="flow-tag" style="background:#E8F5E9;color:#2E7D32">+3 新单词</span>
+        <span class="flow-tag">15 轮</span>
+      </div>
     </div>
-    <div class="c-summary">"宝贝，妈妈在开会。让 luki 转告你 — 好好吃午饭，今晚给你带最爱的排骨面回来！🍜"</div>
-    <div class="c-audio">
-      <button class="c-play"><i class="fa fa-play"></i></button>
-      <div class="c-wave" style="background:linear-gradient(to right,#FFB89A 0%,#FFB89A 55%,var(--border) 55%)"></div>
-      <span class="c-dur">0:18</span>
-    </div>
-    <div class="c-tags">
-      <span class="c-tag c-tag-orange"><i class="fa fa-heart"></i> 来自妈妈</span>
-      <span class="c-tag c-tag-muted">已送达 ✓</span>
-    </div>
+  </a>
+
+  <div style="text-align:center;font-size:12px;color:var(--text-muted);padding:6px 0 4px">
+    已显示全部 5 个时刻 · <a href="growth-history.html" style="color:var(--primary)">在成长记录中查看历史</a>
   </div>
 
-  <!-- Privacy protected conversation -->
-  <div class="c-card c-privacy fade-in-up" style="animation-delay:.4s">
-    <div class="c-agent"><i class="fa fa-robot"></i> 树洞 · 隐私模式</div>
-    <div class="c-head">
-      <div class="c-who">
-        <div class="c-av c-av-child">L</div>
-        <div>
-          <div class="c-name">小莉 &amp; luki</div>
-          <div style="font-size:10px;color:var(--text-muted)">下午聊天 · 8 轮对话</div>
-        </div>
-      </div>
-      <div class="c-right">
-        <span class="c-time">2:10 PM</span>
-        <i class="fa fa-lock" style="font-size:12px;color:#FF9800"></i>
-      </div>
-    </div>
-    <div class="c-privacy-msg"><i class="fa fa-shield-halved" style="color:#FF9800"></i> 内容已保护 · 仅显示情绪摘要</div>
-    <div class="c-tags">
-      <span class="c-tag c-tag-yellow"><i class="fa fa-face-meh"></i> 有点焦虑</span>
-      <span class="c-tag c-tag-muted">学校话题</span>
-      <span class="c-tag c-tag-muted">约 6 分钟</span>
-    </div>
-    <div style="margin-top:8px;font-size:12px;color:var(--text-muted)">💡 小莉下午好像有点担心什么。今晚给她一个大大的拥抱吧 💛</div>
-  </div>
+</div><!-- end page-content -->
 
-  <!-- 里程碑 conversation -->
-  <div class="c-card fade-in-up" style="animation-delay:.45s" onclick="location.href='capsule-detail.html'">
-    <div class="c-agent"><i class="fa fa-robot"></i> 英语小教练 · 口语练习</div>
-    <div class="c-head">
-      <div class="c-who">
-        <div class="c-av c-av-child">L</div>
-        <div>
-          <div class="c-name">小莉 &amp; luki</div>
-          <div style="font-size:10px;color:var(--text-muted)">口语练习 · 15 轮对话</div>
-        </div>
-      </div>
-      <div class="c-right">
-        <span class="c-time">3:40 PM</span>
-        <i class="fa fa-unlock" style="font-size:12px;color:#4CAF50"></i>
-      </div>
-    </div>
-    <div style="display:inline-flex;align-items:center;gap:4px;background:#FFF8E1;color:#F57F17;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;margin-bottom:6px"><i class="fa fa-trophy"></i> 里程碑 · 第一次完整英语自我介绍！</div>
-    <div class="c-healing">"你说的每一个单词，都是一粒小小的勇气种子 🌱"</div>
-    <div class="c-summary">小莉今天第一次完整地用英语做了自我介绍： "Hi, my name is Lily. I am 7 years old. I like dinosaurs and drawing." luki 给了她超大的鼓励！</div>
-    <div class="c-audio">
-      <button class="c-play"><i class="fa fa-play"></i></button>
-      <div class="c-wave" style="background:linear-gradient(to right,var(--primary-mid) 0%,var(--primary-mid) 70%,var(--border) 70%)"></div>
-      <span class="c-dur">2:05</span>
-    </div>
-    <div class="c-tags">
-      <span class="c-tag c-tag-green"><i class="fa fa-face-grin-stars"></i> 超兴奋 🤩</span>
-      <span class="c-tag c-tag-blue"><i class="fa fa-language"></i> 英语</span>
-      <span class="c-tag c-tag-orange">里程碑</span>
-      <span class="c-tag" style="background:#E8F5E9;color:#2E7D32"><i class="fa fa-book"></i> +3 新单词</span>
-    </div>
-  </div>
+<!-- 底部导航 -->
+<nav class="tab-bar">
+  <a href="index.html" class="tab-item active">
+    <i class="fa fa-sun tab-icon"></i>
+    <span class="tab-label">今日</span>
+  </a>
+  <a href="growth.html" class="tab-item">
+    <i class="fa fa-seedling tab-icon"></i>
+    <span class="tab-label">成长</span>
+  </a>
+  <a href="moments.html" class="tab-item">
+    <i class="fa fa-heart tab-icon"></i>
+    <span class="tab-label">时光</span>
+  </a>
+  <a href="profile.html" class="tab-item">
+    <i class="fa fa-circle-user tab-icon"></i>
+    <span class="tab-label">我的</span>
+  </a>
+</nav>
 
-  <div style="text-align:center;padding:16px 0 4px">
-    <span style="font-size:13px;color:var(--text-muted)">All 5 moments shown · <a href="growth.html" style="color:var(--primary);font-weight:600">View history in Growth</a></span>
-  </div>
-
-</div>
-
-<!-- FAB: Send message to Lily -->
-<a href="send-message.html" class="fab"><i class="fa fa-microphone"></i></a>
-
-<!-- Tab Bar -->
-<div class="tab-bar">
-  <a class="tab-item active" href="index.html"><div class="tab-icon"><i class="fa fa-sun"></i></div><span class="tab-label">今日</span></a>
-  <a class="tab-item" href="growth.html"><div class="tab-icon"><i class="fa fa-seedling"></i></div><span class="tab-label">成长</span></a>
-  <a class="tab-item" href="moments.html"><div class="tab-icon"><i class="fa fa-heart"></i></div><span class="tab-label">时光</span></a>
-  <a class="tab-item" href="profile.html"><div class="tab-icon"><i class="fa fa-circle-user"></i></div><span class="tab-label">我的</span></a>
-</div>
 </body>
 </html>
