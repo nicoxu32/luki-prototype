@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>luki · Privacy Settings</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<div class="status-bar"><span class="s-time">9:41</span><div class="s-icons"><i class="fa fa-signal"></i><i class="fa fa-wifi"></i><i class="fa fa-battery-full"></i></div></div>
+<div class="back-header">
+  <a href="profile.html" class="back-btn"><i class="fa fa-chevron-left"></i></a>
+  <div class="back-title">Privacy &amp; Conversation</div>
+</div>
+<div class="page-content">
+
+  <div class="alert" style="background:#FFF8E1;border:1px solid #FFE082;color:#5D4037;margin-bottom:16px">
+    <i class="fa fa-shield-halved alert-icon" style="color:#F57F17"></i>
+    <div style="font-size:12px;line-height:1.6"><strong>Privacy First.</strong> luki is designed to respect Lily's private space. These settings let you choose how much you see — not to spy, but to understand and support her.</div>
+  </div>
+
+  <!-- Default Privacy Level -->
+  <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:10px">Default Conversation Visibility</div>
+  <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">Choose what you see by default for Lily's conversations. You can always adjust per-conversation in Today's feed.</div>
+
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:14px;border:1.5px solid var(--border);border-radius:var(--radius-md);cursor:pointer;transition:.15s" onclick="selectPrivacy(this,1)">
+      <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><div style="width:8px;height:8px;border-radius:50%;background:transparent"></div></div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-unlock" style="color:#4CAF50"></i> Full Access</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;line-height:1.5">See full conversation transcripts and audio recordings. Best for younger children (ages 3-5) who need more oversight.</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:14px;border:1.5px solid var(--primary);border-radius:var(--radius-md);background:var(--primary-light);cursor:pointer" onclick="selectPrivacy(this,2)">
+      <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><div style="width:8px;height:8px;border-radius:50%;background:var(--primary)"></div></div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-eye" style="color:var(--primary)"></i> Summary Only <span style="background:var(--primary);color:white;font-size:10px;padding:2px 6px;border-radius:999px">Current</span></div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;line-height:1.5">See AI-generated summaries and emotion tags, but not the actual words. Balances insight with privacy. Recommended for ages 6-9.</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:14px;border:1.5px solid var(--border);border-radius:var(--radius-md);cursor:pointer;transition:.15s" onclick="selectPrivacy(this,3)">
+      <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><div style="width:8px;height:8px;border-radius:50%;background:transparent"></div></div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-chart-simple" style="color:var(--luki-blue)"></i> Emotion Stats Only</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;line-height:1.5">Only see mood scores and emotion tags — no content at all. Best for older children (ages 10-12) who value privacy.</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:14px;border:1.5px solid var(--border);border-radius:var(--radius-md);cursor:pointer;transition:.15s" onclick="selectPrivacy(this,4)">
+      <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><div style="width:8px;height:8px;border-radius:50%;background:transparent"></div></div>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-lock" style="color:#9E9E9E"></i> Private Mode</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;line-height:1.5">No conversation data shown. luki still monitors for safety alerts. For children who specifically requested full privacy.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Safety Override -->
+  <div class="card">
+    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px"><i class="fa fa-triangle-exclamation" style="color:#F57F17"></i> Safety Override</div>
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-label">Always show safety alerts</div>
+        <div class="toggle-desc">Even in Private Mode, show alerts if Lily mentions danger, distress, or concerning topics</div>
+      </div>
+      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+    </div>
+    <div class="toggle-row" style="border-bottom:none">
+      <div class="toggle-info">
+        <div class="toggle-label">Notify me about mood drops</div>
+        <div class="toggle-desc">Get a notification if Lily's mood drops significantly during a conversation</div>
+      </div>
+      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+    </div>
+  </div>
+
+  <!-- Conversation Categories -->
+  <div class="card">
+    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px"><i class="fa fa-robot" style="color:var(--secondary)"></i> Per-Agent Privacy</div>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Override the default setting for specific agents:</div>
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-label">🌳 Tree Hollow (Emotional)</div>
+        <div class="toggle-desc">Summary only — respects emotional privacy</div>
+      </div>
+      <div style="font-size:12px;color:var(--primary);font-weight:600;cursor:pointer">Change</div>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info">
+        <div class="toggle-label">🌍 English Coach</div>
+        <div class="toggle-desc">Full access — learning content is shared</div>
+      </div>
+      <div style="font-size:12px;color:var(--primary);font-weight:600;cursor:pointer">Change</div>
+    </div>
+    <div class="toggle-row" style="border-bottom:none">
+      <div class="toggle-info">
+        <div class="toggle-label">📚 Story Time</div>
+        <div class="toggle-desc">Full access — story content is shared</div>
+      </div>
+      <div style="font-size:12px;color:var(--primary);font-weight:600;cursor:pointer">Change</div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary btn-full">Save Settings</button>
+
+</div>
+<script>
+function selectPrivacy(el,n){
+  document.querySelectorAll('[onclick^="selectPrivacy"]').forEach(e=>{
+    e.style.borderColor='var(--border)';e.style.background='transparent';
+    e.querySelector('div div').style.background='transparent';
+    e.querySelector('div div').parentElement.style.borderColor='var(--border)';
+  });
+  el.style.borderColor='var(--primary)';el.style.background='var(--primary-light)';
+  el.querySelector('div div').style.background='var(--primary)';
+  el.querySelector('div div').parentElement.style.borderColor='var(--primary)';
+}
+</script>
+</body>
+</html>
