@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>luki · Moments</title>
+<title>luki · 时光</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
@@ -45,7 +45,7 @@
   <!-- Segment -->
   <div class="seg-ctrl">
     <button class="seg-btn active" onclick="switchTab('messages',this)">Messages</button>
-    <button class="seg-btn" onclick="switchTab('memories',this)">Memories</button>
+    <button class="seg-btn" onclick="switchTab('memories',this)">记忆</button>
     <button class="seg-btn" onclick="switchTab('capsules',this)">Capsules</button>
   </div>
 
@@ -144,20 +144,20 @@
     </div>
   </div>
 
-  <!-- Memories Tab (hidden) -->
+  <!-- 记忆 Tab (hidden) -->
   <div id="tab-memories" style="display:none">
     <div style="font-size:13px;color:var(--text-secondary);margin-bottom:14px;line-height:1.6;background:var(--bg-muted);border-radius:var(--radius-md);padding:12px">
-      <i class="fa fa-circle-info" style="color:var(--luki-blue)"></i> Memories are special moments you've saved — photos, voice notes, and AI-generated stories from Lily's conversations.
+      <i class="fa fa-circle-info" style="color:var(--luki-blue)"></i> 记忆 are special moments you've saved — photos, voice notes, and AI-generated stories from Lily's conversations.
     </div>
 
     <div class="memory-card" onclick="location.href='add-memory.html'">
       <div class="mem-img">
         <div style="text-align:center"><i class="fa fa-image" style="font-size:28px;margin-bottom:6px;display:block"></i>Photo · Apr 1</div>
-        <div class="mem-badge"><i class="fa fa-star"></i> Milestone</div>
+        <div class="mem-badge"><i class="fa fa-star"></i> 里程碑</div>
       </div>
       <div class="mem-body">
-        <div class="mem-title">First English Self-Introduction 🌟</div>
-        <div class="mem-meta"><i class="fa fa-calendar"></i> Apr 1, 2026 · <i class="fa fa-robot"></i> English Coach</div>
+        <div class="mem-title">第一次英语自我介绍duction 🌟</div>
+        <div class="mem-meta"><i class="fa fa-calendar"></i> 2026年4月1日 · <i class="fa fa-robot"></i> 英语 Coach</div>
         <div class="mem-quote">"Hi, my name is Lily. I am 7 years old. I like dinosaurs and drawing."</div>
       </div>
     </div>
@@ -191,7 +191,7 @@
   <!-- Capsules Tab (hidden) -->
   <div id="tab-capsules" style="display:none">
     <div style="background:linear-gradient(135deg,var(--secondary-light),#F0EEFF);border-radius:var(--radius-lg);padding:16px;border:1px solid #D1C8FF;margin-bottom:14px">
-      <div style="font-family:'Nunito','Inter',sans-serif;font-size:15px;font-weight:800;color:var(--secondary);margin-bottom:4px"><i class="fa fa-hourglass-half"></i> Time Capsules</div>
+      <div style="font-family:'Nunito','Inter',sans-serif;font-size:15px;font-weight:800;color:var(--secondary);margin-bottom:4px"><i class="fa fa-hourglass-half"></i> 时光胶囊</div>
       <div style="font-size:12px;color:var(--text-secondary);line-height:1.6">Lock a memory or message for Lily to open in the future — a birthday, graduation, or any special milestone.</div>
     </div>
 
@@ -219,7 +219,7 @@
       <div style="font-size:12px;color:var(--text-secondary);line-height:1.5;font-style:italic">"You were so nervous about starting a new school. But I know you'll make friends just like you always do..."</div>
     </div>
 
-    <a href="add-memory.html" class="btn btn-secondary btn-full"><i class="fa fa-hourglass-half"></i> Create Time Capsule</a>
+    <a href="add-memory.html" class="btn btn-secondary btn-full"><i class="fa fa-hourglass-half"></i> 创建时光胶囊</a>
   </div>
 
 </div>
@@ -227,10 +227,10 @@
 <a href="send-message.html" class="fab"><i class="fa fa-microphone"></i></a>
 
 <div class="tab-bar">
-  <a class="tab-item" href="index.html"><div class="tab-icon"><i class="fa fa-sun"></i></div><span class="tab-label">Today</span></a>
-  <a class="tab-item" href="growth.html"><div class="tab-icon"><i class="fa fa-seedling"></i></div><span class="tab-label">Growth</span></a>
-  <a class="tab-item active" href="moments.html"><div class="tab-icon"><i class="fa fa-heart"></i></div><span class="tab-label">Moments</span></a>
-  <a class="tab-item" href="profile.html"><div class="tab-icon"><i class="fa fa-circle-user"></i></div><span class="tab-label">Me</span></a>
+  <a class="tab-item" href="index.html"><div class="tab-icon"><i class="fa fa-sun"></i></div><span class="tab-label">今日</span></a>
+  <a class="tab-item" href="growth.html"><div class="tab-icon"><i class="fa fa-seedling"></i></div><span class="tab-label">成长</span></a>
+  <a class="tab-item active" href="moments.html"><div class="tab-icon"><i class="fa fa-heart"></i></div><span class="tab-label">时光</span></a>
+  <a class="tab-item" href="profile.html"><div class="tab-icon"><i class="fa fa-circle-user"></i></div><span class="tab-label">我的</span></a>
 </div>
 <script>
 function switchTab(name,btn){

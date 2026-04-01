@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>luki · Privacy Settings</title>
+<title>luki · 隐私设置</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -10,63 +10,63 @@
 <div class="status-bar"><span class="s-time">9:41</span><div class="s-icons"><i class="fa fa-signal"></i><i class="fa fa-wifi"></i><i class="fa fa-battery-full"></i></div></div>
 <div class="back-header">
   <a href="profile.html" class="back-btn"><i class="fa fa-chevron-left"></i></a>
-  <div class="back-title">Privacy &amp; Conversation</div>
+  <div class="back-title">隐私与对话</div>
 </div>
 <div class="page-content">
 
   <div class="alert" style="background:#FFF8E1;border:1px solid #FFE082;color:#5D4037;margin-bottom:16px">
     <i class="fa fa-shield-halved alert-icon" style="color:#F57F17"></i>
-    <div style="font-size:12px;line-height:1.6"><strong>Privacy First.</strong> luki is designed to respect Lily's private space. These settings let you choose how much you see — not to spy, but to understand and support her.</div>
+    <div style="font-size:12px;line-height:1.6"><strong>隐私优先。</strong> luki is designed to respect Lily's private space. These settings let you choose how much you see — not to spy, but to understand and support her.</div>
   </div>
 
   <!-- Default Privacy Level -->
-  <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:10px">Default Conversation Visibility</div>
+  <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:10px">默认对话可见度</div>
   <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">Choose what you see by default for Lily's conversations. You can always adjust per-conversation in Today's feed.</div>
 
   <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
     <div style="display:flex;align-items:flex-start;gap:10px;padding:14px;border:1.5px solid var(--border);border-radius:var(--radius-md);cursor:pointer;transition:.15s" onclick="selectPrivacy(this,1)">
       <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><div style="width:8px;height:8px;border-radius:50%;background:transparent"></div></div>
       <div>
-        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-unlock" style="color:#4CAF50"></i> Full Access</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-unlock" style="color:#4CAF50"></i> 完全访问</div>
         <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;line-height:1.5">See full conversation transcripts and audio recordings. Best for younger children (ages 3-5) who need more oversight.</div>
       </div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:10px;padding:14px;border:1.5px solid var(--primary);border-radius:var(--radius-md);background:var(--primary-light);cursor:pointer" onclick="selectPrivacy(this,2)">
       <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><div style="width:8px;height:8px;border-radius:50%;background:var(--primary)"></div></div>
       <div>
-        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-eye" style="color:var(--primary)"></i> Summary Only <span style="background:var(--primary);color:white;font-size:10px;padding:2px 6px;border-radius:999px">Current</span></div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-eye" style="color:var(--primary)"></i> 仅摘要 <span style="background:var(--primary);color:white;font-size:10px;padding:2px 6px;border-radius:999px">Current</span></div>
         <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;line-height:1.5">See AI-generated summaries and emotion tags, but not the actual words. Balances insight with privacy. Recommended for ages 6-9.</div>
       </div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:10px;padding:14px;border:1.5px solid var(--border);border-radius:var(--radius-md);cursor:pointer;transition:.15s" onclick="selectPrivacy(this,3)">
       <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><div style="width:8px;height:8px;border-radius:50%;background:transparent"></div></div>
       <div>
-        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-chart-simple" style="color:var(--luki-blue)"></i> Emotion Stats Only</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-chart-simple" style="color:var(--luki-blue)"></i> 仅情绪统计</div>
         <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;line-height:1.5">Only see mood scores and emotion tags — no content at all. Best for older children (ages 10-12) who value privacy.</div>
       </div>
     </div>
     <div style="display:flex;align-items:flex-start;gap:10px;padding:14px;border:1.5px solid var(--border);border-radius:var(--radius-md);cursor:pointer;transition:.15s" onclick="selectPrivacy(this,4)">
       <div style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><div style="width:8px;height:8px;border-radius:50%;background:transparent"></div></div>
       <div>
-        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-lock" style="color:#9E9E9E"></i> Private Mode</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px"><i class="fa fa-lock" style="color:#9E9E9E"></i> 完全隐私</div>
         <div style="font-size:12px;color:var(--text-secondary);margin-top:3px;line-height:1.5">No conversation data shown. luki still monitors for safety alerts. For children who specifically requested full privacy.</div>
       </div>
     </div>
   </div>
 
-  <!-- Safety Override -->
+  <!-- 安全覆盖 -->
   <div class="card">
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px"><i class="fa fa-triangle-exclamation" style="color:#F57F17"></i> Safety Override</div>
+    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px"><i class="fa fa-triangle-exclamation" style="color:#F57F17"></i> 安全覆盖</div>
     <div class="toggle-row">
       <div class="toggle-info">
-        <div class="toggle-label">Always show safety alerts</div>
-        <div class="toggle-desc">Even in Private Mode, show alerts if Lily mentions danger, distress, or concerning topics</div>
+        <div class="toggle-label">始终显示安全提醒</div>
+        <div class="toggle-desc">Even in 完全隐私, show alerts if Lily mentions danger, distress, or concerning topics</div>
       </div>
       <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
     </div>
     <div class="toggle-row" style="border-bottom:none">
       <div class="toggle-info">
-        <div class="toggle-label">Notify me about mood drops</div>
+        <div class="toggle-label">心情骤降时通知我</div>
         <div class="toggle-desc">Get a notification if Lily's mood drops significantly during a conversation</div>
       </div>
       <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
@@ -75,32 +75,32 @@
 
   <!-- Conversation Categories -->
   <div class="card">
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px"><i class="fa fa-robot" style="color:var(--secondary)"></i> Per-Agent Privacy</div>
+    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px"><i class="fa fa-robot" style="color:var(--secondary)"></i> 按角色设置隐私</div>
     <div style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Override the default setting for specific agents:</div>
     <div class="toggle-row">
       <div class="toggle-info">
-        <div class="toggle-label">🌳 Tree Hollow (Emotional)</div>
-        <div class="toggle-desc">Summary only — respects emotional privacy</div>
+        <div class="toggle-label">🌳 树洞（情感支持）</div>
+        <div class="toggle-desc">仅摘要 — 尊重情感隐私</div>
       </div>
       <div style="font-size:12px;color:var(--primary);font-weight:600;cursor:pointer">Change</div>
     </div>
     <div class="toggle-row">
       <div class="toggle-info">
-        <div class="toggle-label">🌍 English Coach</div>
-        <div class="toggle-desc">Full access — learning content is shared</div>
+        <div class="toggle-label">🌍 英语小教练</div>
+        <div class="toggle-desc">完全访问 — 学习内容共享</div>
       </div>
       <div style="font-size:12px;color:var(--primary);font-weight:600;cursor:pointer">Change</div>
     </div>
     <div class="toggle-row" style="border-bottom:none">
       <div class="toggle-info">
-        <div class="toggle-label">📚 Story Time</div>
-        <div class="toggle-desc">Full access — story content is shared</div>
+        <div class="toggle-label">📚 故事时光</div>
+        <div class="toggle-desc">完全访问 — 故事内容共享</div>
       </div>
       <div style="font-size:12px;color:var(--primary);font-weight:600;cursor:pointer">Change</div>
     </div>
   </div>
 
-  <button class="btn btn-primary btn-full">Save Settings</button>
+  <button class="btn btn-primary btn-full">保存设置</button>
 
 </div>
 <script>
