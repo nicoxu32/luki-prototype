@@ -1,79 +1,58 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>luki - luki 的留言</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · luki 消息</title>
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+
 </head>
 <body>
-
-<div class="nav-bar">
-  <a class="back" href="moments.html"><i class="fa-solid fa-chevron-left"></i> 返回</a>
-  <div class="title">luki 的留言</div>
-  <div class="right"></div>
+<div class="status-bar">
+  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <div class="s-icons">
+    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
+    <i class="ph ph-wifi-high" style="font-size:16px"></i>
+    <i class="ph ph-battery-full" style="font-size:16px"></i>
+  </div>
+</div><div class="back-header">
+  <a href="index.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
+  <div class="back-title">luki 通知</div>
+  <div></div>
 </div>
-
-<div class="page" style="padding-top:12px">
-
-  <div style="text-align:center;margin-bottom:16px">
-    <div class="avatar-circle" style="width:64px;height:64px;margin:0 auto 8px;background:linear-gradient(135deg,#FFE8DD,#FFF3EE)">
-      <i class="fa-solid fa-robot" style="font-size:1.6rem;color:#FF7E5F"></i>
+<div class="page-content">
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;display:flex;gap:12px;align-items:flex-start">
+      <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#BFDBFE,#93C5FD);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🤖</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:700;color:#1D4ED8">luki</span>
+          <span style="font-size:11px;color:var(--text-muted);font-family:'DM Sans',sans-serif">15:42</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-h);line-height:1.6">小莉今天完成了英语自我介绍！她说了"My name is Xiaoli, I like dinosaurs"，发音非常清晰，是一个重要的里程碑 🎉</div>
+      </div>
     </div>
-    <div style="font-size:.85rem;font-weight:600">luki</div>
-    <div class="text-xs text-muted">你的育儿小助手</div>
-  </div>
-
-  <!-- luki → 妈妈 (主动汇报) -->
-  <div class="section-title">luki → 妈妈 · 主动汇报</div>
-
-  <div class="capsule type-luki">
-    <div class="capsule-time"><i class="fa-solid fa-robot"></i> 今天 16:45</div>
-    <div class="capsule-summary">"妈妈，Lily 今天能用英语介绍她的新朋友了！她说 'This is my friend Amy, she likes drawing too!' 好棒呀！"</div>
-    <div class="voice-player">
-      <div class="play-btn" style="background:#5B9BD5"><i class="fa-solid fa-play"></i></div>
-      <div class="wave" style="background:linear-gradient(90deg,#5B9BD533 0%,#5B9BD566 40%,#5B9BD533 100%)"></div>
-      <div class="duration">0:15</div>
+    <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid #FDE68A;padding:16px 18px;display:flex;gap:12px;align-items:flex-start">
+      <div style="width:40px;height:40px;border-radius:50%;background:#FEF9C3;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">⚠️</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:700;color:#92400E">情绪预警</span>
+          <span style="font-size:11px;color:var(--text-muted);font-family:'DM Sans',sans-serif">9:10</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-h);line-height:1.6">小莉今天早上提到有点不想去上学，情绪轻微低落。建议给予更多鼓励和拥抱。</div>
+      </div>
     </div>
-  </div>
-
-  <div class="capsule type-luki">
-    <div class="capsule-time"><i class="fa-solid fa-robot"></i> 今天 14:30</div>
-    <div class="capsule-summary">"妈妈，Lily 刚才告诉我数学作业有点难，但我们一起把题目变成了寻宝游戏，她解出了两道题！"</div>
-    <div class="voice-player">
-      <div class="play-btn" style="background:#5B9BD5"><i class="fa-solid fa-play"></i></div>
-      <div class="wave" style="background:linear-gradient(90deg,#5B9BD533 0%,#5B9BD566 40%,#5B9BD533 100%)"></div>
-      <div class="duration">0:12</div>
-    </div>
-  </div>
-
-  <!-- luki → 妈妈 (联动采集) -->
-  <div class="section-title">luki → 妈妈 · 联动采集</div>
-
-  <div class="capsule type-luki" style="border-left-color:#27AE60">
-    <div class="capsule-time"><i class="fa-solid fa-camera"></i> 今天 17:10 · 邀请记录</div>
-    <div class="capsule-summary">"Lily 告诉我你们昨天去公园找恐龙化石了！要不要传一张照片存进共同回忆？"</div>
-    <div style="margin-top:10px">
-      <button class="btn btn-primary btn-sm" onclick="location.href='add-memory.html'"><i class="fa-solid fa-camera"></i> 上传照片</button>
-      <button class="btn btn-ghost btn-sm" style="margin-left:8px">下次再说</button>
+    <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;display:flex;gap:12px;align-items:flex-start">
+      <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#BFDBFE,#93C5FD);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🤖</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:700;color:#1D4ED8">luki</span>
+          <span style="font-size:11px;color:var(--text-muted);font-family:'DM Sans',sans-serif">昨日</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-h);line-height:1.6">小莉今天问了关于霸王龙的 7 个问题！她的好奇心和求知欲非常旺盛，建议可以带她去自然博物馆参观 🦕</div>
+      </div>
     </div>
   </div>
-
-  <!-- 给 luki 叮嘱 -->
-  <div class="section-title">妈妈 → luki · 叮嘱</div>
-
-  <div class="capsule type-parent">
-    <div class="capsule-time"><i class="fa-solid fa-envelope"></i> 今天 08:00 · 妈妈的叮嘱</div>
-    <div class="capsule-summary">"luki，今晚引导 Lily 去沙发后面找惊喜，我给她买了一本恐龙绘本！"</div>
-    <div style="margin-top:6px;font-size:.65rem;color:#27AE60"><i class="fa-solid fa-check-circle"></i> luki 已执行 · Lily 找到后非常惊喜</div>
-  </div>
-
-  <!-- 底部叮嘱入口 -->
-  <div style="position:fixed;bottom:70px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:358px">
-    <button class="btn btn-outline btn-block" onclick="location.href='send-message.html'"><i class="fa-solid fa-robot"></i> 给 luki 新叮嘱</button>
-  </div>
-
 </div>
-</body>
-</html>
+</body></html>

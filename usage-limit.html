@@ -1,45 +1,63 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>luki · 使用限制</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 使用时长</title>
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+
 </head>
 <body>
-<div class="status-bar"><span class="s-time">9:41</span><div class="s-icons"><i class="fa fa-signal"></i><i class="fa fa-wifi"></i><i class="fa fa-battery-full"></i></div></div>
-<div class="back-header">
-  <a href="profile.html" class="back-btn"><i class="fa fa-chevron-left"></i></a>
-  <div class="back-title">使用时间限制</div>
+<div class="status-bar">
+  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <div class="s-icons">
+    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
+    <i class="ph ph-wifi-high" style="font-size:16px"></i>
+    <i class="ph ph-battery-full" style="font-size:16px"></i>
+  </div>
+</div><div class="back-header">
+  <a href="profile.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
+  <div class="back-title">使用时长限制</div>
+  <div></div>
 </div>
 <div class="page-content">
-  <div class="card">
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px">每日对话时间限制</div>
-    <div style="text-align:center;margin-bottom:16px">
-      <div style="font-family:'Nunito','Inter',sans-serif;font-size:48px;font-weight:900;color:var(--primary)">60</div>
-      <div style="font-size:13px;color:var(--text-secondary)">分钟/天</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:20px;margin-bottom:16px;text-align:center">
+    <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px">今日已使用</div>
+    <div style="font-size:52px;font-weight:800;color:var(--c-primary);font-family:'DM Sans',sans-serif;line-height:1;margin-bottom:4px">1:20</div>
+    <div style="font-size:14px;color:var(--text-muted);margin-bottom:16px">/ 2:00 小时</div>
+    <div style="height:10px;background:var(--bg-muted);border-radius:999px;overflow:hidden;margin-bottom:8px">
+      <div style="height:100%;width:67%;background:linear-gradient(90deg,#F97316,#FB923C);border-radius:999px"></div>
     </div>
-    <input type="range" min="15" max="180" value="60" style="width:100%;accent-color:var(--primary)">
-    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-top:4px"><span>15 min</span><span>3 hours</span></div>
-    <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);line-height:1.6">Today: Lily has used <strong style="color:var(--primary)">34 minutes</strong> of her 60-minute limit. 26 minutes remaining.</div>
-    <div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:57%"></div></div>
+    <div style="font-size:12px;color:var(--text-muted)">还剩 40 分钟</div>
   </div>
-  <div class="card">
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px">Schedule</div>
-    <div class="toggle-row">
-      <div class="toggle-info"><div class="toggle-label">上学时间锁定</div><div class="toggle-desc">工作日上午 8 点至下午 3 点禁用 luki</div></div>
-      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px">每日时长设置</div>
+  <div class="menu-list">
+    <div class="menu-item" style="flex-direction:column;align-items:stretch;gap:12px">
+      <div style="font-size:14px;font-weight:600;color:var(--text-h)">工作日限制</div>
+      <div style="display:flex;gap:8px">
+        <div style="flex:1;padding:10px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--bg-subtle);text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--text-sub)">1小时</div>
+        <div style="flex:1;padding:10px;border-radius:var(--r-md);border:2px solid var(--c-primary);background:var(--c-primary-light);text-align:center;cursor:pointer;font-size:13px;font-weight:700;color:var(--c-primary)">2小时</div>
+        <div style="flex:1;padding:10px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--bg-subtle);text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--text-sub)">3小时</div>
+        <div style="flex:1;padding:10px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--bg-subtle);text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--text-sub)">不限</div>
+      </div>
     </div>
-    <div class="toggle-row">
-      <div class="toggle-info"><div class="toggle-label">就寝模式</div><div class="toggle-desc">晚上 9 点后进入安静模式</div></div>
-      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-    </div>
-    <div class="toggle-row" style="border-bottom:none">
-      <div class="toggle-info"><div class="toggle-label">周末延长时间</div><div class="toggle-desc">周末允许使用 90 分钟</div></div>
-      <label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label>
+    <div class="menu-item" style="flex-direction:column;align-items:stretch;gap:12px">
+      <div style="font-size:14px;font-weight:600;color:var(--text-h)">周末限制</div>
+      <div style="display:flex;gap:8px">
+        <div style="flex:1;padding:10px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--bg-subtle);text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--text-sub)">1小时</div>
+        <div style="flex:1;padding:10px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--bg-subtle);text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--text-sub)">2小时</div>
+        <div style="flex:1;padding:10px;border-radius:var(--r-md);border:2px solid var(--c-primary);background:var(--c-primary-light);text-align:center;cursor:pointer;font-size:13px;font-weight:700;color:var(--c-primary)">3小时</div>
+        <div style="flex:1;padding:10px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--bg-subtle);text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--text-sub)">不限</div>
+      </div>
     </div>
   </div>
-  <button class="btn btn-primary btn-full">保存设置</button>
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px;margin-top:4px">就寝模式</div>
+  <div class="menu-list">
+    <div class="menu-item" style="justify-content:space-between">
+      <div class="menu-text"><div class="menu-title">开启就寝模式</div><div class="menu-sub">21:00 后自动停止对话</div></div>
+      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
+    </div>
+  </div>
 </div>
-</body>
-</html>
+</body></html>

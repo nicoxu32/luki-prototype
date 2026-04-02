@@ -1,52 +1,68 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>luki · 安全设置</title>
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+
 </head>
 <body>
-<div class="status-bar"><span class="s-time">9:41</span><div class="s-icons"><i class="fa fa-signal"></i><i class="fa fa-wifi"></i><i class="fa fa-battery-full"></i></div></div>
-<div class="back-header">
-  <a href="profile.html" class="back-btn"><i class="fa fa-chevron-left"></i></a>
-  <div class="back-title">安全与边界</div>
+<div class="status-bar">
+  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <div class="s-icons">
+    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
+    <i class="ph ph-wifi-high" style="font-size:16px"></i>
+    <i class="ph ph-battery-full" style="font-size:16px"></i>
+  </div>
+</div><div class="back-header">
+  <a href="profile.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
+  <div class="back-title">安全设置</div>
+  <div></div>
 </div>
 <div class="page-content">
-  <div class="alert" style="background:#FFEBEE;border:1px solid #FFCDD2;color:#B71C1C;margin-bottom:16px">
-    <i class="fa fa-shield alert-icon" style="color:#C62828"></i>
-    <div style="font-size:12px;line-height:1.6"><strong>儿童安全第一。</strong> luki automatically monitors all conversations for safety concerns. These settings let you customize additional protections.</div>
-  </div>
-  <div class="card">
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px">内容过滤</div>
-    <div class="toggle-row">
-      <div class="toggle-info"><div class="toggle-label">屏蔽暴力内容</div><div class="toggle-desc">防止讨论暴力或恐怖话题</div></div>
-      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+  <div style="background:linear-gradient(135deg,#FEF2F2,#FFE4E6);border-radius:var(--r-xl);padding:16px 18px;margin-bottom:20px;border:1px solid #FECACA">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <i class="ph ph-shield-check" style="font-size:20px;color:#B91C1C"></i>
+      <span style="font-size:14px;font-weight:700;color:#7F1D1D">安全保护说明</span>
     </div>
-    <div class="toggle-row">
-      <div class="toggle-info"><div class="toggle-label">屏蔽成人话题</div><div class="toggle-desc">仅允许适龄内容</div></div>
-      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-    </div>
-    <div class="toggle-row" style="border-bottom:none">
-      <div class="toggle-info"><div class="toggle-label">安全词检测</div><div class="toggle-desc">Alert parents if Lily says "help" or "scared"</div></div>
-      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+    <div style="font-size:12px;color:#991B1B;line-height:1.7">luki 会主动识别情绪异常信号，并根据您设置的预警阈值及时通知您。</div>
+  </div>
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px">情绪预警阈值</div>
+  <div class="menu-list">
+    <div class="menu-item" style="flex-direction:column;align-items:stretch;gap:10px">
+      <div style="font-size:14px;font-weight:600;color:var(--text-h)">预警灵敏度</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px;border-radius:var(--r-md);border:1.5px solid #FEE2E2;background:#FEF2F2">
+          <input type="radio" name="alert" style="accent-color:#EF4444">
+          <div><div style="font-size:13px;font-weight:700;color:#B91C1C">高灵敏度</div><div style="font-size:11px;color:#EF4444">任何轻微情绪波动都会通知</div></div>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px;border-radius:var(--r-md);border:1.5px solid #FDE68A;background:#FFFBEB">
+          <input type="radio" name="alert" checked style="accent-color:#F59E0B">
+          <div><div style="font-size:13px;font-weight:700;color:#92400E">中灵敏度（推荐）</div><div style="font-size:11px;color:#B45309">中等及以上情绪异常时通知</div></div>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px;border-radius:var(--r-md);border:1.5px solid #BBF7D0;background:#F0FDF4">
+          <input type="radio" name="alert" style="accent-color:#22C55E">
+          <div><div style="font-size:13px;font-weight:700;color:#15803D">低灵敏度</div><div style="font-size:11px;color:#22C55E">仅严重情绪异常时通知</div></div>
+        </label>
+      </div>
     </div>
   </div>
-  <div class="card">
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px">紧急联系人</div>
-    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:10px">If luki detects a serious safety concern, it will immediately alert:</div>
-    <div style="display:flex;align-items:center;gap:10px;background:var(--bg-muted);border-radius:var(--radius-md);padding:12px">
-      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#FF7043,#E64A19);display:flex;align-items:center;justify-content:center;color:white;font-weight:700">S</div>
-      <div><div style="font-size:13px;font-weight:600">王晓华 (Mom)</div><div style="font-size:11px;color:var(--text-muted)">+1 (555) 123-4567</div></div>
-      <div style="margin-left:auto;font-size:12px;color:var(--primary);font-weight:600;cursor:pointer">Edit</div>
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px;margin-top:4px">内容过滤</div>
+  <div class="menu-list">
+    <div class="menu-item" style="justify-content:space-between">
+      <div class="menu-text"><div class="menu-title">过滤不良内容</div><div class="menu-sub">自动屏蔽不适合儿童的话题</div></div>
+      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
+    </div>
+    <div class="menu-item" style="justify-content:space-between">
+      <div class="menu-text"><div class="menu-title">陌生人接触预警</div><div class="menu-sub">检测到陌生人信息时提醒</div></div>
+      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
+    </div>
+    <div class="menu-item" style="justify-content:space-between">
+      <div class="menu-text"><div class="menu-title">霸凌行为检测</div><div class="menu-sub">识别校园霸凌相关话题</div></div>
+      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
     </div>
   </div>
-  <div class="card">
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px">儿童隐私合规</div>
-    <div style="font-size:12px;color:var(--text-secondary);line-height:1.6">luki complies with COPPA (Children's Online Privacy Protection Act) and GDPR-K. No personal data from children is sold or shared with third parties. All data is encrypted and stored securely.</div>
-    <div style="margin-top:10px;font-size:12px;color:var(--primary);font-weight:600;cursor:pointer">View 隐私政策 →</div>
-  </div>
-  <button class="btn btn-primary btn-full">保存设置</button>
 </div>
-</body>
-</html>
+</body></html>

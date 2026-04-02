@@ -1,67 +1,55 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>luki · 情绪趋势</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 情绪详情</title>
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+
 </head>
 <body>
-<div class="status-bar"><span class="s-time">9:41</span><div class="s-icons"><i class="fa fa-signal"></i><i class="fa fa-wifi"></i><i class="fa fa-battery-full"></i></div></div>
-<div class="back-header">
-  <a href="growth.html" class="back-btn"><i class="fa fa-chevron-left"></i></a>
-  <div class="back-title">Emotion Trends</div>
+<div class="status-bar">
+  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <div class="s-icons">
+    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
+    <i class="ph ph-wifi-high" style="font-size:16px"></i>
+    <i class="ph ph-battery-full" style="font-size:16px"></i>
+  </div>
+</div><div class="back-header">
+  <a href="index.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
+  <div class="back-title">情绪分析</div>
+  <div></div>
 </div>
 <div class="page-content">
-  <div class="seg-ctrl"><button class="seg-btn active">7天</button><button class="seg-btn">30天</button><button class="seg-btn">3个月</button></div>
-  <div class="card">
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px">心情分数趋势</div>
-    <div style="display:flex;align-items:flex-end;gap:6px;height:80px;margin-bottom:8px">
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div style="flex:1;width:100%;background:linear-gradient(to top,var(--primary),var(--primary-mid));border-radius:4px 4px 0 0;height:60%"></div>
-        <div style="font-size:10px;color:var(--text-muted)">M</div>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div style="flex:1;width:100%;background:linear-gradient(to top,var(--primary),var(--primary-mid));border-radius:4px 4px 0 0;height:75%"></div>
-        <div style="font-size:10px;color:var(--text-muted)">T</div>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div style="flex:1;width:100%;background:linear-gradient(to top,var(--primary),var(--primary-mid));border-radius:4px 4px 0 0;height:55%"></div>
-        <div style="font-size:10px;color:var(--text-muted)">W</div>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div style="flex:1;width:100%;background:linear-gradient(to top,var(--primary),var(--primary-mid));border-radius:4px 4px 0 0;height:80%"></div>
-        <div style="font-size:10px;color:var(--text-muted)">T</div>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div style="flex:1;width:100%;background:linear-gradient(to top,var(--primary),var(--primary-mid));border-radius:4px 4px 0 0;height:70%"></div>
-        <div style="font-size:10px;color:var(--text-muted)">F</div>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div style="flex:1;width:100%;background:linear-gradient(to top,#4CAF50,#81C784);border-radius:4px 4px 0 0;height:90%"></div>
-        <div style="font-size:10px;color:var(--text-muted)">S</div>
-      </div>
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-        <div style="flex:1;width:100%;background:linear-gradient(to top,var(--primary),var(--primary-mid));border-radius:4px 4px 0 0;height:85%"></div>
-        <div style="font-size:10px;color:var(--text-muted)">S</div>
-      </div>
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)"><span>Avg: 82</span><span style="color:#4CAF50">Peak: 94 (Sat)</span></div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:20px;margin-bottom:12px">
+    <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:16px">本周情绪走势</div>
+    <svg width="100%" height="90" viewBox="0 0 320 90" preserveAspectRatio="none">
+      <defs><linearGradient id="lg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F97316" stop-opacity=".18"/><stop offset="100%" stop-color="#F97316" stop-opacity="0"/></linearGradient></defs>
+      <path d="M0,55 C40,50 60,30 90,28 C120,26 140,40 160,42 C180,44 200,20 230,18 C260,16 290,25 320,22 L320,90 L0,90 Z" fill="url(#lg3)"/>
+      <path d="M0,55 C40,50 60,30 90,28 C120,26 140,40 160,42 C180,44 200,20 230,18 C260,16 290,25 320,22" fill="none" stroke="#F97316" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="320" cy="22" r="5" fill="#F97316" stroke="white" stroke-width="2"/>
+    </svg>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);margin-top:4px"><span>周一</span><span>周二</span><span>周三</span><span>周四</span><span>周五</span><span>周六</span><span>今日</span></div>
   </div>
-  <div class="card">
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px">情绪分布</div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;color:var(--text-secondary)">😊 开心</span><span style="font-size:13px;font-weight:600">42%</span></div><div class="progress-bar"><div class="progress-fill" style="width:42%;background:#4CAF50"></div></div></div>
-      <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;color:var(--text-secondary)">🤩 超兴奋</span><span style="font-size:13px;font-weight:600">28%</span></div><div class="progress-bar"><div class="progress-fill" style="width:28%;background:var(--primary)"></div></div></div>
-      <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;color:var(--text-secondary)">😌 平静</span><span style="font-size:13px;font-weight:600">18%</span></div><div class="progress-bar"><div class="progress-fill" style="width:18%;background:var(--luki-blue)"></div></div></div>
-      <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;color:var(--text-secondary)">😔 难过</span><span style="font-size:13px;font-weight:600">8%</span></div><div class="progress-bar"><div class="progress-fill" style="width:8%;background:#9E9E9E"></div></div></div>
-      <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;color:var(--text-secondary)">😤 沮丧</span><span style="font-size:13px;font-weight:600">4%</span></div><div class="progress-bar"><div class="progress-fill" style="width:4%;background:#FF9800"></div></div></div>
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px">情绪分布</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:12px">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;width:28px">😊</span><span style="font-size:13px;color:var(--text-h);flex:1">开心</span><div style="flex:2;height:8px;background:var(--bg-muted);border-radius:999px;overflow:hidden"><div style="height:100%;width:52%;background:linear-gradient(90deg,#22C55E,#4ADE80);border-radius:999px"></div></div><span style="font-size:12px;font-weight:700;color:var(--text-sub);font-family:'DM Sans',sans-serif;min-width:32px;text-align:right">52%</span></div>
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;width:28px">🤩</span><span style="font-size:13px;color:var(--text-h);flex:1">兴奋</span><div style="flex:2;height:8px;background:var(--bg-muted);border-radius:999px;overflow:hidden"><div style="height:100%;width:21%;background:linear-gradient(90deg,#F97316,#FB923C);border-radius:999px"></div></div><span style="font-size:12px;font-weight:700;color:var(--text-sub);font-family:'DM Sans',sans-serif;min-width:32px;text-align:right">21%</span></div>
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;width:28px">😐</span><span style="font-size:13px;color:var(--text-h);flex:1">平静</span><div style="flex:2;height:8px;background:var(--bg-muted);border-radius:999px;overflow:hidden"><div style="height:100%;width:18%;background:linear-gradient(90deg,#94A3B8,#CBD5E1);border-radius:999px"></div></div><span style="font-size:12px;font-weight:700;color:var(--text-sub);font-family:'DM Sans',sans-serif;min-width:32px;text-align:right">18%</span></div>
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;width:28px">😟</span><span style="font-size:13px;color:var(--text-h);flex:1">担忧</span><div style="flex:2;height:8px;background:var(--bg-muted);border-radius:999px;overflow:hidden"><div style="height:100%;width:9%;background:linear-gradient(90deg,#F59E0B,#FCD34D);border-radius:999px"></div></div><span style="font-size:12px;font-weight:700;color:var(--text-sub);font-family:'DM Sans',sans-serif;min-width:32px;text-align:right">9%</span></div>
     </div>
   </div>
-  <div class="card">
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:10px">AI 洞察</div>
-    <div style="font-size:13px;color:var(--text-secondary);line-height:1.7">Lily's mood is consistently highest on weekends and after 英语 practice sessions. She shows a slight dip on Wednesdays — possibly related to school. Consider checking in with her on Wednesday evenings.</div>
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px">情绪预警详情</div>
+  <div style="border-radius:var(--r-lg);padding:14px 16px;margin-bottom:10px;border-left:3px solid #22C55E;background:#F0FDF4;box-shadow:var(--shadow-card)">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+      <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.04em;background:#DCFCE7;color:#15803D">低风险</span>
+      <span style="font-size:14px;font-weight:700;color:var(--text-h)">轻微分离焦虑</span>
+    </div>
+    <div style="font-size:12px;color:var(--text-sub);line-height:1.6;margin-bottom:8px">小莉提到上学前有点不想离开家，属于正常的入学适应期表现。</div>
+    <div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:6px">建议行动</div>
+    <div style="font-size:12px;color:var(--text-sub);line-height:1.7">• 每天上学前给小莉一个大大的拥抱<br>• 建立固定的告别仪式，如"飞吻三下"<br>• 放学后询问她今天最开心的一件事</div>
   </div>
 </div>
-</body>
-</html>
+</body></html>

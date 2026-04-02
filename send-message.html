@@ -1,103 +1,55 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>luki · 发送消息</title>
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<style>
-.record-btn{width:80px;height:80px;border-radius:50%;background:var(--primary);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:white;font-size:32px;box-shadow:0 6px 24px rgba(255,112,67,.4);transition:.2s;margin:0 auto}
-.record-btn:hover{transform:scale(1.05)}
-.record-btn.recording{background:#C62828;animation:breathe 1.5s ease-in-out infinite}
-@keyframes breathe{0%,100%{box-shadow:0 6px 24px rgba(198,40,40,.4)}50%{box-shadow:0 6px 40px rgba(198,40,40,.6),0 0 0 12px rgba(198,40,40,.1)}}
-</style>
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+
 </head>
 <body>
-<div class="status-bar"><span class="s-time">9:41</span><div class="s-icons"><i class="fa fa-signal"></i><i class="fa fa-wifi"></i><i class="fa fa-battery-full"></i></div></div>
-<div class="back-header">
-  <a href="index.html" class="back-btn"><i class="fa fa-chevron-left"></i></a>
-  <div class="back-title">发送给小莉</div>
+<div class="status-bar">
+  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <div class="s-icons">
+    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
+    <i class="ph ph-wifi-high" style="font-size:16px"></i>
+    <i class="ph ph-battery-full" style="font-size:16px"></i>
+  </div>
+</div><div class="back-header">
+  <a href="index.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
+  <div class="back-title">给小莉留言</div>
+  <span style="font-size:14px;font-weight:600;color:var(--c-primary)">发送</span>
 </div>
 <div class="page-content">
-
-  <div style="text-align:center;padding:20px 0 24px">
-    <div style="font-size:48px;margin-bottom:12px">🤖</div>
-    <div style="font-family:'Nunito','Inter',sans-serif;font-size:18px;font-weight:800;color:var(--text-primary);margin-bottom:6px">发送语音留言</div>
-    <div style="font-size:13px;color:var(--text-secondary);line-height:1.6">luki will deliver your voice message to Lily<br>when she next talks to her robot.</div>
-  </div>
-
-  <!-- Recipient -->
-  <div class="card" style="margin-bottom:16px">
-    <div style="font-size:12px;color:var(--text-muted);font-weight:600;margin-bottom:8px">发送给</div>
-    <div style="display:flex;align-items:center;gap:10px">
-      <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFB89A,var(--primary));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:16px">L</div>
-      <div>
-        <div style="font-size:14px;font-weight:700;color:var(--text-primary)">Lily</div>
-        <div style="font-size:12px;color:var(--text-muted)">luki 在线 · 立即送达</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:20px;margin-bottom:16px">
+    <div style="font-size:14px;font-weight:600;color:var(--text-sub);margin-bottom:12px">选择发送方式</div>
+    <div style="display:flex;gap:10px;margin-bottom:20px">
+      <div style="flex:1;padding:14px;border-radius:var(--r-lg);border:2px solid var(--c-primary);background:var(--c-primary-light);text-align:center;cursor:pointer">
+        <i class="ph ph-microphone" style="font-size:24px;color:var(--c-primary);display:block;margin-bottom:6px"></i>
+        <div style="font-size:12px;font-weight:700;color:var(--c-primary)">语音</div>
       </div>
-      <div style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#4CAF50;box-shadow:0 0 0 3px rgba(76,175,80,.2)"></div>
+      <div style="flex:1;padding:14px;border-radius:var(--r-lg);border:1.5px solid var(--border-light);background:var(--bg-card);text-align:center;cursor:pointer">
+        <i class="ph ph-keyboard" style="font-size:24px;color:var(--text-muted);display:block;margin-bottom:6px"></i>
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted)">文字</div>
+      </div>
+      <div style="flex:1;padding:14px;border-radius:var(--r-lg);border:1.5px solid var(--border-light);background:var(--bg-card);text-align:center;cursor:pointer">
+        <i class="ph ph-image" style="font-size:24px;color:var(--text-muted);display:block;margin-bottom:6px"></i>
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted)">图片</div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:30px 0">
+      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#F97316,#FB923C);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 0 0 rgba(249,115,22,.3);animation:pulse 2s infinite">
+        <i class="ph ph-microphone" style="font-size:36px;color:white"></i>
+      </div>
+      <div style="font-size:14px;color:var(--text-muted)">按住说话</div>
     </div>
   </div>
-
-  <!-- Message Type -->
-  <div style="display:flex;gap:8px;margin-bottom:20px">
-    <div style="flex:1;background:var(--primary-light);border:1.5px solid var(--primary);border-radius:var(--radius-md);padding:12px;text-align:center;cursor:pointer">
-      <div style="font-size:20px;margin-bottom:4px">🎙️</div>
-      <div style="font-size:12px;font-weight:700;color:var(--primary)">Voice</div>
-    </div>
-    <div style="flex:1;background:var(--bg-muted);border:1.5px solid var(--border);border-radius:var(--radius-md);padding:12px;text-align:center;cursor:pointer">
-      <div style="font-size:20px;margin-bottom:4px">💬</div>
-      <div style="font-size:12px;font-weight:600;color:var(--text-muted)">Text</div>
-    </div>
-    <div style="flex:1;background:var(--bg-muted);border:1.5px solid var(--border);border-radius:var(--radius-md);padding:12px;text-align:center;cursor:pointer">
-      <div style="font-size:20px;margin-bottom:4px">🎵</div>
-      <div style="font-size:12px;font-weight:600;color:var(--text-muted)">Song</div>
-    </div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px;margin-bottom:16px">
+    <div style="font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:10px">或者输入文字</div>
+    <textarea placeholder="写下你想对小莉说的话..." style="width:100%;min-height:100px;border:1.5px solid var(--border);border-radius:var(--r-md);padding:12px;font-size:14px;font-family:var(--font-cn);color:var(--text-body);resize:none;outline:none;background:var(--bg-subtle)"></textarea>
   </div>
-
-  <!-- Record Button -->
-  <div style="text-align:center;margin-bottom:24px">
-    <button class="record-btn" id="recBtn" onclick="toggleRecord()"><i class="fa fa-microphone" id="recIcon"></i></button>
-    <div style="margin-top:12px;font-size:13px;color:var(--text-muted)" id="recLabel">点击开始录音</div>
-    <div style="margin-top:6px;font-size:12px;color:var(--text-muted)">最长 60 秒</div>
-  </div>
-
-  <!-- 快捷消息 -->
-  <div style="font-family:'Nunito','Inter',sans-serif;font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:10px">快捷消息</div>
-  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
-    <div style="background:var(--bg-muted);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-secondary);cursor:pointer;transition:.15s" onclick="this.style.background='var(--primary-light)';this.style.color='var(--primary)'">
-      "I love you so much! Have a great day! 💕"
-    </div>
-    <div style="background:var(--bg-muted);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-secondary);cursor:pointer;transition:.15s" onclick="this.style.background='var(--primary-light)';this.style.color='var(--primary)'">
-      "Mom/Dad will be home soon. Eat your snack! 🍎"
-    </div>
-    <div style="background:var(--bg-muted);border-radius:var(--radius-md);padding:12px 14px;font-size:13px;color:var(--text-secondary);cursor:pointer;transition:.15s" onclick="this.style.background='var(--primary-light)';this.style.color='var(--primary)'">
-      "You did amazing today! I'm so proud of you! 🌟"
-    </div>
-  </div>
-
-  <button class="btn btn-primary btn-full"><i class="fa fa-paper-plane"></i> Send to Lily</button>
-
+  <button style="width:100%;padding:16px;background:var(--c-primary);color:white;border:none;border-radius:var(--r-full);font-size:16px;font-weight:700;cursor:pointer;font-family:var(--font-cn);box-shadow:0 4px 16px rgba(249,115,22,.3)">发送给小莉</button>
 </div>
-<script>
-let recording=false;
-function toggleRecord(){
-  recording=!recording;
-  const btn=document.getElementById('recBtn');
-  const icon=document.getElementById('recIcon');
-  const label=document.getElementById('recLabel');
-  if(recording){
-    btn.classList.add('recording');
-    icon.className='fa fa-stop';
-    label.textContent='Recording... tap to stop';
-    label.style.color='#C62828';
-  } else {
-    btn.classList.remove('recording');
-    icon.className='fa fa-microphone';
-    label.textContent='Recording saved! Ready to send.';
-    label.style.color='#2E7D32';
-  }
-}
-</script>
-</body>
-</html>
+<style>@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(249,115,22,.3)}50%{box-shadow:0 0 0 12px rgba(249,115,22,0)}}</style>
+</body></html>
