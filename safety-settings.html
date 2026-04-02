@@ -3,66 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>luki · 安全设置</title>
+<title>luki · 安全与隐私</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
-
+<script src='https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js'></script>
 </head>
 <body>
 <div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
   <div class="s-icons">
     <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
     <i class="ph ph-wifi-high" style="font-size:16px"></i>
     <i class="ph ph-battery-full" style="font-size:16px"></i>
   </div>
-</div><div class="back-header">
-  <a href="profile.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
-  <div class="back-title">安全设置</div>
-  <div></div>
+</div><div class="sub-header">
+  <a href="profile.html" class="back-btn"><i class="ph ph-caret-left" style="font-size:20px"></i></a>
+  <div class="sub-title">安全与隐私</div>
+  <div style="width:36px"></div>
 </div>
 <div class="page-content">
-  <div style="background:linear-gradient(135deg,#FEF2F2,#FFE4E6);border-radius:var(--r-xl);padding:16px 18px;margin-bottom:20px;border:1px solid #FECACA">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-      <i class="ph ph-shield-check" style="font-size:20px;color:#B91C1C"></i>
-      <span style="font-size:14px;font-weight:700;color:#7F1D1D">安全保护说明</span>
-    </div>
-    <div style="font-size:12px;color:#991B1B;line-height:1.7">luki 会主动识别情绪异常信号，并根据您设置的预警阈值及时通知您。</div>
-  </div>
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px">情绪预警阈值</div>
-  <div class="menu-list">
-    <div class="menu-item" style="flex-direction:column;align-items:stretch;gap:10px">
-      <div style="font-size:14px;font-weight:600;color:var(--text-h)">预警灵敏度</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px;border-radius:var(--r-md);border:1.5px solid #FEE2E2;background:#FEF2F2">
-          <input type="radio" name="alert" style="accent-color:#EF4444">
-          <div><div style="font-size:13px;font-weight:700;color:#B91C1C">高灵敏度</div><div style="font-size:11px;color:#EF4444">任何轻微情绪波动都会通知</div></div>
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px;border-radius:var(--r-md);border:1.5px solid #FDE68A;background:#FFFBEB">
-          <input type="radio" name="alert" checked style="accent-color:#F59E0B">
-          <div><div style="font-size:13px;font-weight:700;color:#92400E">中灵敏度（推荐）</div><div style="font-size:11px;color:#B45309">中等及以上情绪异常时通知</div></div>
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px;border-radius:var(--r-md);border:1.5px solid #BBF7D0;background:#F0FDF4">
-          <input type="radio" name="alert" style="accent-color:#22C55E">
-          <div><div style="font-size:13px;font-weight:700;color:#15803D">低灵敏度</div><div style="font-size:11px;color:#22C55E">仅严重情绪异常时通知</div></div>
-        </label>
-      </div>
+  <!-- 使用时长控制 -->
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin-bottom:8px">使用时长控制</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div style="display:flex;gap:8px">
+      <button style="flex:1;padding:10px;border:1px solid var(--border-light);border-radius:var(--r-md);background:var(--bg-muted);font-size:13px;color:var(--text-sub);cursor:pointer;font-family:var(--font-cn)">1小时</button>
+      <button style="flex:1;padding:10px;border:2px solid var(--c-primary);border-radius:var(--r-md);background:var(--c-primary-light);font-size:13px;color:var(--c-primary);font-weight:700;cursor:pointer;font-family:var(--font-cn)">2小时</button>
+      <button style="flex:1;padding:10px;border:1px solid var(--border-light);border-radius:var(--r-md);background:var(--bg-muted);font-size:13px;color:var(--text-sub);cursor:pointer;font-family:var(--font-cn)">不限制</button>
     </div>
   </div>
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px;margin-top:4px">内容过滤</div>
-  <div class="menu-list">
-    <div class="menu-item" style="justify-content:space-between">
-      <div class="menu-text"><div class="menu-title">过滤不良内容</div><div class="menu-sub">自动屏蔽不适合儿童的话题</div></div>
-      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
+
+  <!-- 高危情绪阈值 -->
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin-bottom:8px">高危情绪预警阈值</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div style="display:flex;gap:8px">
+      <button style="flex:1;padding:10px;border:1px solid var(--border-light);border-radius:var(--r-md);background:var(--bg-muted);font-size:13px;color:var(--text-sub);cursor:pointer;font-family:var(--font-cn)">低</button>
+      <button style="flex:1;padding:10px;border:2px solid #F59E0B;border-radius:var(--r-md);background:#FFFBEB;font-size:13px;color:#B45309;font-weight:700;cursor:pointer;font-family:var(--font-cn)">中（推荐）</button>
+      <button style="flex:1;padding:10px;border:1px solid var(--border-light);border-radius:var(--r-md);background:var(--bg-muted);font-size:13px;color:var(--text-sub);cursor:pointer;font-family:var(--font-cn)">高</button>
     </div>
-    <div class="menu-item" style="justify-content:space-between">
-      <div class="menu-text"><div class="menu-title">陌生人接触预警</div><div class="menu-sub">检测到陌生人信息时提醒</div></div>
-      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
+    <div style="font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.5">中级阈值：当检测到持续焦虑、沮丧等负面情绪时触发预警通知</div>
+  </div>
+
+  <!-- 安全预警词汇 -->
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin-bottom:8px">安全预警词汇</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div style="font-size:13px;color:var(--text-sub);margin-bottom:8px">系统预设词汇已自动启用</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">
+      <span class="chip" style="background:#FEF2F2;color:#DC2626">暴力</span>
+      <span class="chip" style="background:#FEF2F2;color:#DC2626">欺凌</span>
+      <span class="chip" style="background:#FEF2F2;color:#DC2626">自伤</span>
+      <span class="chip" style="background:#FEF2F2;color:#DC2626">危险行为</span>
     </div>
-    <div class="menu-item" style="justify-content:space-between">
-      <div class="menu-text"><div class="menu-title">霸凌行为检测</div><div class="menu-sub">识别校园霸凌相关话题</div></div>
-      <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
+    <button style="width:100%;padding:10px;border:1px dashed var(--border-light);border-radius:var(--r-md);background:var(--bg-muted);font-size:13px;color:var(--c-primary);font-weight:600;cursor:pointer;font-family:var(--font-cn)"><i class="ph ph-plus" style="font-size:14px"></i> 添加自定义预警词</button>
+  </div>
+
+  <!-- 对话隐私 -->
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin-bottom:8px">对话隐私</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div class="menu-item" style="padding:8px 0;border:none">
+      <div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--text-h)">树洞模式</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">树洞对话内容不可见，仅显示情绪摘要</div></div>
+      <div style="width:44px;height:24px;border-radius:12px;background:var(--c-primary);position:relative;cursor:pointer"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;right:2px;top:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
     </div>
   </div>
+
+  <!-- 敏感词过滤 -->
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin-bottom:8px">敏感词过滤</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <i class="ph ph-shield-check" style="font-size:22px;color:#22C55E"></i>
+      <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text-h)">系统已自动屏蔽不适合儿童的话题</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">包括暴力、色情、赌博等敏感内容</div></div>
+    </div>
+  </div>
+
+  <!-- 数据留存 -->
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin-bottom:8px">数据留存期限</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <span style="font-size:13px;font-weight:600;color:var(--text-h)">当前方案</span>
+      <span style="font-size:12px;font-weight:600;color:var(--c-primary);background:var(--c-primary-light);padding:3px 10px;border-radius:var(--r-full)">免费版</span>
+    </div>
+    <div style="font-size:12px;color:var(--text-sub);line-height:1.6">免费版仅保留最近 30 天数据。订阅 Premium 可永久保留并获得更大存储空间。</div>
+  </div>
+
+  <!-- 一键清除 -->
+  <button style="width:100%;padding:14px;background:#FEF2F2;border:1px solid #FECACA;border-radius:var(--r-xl);font-size:14px;font-weight:600;color:#DC2626;cursor:pointer;font-family:var(--font-cn)" onclick="alert('确认清除所有数据？此操作不可恢复。')"><i class="ph ph-trash" style="font-size:16px"></i> 一键清除所有数据</button>
+  <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:6px">满足 GDPR 被遗忘权要求</div>
 </div>
 </body></html>

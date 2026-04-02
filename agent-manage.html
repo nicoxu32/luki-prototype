@@ -5,57 +5,46 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>luki · 智能体管理</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
-
+<script src='https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js'></script>
 </head>
 <body>
 <div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
   <div class="s-icons">
     <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
     <i class="ph ph-wifi-high" style="font-size:16px"></i>
     <i class="ph ph-battery-full" style="font-size:16px"></i>
   </div>
-</div><div class="back-header">
-  <a href="profile.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
-  <div class="back-title">智能体管理</div>
-  <div></div>
+</div><div class="sub-header">
+  <a href="profile.html" class="back-btn"><i class="ph ph-caret-left" style="font-size:20px"></i></a>
+  <div class="sub-title">智能体管理</div>
+  <div style="width:36px"></div>
 </div>
 <div class="page-content">
-  <div style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:20px">为小莉开启合适的智能体，每个智能体都有专属的陪伴风格和能力。</div>
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin-bottom:8px">预设智能体</div>
   <div class="menu-list">
-    <div class="menu-item" style="flex-direction:column;align-items:stretch;gap:10px">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="menu-icon" style="background:#DCFCE7"><i class="ph ph-tree" style="font-size:20px;color:#15803D"></i></div>
-        <div class="menu-text"><div class="menu-title">树洞</div><div class="menu-sub">情绪倾听 · 私密陪伴</div></div>
-        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
-      </div>
-      <div style="padding-left:50px;font-size:12px;color:var(--text-muted);line-height:1.6">专注情绪陪伴，帮助小莉表达和整理内心感受，完全私密保护。</div>
+    <div class="menu-item">
+      <div style="width:44px;height:44px;border-radius:var(--r-md);background:linear-gradient(135deg,#DBEAFE,#BFDBFE);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🎓</div>
+      <div class="menu-text"><div class="menu-title">英语小教练</div><div class="menu-sub">英语对话练习 · 已开启</div></div>
+      <div style="width:44px;height:24px;border-radius:12px;background:var(--c-primary);position:relative;cursor:pointer"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;right:2px;top:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
     </div>
-    <div class="menu-item" style="flex-direction:column;align-items:stretch;gap:10px">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="menu-icon" style="background:#DBEAFE"><i class="ph ph-chalkboard-teacher" style="font-size:20px;color:#3B82F6"></i></div>
-        <div class="menu-text"><div class="menu-title">英语小教练</div><div class="menu-sub">语言学习 · 趣味互动</div></div>
-        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
-      </div>
-      <div style="padding-left:50px;font-size:12px;color:var(--text-muted);line-height:1.6">用游戏化方式帮助小莉学习英语，鼓励为主，培养语言自信。</div>
+    <div class="menu-item">
+      <div style="width:44px;height:44px;border-radius:var(--r-md);background:linear-gradient(135deg,#DCFCE7,#BBF7D0);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🌳</div>
+      <div class="menu-text"><div class="menu-title">树洞</div><div class="menu-sub">情绪陪伴 · 已开启</div></div>
+      <div style="width:44px;height:24px;border-radius:12px;background:var(--c-primary);position:relative;cursor:pointer"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;right:2px;top:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
     </div>
-    <div class="menu-item" style="flex-direction:column;align-items:stretch;gap:10px">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="menu-icon" style="background:#EDE9FE"><i class="ph ph-star" style="font-size:20px;color:#8B5CF6"></i></div>
-        <div class="menu-text"><div class="menu-title">知识探索</div><div class="menu-sub">好奇心 · 科学探索</div></div>
-        <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
-      </div>
-      <div style="padding-left:50px;font-size:12px;color:var(--text-muted);line-height:1.6">激发好奇心，陪小莉探索自然、科学和世界的奥秘。</div>
+    <div class="menu-item">
+      <div style="width:44px;height:44px;border-radius:var(--r-md);background:linear-gradient(135deg,#EDE9FE,#DDD6FE);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">🎨</div>
+      <div class="menu-text"><div class="menu-title">创意伙伴</div><div class="menu-sub">创意探索 · 已开启</div></div>
+      <div style="width:44px;height:24px;border-radius:12px;background:var(--c-primary);position:relative;cursor:pointer"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;right:2px;top:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
     </div>
-    <div class="menu-item" style="flex-direction:column;align-items:stretch;gap:10px">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="menu-icon" style="background:#DCFCE7"><i class="ph ph-book-open" style="font-size:20px;color:#22C55E"></i></div>
-        <div class="menu-text"><div class="menu-title">故事时光</div><div class="menu-sub">阅读 · 想象力培养</div></div>
-        <label class="toggle"><input type="checkbox"><span class="toggle-slider"><span class="toggle-thumb"></span></span></label>
-      </div>
-      <div style="padding-left:50px;font-size:12px;color:var(--text-muted);line-height:1.6">和小莉一起读故事、创作故事，培养阅读习惯和想象力。</div>
+    <div class="menu-item">
+      <div style="width:44px;height:44px;border-radius:var(--r-md);background:linear-gradient(135deg,#FFF3E0,#FFE0B2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">📖</div>
+      <div class="menu-text"><div class="menu-title">故事大王</div><div class="menu-sub">互动故事 · 已关闭</div></div>
+      <div style="width:44px;height:24px;border-radius:12px;background:#E2E0DC;position:relative;cursor:pointer"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;left:2px;top:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
     </div>
   </div>
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin:16px 0 8px">自建智能体</div>
+  <button style="width:100%;padding:14px;background:var(--bg-card);border:2px dashed var(--border-light);border-radius:var(--r-xl);font-size:14px;font-weight:600;color:var(--c-primary);cursor:pointer;font-family:var(--font-cn)"><i class="ph ph-plus" style="font-size:16px"></i> 创建自定义智能体</button>
 </div>
 </body></html>

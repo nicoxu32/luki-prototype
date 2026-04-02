@@ -5,42 +5,48 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>luki · 家庭成员</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
-
+<script src='https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js'></script>
 </head>
 <body>
 <div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
   <div class="s-icons">
     <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
     <i class="ph ph-wifi-high" style="font-size:16px"></i>
     <i class="ph ph-battery-full" style="font-size:16px"></i>
   </div>
-</div><div class="back-header">
-  <a href="profile.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
-  <div class="back-title">家庭成员</div>
-  <span style="font-size:14px;font-weight:600;color:var(--c-primary)">添加</span>
+</div><div class="sub-header">
+  <a href="profile.html" class="back-btn"><i class="ph ph-caret-left" style="font-size:20px"></i></a>
+  <div class="sub-title">家庭成员与声纹</div>
+  <div style="width:36px"></div>
 </div>
 <div class="page-content">
   <div class="menu-list">
     <div class="menu-item">
       <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FB923C,#F97316);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:white;flex-shrink:0">妈</div>
-      <div class="menu-text"><div class="menu-title">晓梅</div><div class="menu-sub">家长 · 主账号</div></div>
-      <span style="font-size:11px;font-weight:600;color:#15803D;background:#DCFCE7;padding:4px 10px;border-radius:999px">管理员</span>
+      <div class="menu-text">
+        <div class="menu-title">晓梅（妈妈）</div>
+        <div class="menu-sub">管理员 · 声纹已录入 · 138****6789</div>
+      </div>
+      <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </div>
     <div class="menu-item">
       <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#60A5FA,#3B82F6);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:white;flex-shrink:0">爸</div>
-      <div class="menu-text"><div class="menu-title">建国</div><div class="menu-sub">家长 · 可查看报告</div></div>
-      <span style="font-size:11px;font-weight:600;color:#1D4ED8;background:#DBEAFE;padding:4px 10px;border-radius:999px">家长</span>
+      <div class="menu-text">
+        <div class="menu-title">志明（爸爸）</div>
+        <div class="menu-sub">成员 · 声纹已录入 · 139****1234</div>
+      </div>
+      <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </div>
     <div class="menu-item">
-      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#A78BFA,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:white;flex-shrink:0">莉</div>
-      <div class="menu-text"><div class="menu-title">小莉</div><div class="menu-sub">孩子 · 7岁</div></div>
-      <span style="font-size:11px;font-weight:600;color:#6D28D9;background:#EDE9FE;padding:4px 10px;border-radius:999px">孩子</span>
+      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FFD54F,#FFC107);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">👧</div>
+      <div class="menu-text">
+        <div class="menu-title">小莉（孩子）</div>
+        <div class="menu-sub">声纹已录入 · 6岁</div>
+      </div>
+      <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </div>
   </div>
-  <a href="#" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:var(--c-primary-light);border:1.5px dashed var(--c-primary-mid);border-radius:var(--r-xl);font-size:14px;font-weight:600;color:var(--c-primary);text-decoration:none;margin-top:8px">
-    <i class="ph ph-plus-circle" style="font-size:18px"></i> 邀请家庭成员
-  </a>
+  <button style="width:100%;margin-top:14px;padding:14px;background:var(--bg-card);border:2px dashed var(--border-light);border-radius:var(--r-xl);font-size:14px;font-weight:600;color:var(--c-primary);cursor:pointer;font-family:var(--font-cn)"><i class="ph ph-plus" style="font-size:16px"></i> 添加家庭成员</button>
 </div>
 </body></html>

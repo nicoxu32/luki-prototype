@@ -5,54 +5,74 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>luki · 对话详情</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
-
+<script src='https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js'></script>
 </head>
 <body>
 <div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
   <div class="s-icons">
     <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
     <i class="ph ph-wifi-high" style="font-size:16px"></i>
     <i class="ph ph-battery-full" style="font-size:16px"></i>
   </div>
-</div><div class="back-header">
-  <a href="index.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
-  <div class="back-title">对话详情</div>
-  <div></div>
+</div><div class="sub-header">
+  <a href="index.html" class="back-btn"><i class="ph ph-caret-left" style="font-size:20px"></i></a>
+  <div class="sub-title">对话详情</div>
+  <div style="width:36px"></div>
 </div>
 <div class="page-content">
-  <div style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE);border-radius:var(--r-xl);height:200px;display:flex;align-items:center;justify-content:center;font-size:80px;margin-bottom:16px;position:relative;overflow:hidden">
-    🌱
-    <div style="position:absolute;bottom:12px;left:16px;right:16px;display:flex;align-items:center;justify-content:space-between">
-      <span style="font-size:11px;font-weight:600;color:rgba(255,255,255,.9);background:rgba(0,0,0,.22);padding:3px 9px;border-radius:999px;font-family:'DM Sans',sans-serif">15:40</span>
-      <span style="font-size:11px;font-weight:600;color:white;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);padding:3px 10px;border-radius:999px;display:flex;align-items:center;gap:4px"><i class="ph ph-chalkboard-teacher"></i> 英语小教练</span>
+  <div style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE);border-radius:var(--r-xl);padding:20px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden">
+    <div style="font-size:64px;margin-bottom:8px">🌱</div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px">
+      <span style="font-size:11px;font-weight:600;color:white;background:rgba(0,0,0,.2);padding:3px 10px;border-radius:var(--r-full)">15:40 · 12分钟</span>
+      <span style="font-size:11px;font-weight:600;color:white;background:rgba(59,130,246,.6);padding:3px 10px;border-radius:var(--r-full)">英语小教练</span>
     </div>
   </div>
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:20px;margin-bottom:12px">
-    <div style="font-size:20px;font-weight:800;color:var(--text-h);line-height:1.5;margin-bottom:12px;letter-spacing:-.01em">“你说的每一个单词，都是一粒小小的勇气种子”</div>
-    <div style="font-size:13px;color:var(--text-sub);line-height:1.7;margin-bottom:16px">小莉今天第一次完整地用英语做了自我介绍，获得了 luki 的超大鼓励！她说了"My name is Xiaoli, I like dinosaurs"，发音清晰，非常棒！</div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap">
-      <span style="display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:600;background:#DBEAFE;color:#1D4ED8"><i class="ph ph-chalkboard-teacher"></i> 英语小教练</span>
-      <span style="display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:600;background:#FFFBEB;color:#B45309">🤩 超兴奋</span>
-      <span style="display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:999px;font-size:11px;font-weight:600;background:#F1F5F9;color:#475569"><i class="ph ph-trophy"></i> 里程碑</span>
-    </div>
+
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px">
+    <div style="font-size:18px;font-weight:700;color:var(--text-h);line-height:1.5;margin-bottom:12px">"你说的每一个单词，都是一粒小小的勇气种子"</div>
+    <div style="font-size:13px;color:var(--text-sub);line-height:1.7">小莉今天和英语小教练练习了自我介绍。她从最初的害羞到后来大声说出 "My name is Lily"，进步非常明显。这是她第一次完整地用英语介绍自己！</div>
   </div>
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px">对话记录</div>
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px;display:flex;flex-direction:column;gap:12px;margin-bottom:12px">
-    <div style="display:flex;gap:10px;justify-content:flex-end">
-      <div style="max-width:75%;background:linear-gradient(135deg,#F97316,#FB923C);color:white;border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:14px;line-height:1.6">我叫小莉，我喜欢恐龙！</div>
+
+  <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:10px">🎧 声音胶囊</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:14px 18px;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#3B82F6,#60A5FA);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+        <i class="ph-fill ph-play" style="font-size:20px;color:white"></i>
+      </div>
+      <div style="flex:1">
+        <div style="height:4px;background:var(--bg-muted);border-radius:var(--r-full);overflow:hidden"><div style="width:35%;height:100%;background:#3B82F6;border-radius:var(--r-full)"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px"><span style="font-size:10px;color:var(--text-muted);font-family:var(--font-en)">0:42</span><span style="font-size:10px;color:var(--text-muted);font-family:var(--font-en)">2:01</span></div>
+      </div>
     </div>
-    <div style="display:flex;gap:10px">
-      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#BFDBFE,#93C5FD);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🤖</div>
-      <div style="max-width:75%;background:var(--bg-muted);border-radius:16px 16px 16px 4px;padding:10px 14px;font-size:14px;line-height:1.6;color:var(--text-h)">哇，你说的太棒了！你知道恐龙用英语怎么说吗？</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-top:8px">"My name is Lily. I am six years old. I like dinosaurs and painting!"</div>
+  </div>
+
+  <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:10px">🏷️ 标签</div>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+    <span class="chip chip-blue">英语小教练</span>
+    <span class="chip chip-orange">🤩 超兴奋</span>
+    <span class="chip chip-green">🏆 里程碑</span>
+    <span class="chip" style="background:#F1F5F9;color:#475569">自我介绍</span>
+  </div>
+
+  <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:10px">💬 对话摘要</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div style="margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:12px;font-weight:600;color:#3B82F6">英语小教练</span><span style="font-size:10px;color:var(--text-muted)">15:40</span></div>
+      <div style="font-size:13px;color:var(--text-sub);line-height:1.6;background:#EFF6FF;padding:10px 14px;border-radius:0 var(--r-md) var(--r-md) var(--r-md)">Hi Lily! Can you tell me about yourself today?</div>
     </div>
-    <div style="display:flex;gap:10px;justify-content:flex-end">
-      <div style="max-width:75%;background:linear-gradient(135deg,#F97316,#FB923C);color:white;border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:14px;line-height:1.6">Dinosaur！我知道！</div>
+    <div style="margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;justify-content:flex-end"><span style="font-size:10px;color:var(--text-muted)">15:41</span><span style="font-size:12px;font-weight:600;color:var(--c-primary)">小莉</span></div>
+      <div style="font-size:13px;color:white;line-height:1.6;background:var(--c-primary);padding:10px 14px;border-radius:var(--r-md) 0 var(--r-md) var(--r-md);margin-left:40px">嗯...My name is...Lily...</div>
     </div>
-    <div style="display:flex;gap:10px">
-      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#BFDBFE,#93C5FD);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🤖</div>
-      <div style="max-width:75%;background:var(--bg-muted);border-radius:16px 16px 16px 4px;padding:10px 14px;font-size:14px;line-height:1.6;color:var(--text-h)">太厉害了！你说的每一个单词，都是一粒小小的勇气种子 🌱</div>
+    <div style="margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="font-size:12px;font-weight:600;color:#3B82F6">英语小教练</span><span style="font-size:10px;color:var(--text-muted)">15:42</span></div>
+      <div style="font-size:13px;color:var(--text-sub);line-height:1.6;background:#EFF6FF;padding:10px 14px;border-radius:0 var(--r-md) var(--r-md) var(--r-md)">Great job! Now try saying your age too! 🌟</div>
+    </div>
+    <div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;justify-content:flex-end"><span style="font-size:10px;color:var(--text-muted)">15:44</span><span style="font-size:12px;font-weight:600;color:var(--c-primary)">小莉</span></div>
+      <div style="font-size:13px;color:white;line-height:1.6;background:var(--c-primary);padding:10px 14px;border-radius:var(--r-md) 0 var(--r-md) var(--r-md);margin-left:40px">My name is Lily! I am six years old! I like dinosaurs!</div>
     </div>
   </div>
 </div>

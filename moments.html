@@ -3,151 +3,200 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>luki · 时光</title>
+<title>luki · 时光机</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 <style>
-.moments-hero{background:linear-gradient(170deg,#FDF4FF 0%,#FAF5FF 55%,#F8F7F5 100%);padding:4px 20px 20px}
+.moments-hero{background:linear-gradient(170deg,#FFF7ED 0%,#FEF3EC 55%,#F8F7F5 100%);padding:4px 20px 20px}
 .moments-hero-title{font-size:24px;font-weight:900;color:var(--text-h);letter-spacing:-.02em;line-height:1.2}
-.moments-hero-title span{color:#8B5CF6}
-.flow-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);overflow:hidden;margin-bottom:12px;display:block;color:inherit;text-decoration:none}
-.flow-img{width:100%;height:160px;position:relative;display:flex;align-items:center;justify-content:center;font-size:72px}
-.flow-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.35) 100%)}
-.flow-img-meta{position:absolute;bottom:10px;left:14px;right:14px;display:flex;align-items:center;justify-content:space-between}
-.flow-img-time{font-size:11px;font-weight:600;color:rgba(255,255,255,.9);font-family:'DM Sans',sans-serif;background:rgba(0,0,0,.22);padding:3px 9px;border-radius:var(--r-full)}
-.flow-img-agent{font-size:11px;font-weight:600;color:white;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);padding:3px 10px;border-radius:var(--r-full);display:flex;align-items:center;gap:4px}
-.flow-body{padding:16px 18px}
-.flow-quote{font-size:17px;font-weight:700;color:var(--text-h);line-height:1.5;margin-bottom:12px;letter-spacing:-.01em}
-.flow-quote::before{content:'\201C';color:#8B5CF6}
-.flow-quote::after{content:'\201D';color:#8B5CF6}
-.flow-tags{display:flex;gap:6px;flex-wrap:wrap}
-.flow-tag{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:var(--r-full);font-size:11px;font-weight:600}
-.text-flow-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:12px;display:block;color:inherit;text-decoration:none}
-.text-flow-time{font-size:11px;color:var(--text-muted);font-family:'DM Sans',sans-serif;margin-bottom:10px}
-.text-flow-quote{font-size:16px;font-weight:700;color:var(--text-h);line-height:1.55;margin-bottom:12px;letter-spacing:-.01em}
-.text-flow-quote::before{content:'\201C';color:#8B5CF6}
-.text-flow-quote::after{content:'\201D';color:#8B5CF6}
-.privacy-flow-card{background:linear-gradient(135deg,#F3EFFE,#EDE9FE);border-radius:var(--r-xl);padding:16px 18px;margin-bottom:12px;border:1px solid #DDD6FE}
+.moments-hero-title span{color:var(--c-primary)}
+
+.voice-msg{display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg-card);border-radius:var(--r-lg);margin-bottom:8px;box-shadow:var(--shadow-xs);border:1px solid var(--border-light);cursor:pointer;transition:.15s;text-decoration:none;color:inherit}
+.voice-msg:active{transform:scale(.98)}
+.sender-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.msg-info{flex:1;min-width:0}
+.msg-sender{font-size:14px;font-weight:600;color:var(--text-h)}
+.msg-preview{font-size:12px;color:var(--text-sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg-time{font-size:11px;font-family:var(--font-en);color:var(--text-muted);flex-shrink:0}
+.unread-dot{width:8px;height:8px;border-radius:50%;background:var(--c-primary);flex-shrink:0}
+
+.record-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px;background:linear-gradient(135deg,#FF8A65,#F97316);border-radius:var(--r-xl);color:white;font-size:15px;font-weight:700;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(249,115,22,.3);margin-bottom:16px;transition:.15s;font-family:var(--font-cn)}
+.record-btn:active{transform:scale(.97)}
+
+.tip-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-light)}
+.tip-item:last-child{border-bottom:none}
+.tip-icon{width:36px;height:36px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.tip-text{flex:1}
+.tip-title{font-size:13px;font-weight:600;color:var(--text-h)}
+.tip-desc{font-size:12px;color:var(--text-muted);margin-top:2px}
+
+.memory-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);overflow:hidden;margin-bottom:12px;cursor:pointer;transition:.15s;display:block;text-decoration:none;color:inherit}
+.memory-card:active{transform:scale(.98)}
+.memory-cover{width:100%;height:140px;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative}
+.memory-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,.25) 100%)}
+.memory-body{padding:14px 16px}
+.memory-type{font-size:11px;font-weight:600;padding:3px 10px;border-radius:var(--r-full);display:inline-block;margin-bottom:6px}
+.memory-type.monthly{background:var(--c-primary-light);color:var(--c-primary-dark)}
+.memory-type.highlight{background:var(--mood-happy-bg);color:#F57F17}
+.memory-type.offline{background:var(--c-green-light);color:#15803D}
+.memory-type.letter{background:var(--c-violet-light);color:#6D28D9}
 </style>
 </head>
 <body>
 <div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
   <div class="s-icons">
     <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
     <i class="ph ph-wifi-high" style="font-size:16px"></i>
     <i class="ph ph-battery-full" style="font-size:16px"></i>
   </div>
 </div>
+
 <div class="moments-hero">
   <div style="display:flex;align-items:flex-start;justify-content:space-between">
     <div>
-      <div style="font-size:13px;color:var(--text-muted);font-weight:500;margin-bottom:3px">小莉的记忆宝库</div>
-      <div class="moments-hero-title">时光<span>流</span></div>
+      <div style="font-size:13px;color:var(--text-muted);font-weight:500;margin-bottom:3px">家庭时光沉淀</div>
+      <div class="moments-hero-title"><span>时光</span>机</div>
     </div>
-    <a href="add-memory.html" style="display:flex;align-items:center;gap:6px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:var(--r-full);padding:8px 14px;font-size:13px;font-weight:600;color:var(--text-h);box-shadow:var(--shadow-xs);margin-top:4px">
-      <i class="ph ph-plus" style="font-size:16px;color:#8B5CF6"></i> 添加记忆
+    <a href="send-message.html" style="display:flex;align-items:center;gap:6px;background:var(--c-primary);border-radius:var(--r-full);padding:8px 14px;font-size:13px;font-weight:600;color:white;box-shadow:0 2px 8px rgba(249,115,22,.3);margin-top:4px;text-decoration:none">
+      <i class="ph ph-microphone" style="font-size:16px"></i> 留言
     </a>
   </div>
 </div>
+
 <div class="page-content" style="padding-top:0">
-  <div style="display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none">
-    <button style="flex-shrink:0;padding:7px 16px;border-radius:var(--r-full);border:none;background:#8B5CF6;color:white;font-size:13px;font-weight:600;font-family:var(--font-cn);cursor:pointer">全部</button>
-    <button style="flex-shrink:0;padding:7px 16px;border-radius:var(--r-full);border:1px solid var(--border-light);background:var(--bg-card);color:var(--text-sub);font-size:13px;font-weight:500;font-family:var(--font-cn);cursor:pointer">今日</button>
-    <button style="flex-shrink:0;padding:7px 16px;border-radius:var(--r-full);border:1px solid var(--border-light);background:var(--bg-card);color:var(--text-sub);font-size:13px;font-weight:500;font-family:var(--font-cn);cursor:pointer">本周</button>
-    <button style="flex-shrink:0;padding:7px 16px;border-radius:var(--r-full);border:1px solid var(--border-light);background:var(--bg-card);color:var(--text-sub);font-size:13px;font-weight:500;font-family:var(--font-cn);cursor:pointer">里程碑</button>
-    <button style="flex-shrink:0;padding:7px 16px;border-radius:var(--r-full);border:1px solid var(--border-light);background:var(--bg-card);color:var(--text-sub);font-size:13px;font-weight:500;font-family:var(--font-cn);cursor:pointer">树洞</button>
+
+  <!-- 留言板 -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text-h)">📮 留言板</div>
+    <a href="messages-parent.html" style="font-size:12px;font-weight:600;color:var(--c-primary);text-decoration:none">历史留言 →</a>
   </div>
-  <div style="font-size:13px;font-weight:700;color:var(--text-muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px">今日 · 4月1日</div>
-  <a href="capsule-detail.html" class="flow-card">
-    <div class="flow-img" style="background:linear-gradient(135deg,#DBEAFE,#BFDBFE)">
-      🌱
-      <div class="flow-img-overlay"></div>
-      <div class="flow-img-meta">
-        <span class="flow-img-time">15:40</span>
-        <span class="flow-img-agent"><i class="ph ph-chalkboard-teacher"></i> 英语小教练</span>
-      </div>
+
+  <a href="messages-child.html" class="voice-msg">
+    <div class="sender-avatar" style="background:linear-gradient(135deg,#FFECB3,#FFD54F)">👧</div>
+    <div class="msg-info">
+      <div class="msg-sender">小莉</div>
+      <div class="msg-preview">妈妈，我今天在学校交了一个新朋友！</div>
     </div>
-    <div class="flow-body">
-      <div class="flow-quote">你说的每一个单词，都是一粒小小的勇气种子</div>
-      <div class="flow-tags">
-        <span class="flow-tag" style="background:#DBEAFE;color:#1D4ED8"><i class="ph ph-chalkboard-teacher"></i> 英语小教练</span>
-        <span class="flow-tag" style="background:#FFFBEB;color:#B45309">🤩 超兴奋</span>
-        <span class="flow-tag" style="background:#F1F5F9;color:#475569"><i class="ph ph-trophy"></i> 里程碑</span>
-      </div>
-    </div>
+    <div class="msg-time">10:15</div>
+    <div class="unread-dot"></div>
   </a>
-  <a href="capsule-detail.html" class="text-flow-card">
-    <div class="text-flow-time">9:15 · 树洞</div>
-    <div class="text-flow-quote">今天我认识了一个新朋友，她叫艾玛，我们一起玩了滑梯！</div>
-    <div class="flow-tags">
-      <span class="flow-tag" style="background:#DCFCE7;color:#15803D"><i class="ph ph-smiley"></i> 开心</span>
-      <span class="flow-tag" style="background:#FFEDD5;color:#C2410C"><i class="ph ph-users"></i> 交朋友</span>
+
+  <a href="messages-luki.html" class="voice-msg">
+    <div class="sender-avatar" style="background:linear-gradient(135deg,#FFE0B2,#FFCC80)">🦕</div>
+    <div class="msg-info">
+      <div class="msg-sender">luki</div>
+      <div class="msg-preview">小莉今天画了一幅超棒的恐龙画！</div>
     </div>
+    <div class="msg-time">17:50</div>
+    <div class="unread-dot"></div>
   </a>
-  <div class="privacy-flow-card">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-      <i class="ph ph-lock-simple" style="color:#7C3AED;font-size:18px"></i>
-      <span style="font-size:14px;font-weight:700;color:#4C1D95">树洞 · 私密对话</span>
-      <span style="margin-left:auto;font-size:11px;font-weight:600;color:#7C3AED;background:rgba(124,58,237,.1);padding:3px 9px;border-radius:var(--r-full)">隐私保护中</span>
+
+  <a href="messages-parent.html" class="voice-msg">
+    <div class="sender-avatar" style="background:linear-gradient(135deg,#FFCDD2,#EF9A9A)">👨</div>
+    <div class="msg-info">
+      <div class="msg-sender">爸爸</div>
+      <div class="msg-preview">宝贝，爸爸出差回来给你带了礼物哦！</div>
     </div>
-    <div style="display:flex;gap:16px;margin-bottom:10px">
-      <div style="text-align:center"><div style="font-size:22px;font-weight:800;color:#6D28D9;font-family:'DM Sans',sans-serif;line-height:1">8</div><div style="font-size:10px;color:#7C3AED;margin-top:3px">轮对话</div></div>
-      <div style="text-align:center"><div style="font-size:22px;line-height:1">😊</div><div style="font-size:10px;color:#7C3AED;margin-top:3px">情绪良好</div></div>
-      <div style="text-align:center"><div style="font-size:22px;font-weight:800;color:#6D28D9;font-family:'DM Sans',sans-serif;line-height:1">12m</div><div style="font-size:10px;color:#7C3AED;margin-top:3px">对话时长</div></div>
-    </div>
-    <div style="font-size:12px;color:#6D28D9;line-height:1.6">🔒 树洞对话内容受隐私保护，仅显示情绪摘要。</div>
+    <div class="msg-time">昨天</div>
+  </a>
+
+  <!-- 建立亲子时光 -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text-h)">💡 建立亲子时光</div>
   </div>
-  <div style="font-size:13px;font-weight:700;color:var(--text-muted);letter-spacing:.04em;text-transform:uppercase;margin:16px 0 10px">昨日 · 3月31日</div>
-  <a href="capsule-detail.html" class="flow-card">
-    <div class="flow-img" style="background:linear-gradient(135deg,#F3EFFE,#DDD6FE)">
-      🦕
-      <div class="flow-img-overlay"></div>
-      <div class="flow-img-meta">
-        <span class="flow-img-time">14:20</span>
-        <span class="flow-img-agent"><i class="ph ph-star"></i> 知识探索</span>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div class="tip-item">
+      <div class="tip-icon" style="background:var(--mood-happy-bg)">🎨</div>
+      <div class="tip-text">
+        <div class="tip-title">一起画一幅家庭画</div>
+        <div class="tip-desc">小莉最近对绘画兴趣浓厚，试试和她一起画全家福吧</div>
       </div>
     </div>
-    <div class="flow-body">
-      <div class="flow-quote">霸王龙的牙齿有香蕉那么大，但它跑得没有我快！</div>
-      <div class="flow-tags">
-        <span class="flow-tag" style="background:#EDE9FE;color:#6D28D9"><i class="ph ph-star"></i> 知识探索</span>
-        <span class="flow-tag" style="background:#DCFCE7;color:#15803D">🤩 好奇</span>
+    <div class="tip-item">
+      <div class="tip-icon" style="background:var(--mood-curious-bg)">🦕</div>
+      <div class="tip-text">
+        <div class="tip-title">去自然博物馆看恐龙化石</div>
+        <div class="tip-desc">小莉对恐龙的兴趣持续增长，带她去实地探索吧</div>
+      </div>
+    </div>
+    <div class="tip-item">
+      <div class="tip-icon" style="background:var(--mood-calm-bg)">📖</div>
+      <div class="tip-text">
+        <div class="tip-title">睡前一起读一本故事书</div>
+        <div class="tip-desc">小莉喜欢探险故事，推荐《小恐龙的星球之旅》</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主动记录区 -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text-h)">📝 主动记录</div>
+  </div>
+  <button class="record-btn" onclick="location.href='add-memory.html'">
+    <i class="ph ph-plus-circle" style="font-size:22px"></i> 记录今天的亲子时光
+  </button>
+
+  <!-- 时光回忆录 -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0 10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text-h)">📚 时光回忆录</div>
+    <span style="font-size:11px;font-weight:600;color:var(--c-violet);background:var(--c-violet-light);padding:3px 10px;border-radius:var(--r-full)">Premium</span>
+  </div>
+
+  <!-- 月度回忆 -->
+  <a href="#" class="memory-card" onclick="alert('订阅 Premium 解锁时光回忆录')">
+    <div class="memory-cover" style="background:linear-gradient(135deg,#FFF3E0,#FFE0B2)">📅</div>
+    <div class="memory-body">
+      <span class="memory-type monthly">月度回忆</span>
+      <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px">2026年3月 · 小莉的春天</div>
+      <div style="font-size:12px;color:var(--text-sub);line-height:1.6">这个月小莉学会了用英语自我介绍，交了新朋友艾玛，还画了 23 幅画…</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+        <span class="chip chip-orange" style="font-size:10px">🎨 23幅画</span>
+        <span class="chip chip-blue" style="font-size:10px">📖 45次对话</span>
+        <span class="chip chip-green" style="font-size:10px">🌟 8个里程碑</span>
       </div>
     </div>
   </a>
-  <a href="capsule-detail.html" class="flow-card">
-    <div class="flow-img" style="background:linear-gradient(135deg,#DCFCE7,#BBF7D0)">
-      🌸
-      <div class="flow-img-overlay"></div>
-      <div class="flow-img-meta">
-        <span class="flow-img-time">10:05</span>
-        <span class="flow-img-agent"><i class="ph ph-tree"></i> 树洞</span>
-      </div>
-    </div>
-    <div class="flow-body">
-      <div class="flow-quote">每一朵花都有自己开放的时间，你也是</div>
-      <div class="flow-tags">
-        <span class="flow-tag" style="background:#DCFCE7;color:#15803D"><i class="ph ph-tree"></i> 树洞</span>
-        <span class="flow-tag" style="background:#F1F5F9;color:#475569"><i class="ph ph-leaf"></i> 平静</span>
-      </div>
+
+  <!-- 闪光对话卡 -->
+  <a href="#" class="memory-card" onclick="alert('订阅 Premium 解锁时光回忆录')">
+    <div class="memory-cover" style="background:linear-gradient(135deg,#FFF8E1,#FFECB3)">✨</div>
+    <div class="memory-body">
+      <span class="memory-type highlight">闪光对话</span>
+      <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px">"妈妈，我长大了想当画家！"</div>
+      <div style="font-size:12px;color:var(--text-sub);line-height:1.6">3月28日，小莉在和创意伙伴的对话中第一次表达了自己的梦想…</div>
     </div>
   </a>
-  <div style="font-size:13px;font-weight:700;color:var(--text-muted);letter-spacing:.04em;text-transform:uppercase;margin:16px 0 10px">更早</div>
-  <a href="capsule-detail.html" class="text-flow-card">
-    <div class="text-flow-time">3月29日 · 树洞</div>
-    <div class="text-flow-quote">每一个新朋友，都是你天空里新添的一颗星 ✨</div>
-    <div class="flow-tags">
-      <span class="flow-tag" style="background:#DCFCE7;color:#15803D"><i class="ph ph-smiley"></i> 开心</span>
-      <span class="flow-tag" style="background:#FFEDD5;color:#C2410C"><i class="ph ph-users"></i> 交朋友</span>
+
+  <!-- 线下时光卡 -->
+  <a href="#" class="memory-card" onclick="alert('订阅 Premium 解锁时光回忆录')">
+    <div class="memory-cover" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)">🌳</div>
+    <div class="memory-body">
+      <span class="memory-type offline">线下时光</span>
+      <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px">周末公园野餐</div>
+      <div style="font-size:12px;color:var(--text-sub);line-height:1.6">3月23日，全家人一起去公园野餐，小莉在草地上画了一幅风景画。</div>
     </div>
   </a>
+
+  <!-- 留言信件卡 -->
+  <a href="#" class="memory-card" onclick="alert('订阅 Premium 解锁时光回忆录')">
+    <div class="memory-cover" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7)">💌</div>
+    <div class="memory-body">
+      <span class="memory-type letter">留言信件</span>
+      <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:4px">小莉给妈妈的第一封信</div>
+      <div style="font-size:12px;color:var(--text-sub);line-height:1.6">"妈妈我爱你，你是世界上最好的妈妈！" —— 来自小莉的语音留言沉淀</div>
+    </div>
+  </a>
+
 </div>
+
+<!-- Tab Bar -->
 <nav class="tab-bar">
   <a href="index.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-sun-horizon" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">今日</span></a>
   <a href="growth.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-chart-line-up" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">成长</span></a>
-  <a href="moments.html" class="tab-item active"><div class="tab-icon-wrap"><i class="ph-fill ph-heart" style="font-size:22px;color:#8B5CF6"></i></div><span class="tab-label" style="color:#8B5CF6">时光</span></a>
+  <a href="moments.html" class="tab-item active"><div class="tab-icon-wrap"><i class="ph-fill ph-clock-countdown" style="font-size:22px;color:var(--c-primary)"></i></div><span class="tab-label" style="color:var(--c-primary)">时光机</span></a>
   <a href="profile.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-user-circle" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">我的</span></a>
 </nav>
+
 </body>
 </html>

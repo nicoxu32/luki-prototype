@@ -3,44 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>luki · 孩子消息</title>
+<title>luki · 小莉的留言</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
-
+<script src='https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js'></script>
 </head>
 <body>
 <div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
   <div class="s-icons">
     <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
     <i class="ph ph-wifi-high" style="font-size:16px"></i>
     <i class="ph ph-battery-full" style="font-size:16px"></i>
   </div>
-</div><div class="back-header">
-  <a href="index.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
-  <div class="back-title">小莉的消息</div>
-  <div></div>
+</div><div class="sub-header">
+  <a href="moments.html" class="back-btn"><i class="ph ph-caret-left" style="font-size:20px"></i></a>
+  <div class="sub-title">小莉的留言</div>
+  <div style="width:36px"></div>
 </div>
 <div class="page-content">
-  <div style="display:flex;flex-direction:column;gap:12px">
-    <div style="display:flex;gap:10px;justify-content:flex-end">
-      <div style="max-width:75%;background:linear-gradient(135deg,#F97316,#FB923C);color:white;border-radius:16px 16px 4px 16px;padding:12px 16px;font-size:14px;line-height:1.6">妈妈，我今天认识了一个新朋友，她叫艾玛！</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFECB3,#FFD54F);display:flex;align-items:center;justify-content:center;font-size:18px">👧</div>
+      <div><div style="font-size:14px;font-weight:600;color:var(--text-h)">小莉</div><div style="font-size:11px;color:var(--text-muted)">今天 10:15</div></div>
     </div>
-    <div style="display:flex;gap:10px">
-      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#BFDBFE,#93C5FD);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🤖</div>
-      <div style="max-width:75%;background:var(--bg-card);border-radius:16px 16px 16px 4px;padding:12px 16px;font-size:14px;line-height:1.6;color:var(--text-h);box-shadow:var(--shadow-card);border:1px solid var(--border-light)">太棒了！艾玛是你的同班同学吗？你们喜欢一起做什么？</div>
+    <div style="display:flex;align-items:center;gap:12px;background:var(--bg-muted);border-radius:var(--r-lg);padding:12px 16px;margin-bottom:10px">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--c-primary);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0"><i class="ph-fill ph-play" style="font-size:16px;color:white"></i></div>
+      <div style="flex:1"><div style="height:3px;background:#E2E0DC;border-radius:var(--r-full);overflow:hidden"><div style="width:0%;height:100%;background:var(--c-primary);border-radius:var(--r-full)"></div></div></div>
+      <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-en)">0:18</span>
     </div>
-    <div style="display:flex;gap:10px;justify-content:flex-end">
-      <div style="max-width:75%;background:linear-gradient(135deg,#F97316,#FB923C);color:white;border-radius:16px 16px 4px 16px;padding:12px 16px;font-size:14px;line-height:1.6">对！我们都喜欢独角兽，我们一起玩了滑梯！</div>
-    </div>
-    <div style="display:flex;gap:10px">
-      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#BFDBFE,#93C5FD);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🤖</div>
-      <div style="max-width:75%;background:var(--bg-card);border-radius:16px 16px 16px 4px;padding:12px 16px;font-size:14px;line-height:1.6;color:var(--text-h);box-shadow:var(--shadow-card);border:1px solid var(--border-light)">哇，你们都喜欢独角兽，真是太有缘分了！每一个新朋友，都是你天空里新添的一颗星 ✨</div>
-    </div>
+    <div style="font-size:13px;color:var(--text-sub);line-height:1.6;font-style:italic">"妈妈，我今天在学校交了一个新朋友！她叫艾玛，我们一起玩了滑梯，超开心的！"</div>
   </div>
-  <div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:390px;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-top:1px solid var(--border-light);padding:12px 16px 28px;display:flex;gap:10px;align-items:center">
-    <div style="flex:1;background:var(--bg-muted);border-radius:999px;padding:10px 16px;font-size:14px;color:var(--text-muted)">给小莉发消息...</div>
-    <button style="width:40px;height:40px;border-radius:50%;background:var(--c-primary);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(249,115,22,.3)"><i class="ph ph-microphone" style="font-size:20px;color:white"></i></button>
-  </div>
+  <button style="width:100%;padding:14px;background:var(--c-primary);color:white;border:none;border-radius:var(--r-lg);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)" onclick="location.href='send-message.html'"><i class="ph ph-arrow-bend-up-left" style="font-size:16px"></i> 回复小莉</button>
 </div>
 </body></html>

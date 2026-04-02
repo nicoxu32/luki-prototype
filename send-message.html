@@ -3,53 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>luki · 发送消息</title>
+<title>luki · 发送留言</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
-
+<script src='https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js'></script>
 </head>
 <body>
 <div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
   <div class="s-icons">
     <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
     <i class="ph ph-wifi-high" style="font-size:16px"></i>
     <i class="ph ph-battery-full" style="font-size:16px"></i>
   </div>
-</div><div class="back-header">
-  <a href="index.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
-  <div class="back-title">给小莉留言</div>
-  <span style="font-size:14px;font-weight:600;color:var(--c-primary)">发送</span>
+</div><div class="sub-header">
+  <a href="moments.html" class="back-btn"><i class="ph ph-caret-left" style="font-size:20px"></i></a>
+  <div class="sub-title">发送留言</div>
+  <div style="width:36px"></div>
 </div>
 <div class="page-content">
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:20px;margin-bottom:16px">
-    <div style="font-size:14px;font-weight:600;color:var(--text-sub);margin-bottom:12px">选择发送方式</div>
-    <div style="display:flex;gap:10px;margin-bottom:20px">
-      <div style="flex:1;padding:14px;border-radius:var(--r-lg);border:2px solid var(--c-primary);background:var(--c-primary-light);text-align:center;cursor:pointer">
-        <i class="ph ph-microphone" style="font-size:24px;color:var(--c-primary);display:block;margin-bottom:6px"></i>
-        <div style="font-size:12px;font-weight:700;color:var(--c-primary)">语音</div>
-      </div>
-      <div style="flex:1;padding:14px;border-radius:var(--r-lg);border:1.5px solid var(--border-light);background:var(--bg-card);text-align:center;cursor:pointer">
-        <i class="ph ph-keyboard" style="font-size:24px;color:var(--text-muted);display:block;margin-bottom:6px"></i>
-        <div style="font-size:12px;font-weight:600;color:var(--text-muted)">文字</div>
-      </div>
-      <div style="flex:1;padding:14px;border-radius:var(--r-lg);border:1.5px solid var(--border-light);background:var(--bg-card);text-align:center;cursor:pointer">
-        <i class="ph ph-image" style="font-size:24px;color:var(--text-muted);display:block;margin-bottom:6px"></i>
-        <div style="font-size:12px;font-weight:600;color:var(--text-muted)">图片</div>
-      </div>
+  <div style="text-align:center;padding:30px 0">
+    <div style="width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--c-primary),#FF8A65);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 32px rgba(249,115,22,.3);cursor:pointer;animation:pulse 2s infinite">
+      <i class="ph ph-microphone" style="font-size:44px;color:white"></i>
     </div>
-    <div style="text-align:center;padding:30px 0">
-      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#F97316,#FB923C);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 0 0 rgba(249,115,22,.3);animation:pulse 2s infinite">
-        <i class="ph ph-microphone" style="font-size:36px;color:white"></i>
-      </div>
-      <div style="font-size:14px;color:var(--text-muted)">按住说话</div>
-    </div>
+    <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:4px">按住录音</div>
+    <div style="font-size:13px;color:var(--text-muted)">录一段语音留言给小莉吧</div>
   </div>
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px;margin-bottom:16px">
-    <div style="font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:10px">或者输入文字</div>
-    <textarea placeholder="写下你想对小莉说的话..." style="width:100%;min-height:100px;border:1.5px solid var(--border);border-radius:var(--r-md);padding:12px;font-size:14px;font-family:var(--font-cn);color:var(--text-body);resize:none;outline:none;background:var(--bg-subtle)"></textarea>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:10px">或者写一段文字</div>
+    <textarea style="width:100%;height:80px;border:1px solid var(--border-light);border-radius:var(--r-md);padding:12px;font-size:13px;font-family:var(--font-cn);resize:none;background:var(--bg-muted)" placeholder="写下你想对小莉说的话..."></textarea>
+    <button style="width:100%;margin-top:10px;padding:14px;background:var(--c-primary);color:white;border:none;border-radius:var(--r-lg);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)" onclick="alert('留言已发送！💌')">发送留言</button>
   </div>
-  <button style="width:100%;padding:16px;background:var(--c-primary);color:white;border:none;border-radius:var(--r-full);font-size:16px;font-weight:700;cursor:pointer;font-family:var(--font-cn);box-shadow:0 4px 16px rgba(249,115,22,.3)">发送给小莉</button>
 </div>
-<style>@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(249,115,22,.3)}50%{box-shadow:0 0 0 12px rgba(249,115,22,0)}}</style>
+<style>@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 8px 32px rgba(249,115,22,.3)}50%{transform:scale(1.05);box-shadow:0 12px 40px rgba(249,115,22,.45)}}</style>
 </body></html>

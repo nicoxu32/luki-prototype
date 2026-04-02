@@ -3,47 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>luki · 兑换码</title>
+<title>luki · 智能体兑换</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
-
+<script src='https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js'></script>
 </head>
 <body>
 <div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif">9:41</span>
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
   <div class="s-icons">
     <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
     <i class="ph ph-wifi-high" style="font-size:16px"></i>
     <i class="ph ph-battery-full" style="font-size:16px"></i>
   </div>
-</div><div class="back-header">
-  <a href="profile.html" class="back-btn"><i class="ph ph-arrow-left" style="font-size:18px"></i></a>
-  <div class="back-title">兑换码</div>
-  <div></div>
+</div><div class="sub-header">
+  <a href="profile.html" class="back-btn"><i class="ph ph-caret-left" style="font-size:20px"></i></a>
+  <div class="sub-title">智能体兑换</div>
+  <div style="width:36px"></div>
 </div>
 <div class="page-content">
-  <div style="background:linear-gradient(135deg,#F97316,#FB923C);border-radius:var(--r-xl);padding:24px;margin-bottom:20px;text-align:center;box-shadow:0 6px 20px rgba(249,115,22,.28)">
-    <i class="ph ph-gift" style="font-size:48px;color:white;margin-bottom:12px;display:block"></i>
-    <div style="font-size:18px;font-weight:800;color:white;margin-bottom:6px">激活高级功能</div>
-    <div style="font-size:13px;color:rgba(255,255,255,.8)">输入兑换码，解锁更多智能体和功能</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:20px;margin-bottom:14px;text-align:center">
+    <div style="font-size:48px;margin-bottom:12px">🎁</div>
+    <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:6px">输入兑换码</div>
+    <div style="font-size:13px;color:var(--text-muted);margin-bottom:16px">激活新的智能体或高级功能</div>
+    <input type="text" style="width:100%;padding:14px;border:2px solid var(--border-light);border-radius:var(--r-lg);font-size:16px;font-family:var(--font-en);text-align:center;letter-spacing:4px;background:var(--bg-muted)" placeholder="XXXX-XXXX-XXXX">
+    <button style="width:100%;margin-top:12px;padding:14px;background:var(--c-primary);color:white;border:none;border-radius:var(--r-lg);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)" onclick="alert('兑换成功！🎉')">兑换</button>
   </div>
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:20px;margin-bottom:16px">
-    <label class="input-label">兑换码</label>
-    <input class="input-field" placeholder="请输入兑换码（如：LUKI-2024-XXXX）">
-    <button style="width:100%;padding:14px;background:var(--c-primary);color:white;border:none;border-radius:var(--r-full);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn);margin-top:12px;box-shadow:0 4px 14px rgba(249,115,22,.3)">立即兑换</button>
-  </div>
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:12px">当前套餐</div>
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:20px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-      <div><div style="font-size:16px;font-weight:800;color:var(--text-h)">家庭标准版</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">有效期至 2026年12月31日</div></div>
-      <span style="font-size:11px;font-weight:700;color:#15803D;background:#DCFCE7;padding:5px 12px;border-radius:999px">使用中</span>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:8px">
-      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-sub)"><i class="ph ph-check-circle" style="color:#22C55E;font-size:16px"></i> 3 个智能体</div>
-      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-sub)"><i class="ph ph-check-circle" style="color:#22C55E;font-size:16px"></i> 每日 2 小时使用时长</div>
-      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-sub)"><i class="ph ph-check-circle" style="color:#22C55E;font-size:16px"></i> 情绪报告与预警</div>
-      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted)"><i class="ph ph-x-circle" style="color:var(--text-muted);font-size:16px"></i> 无限智能体（高级版）</div>
-    </div>
+  <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:10px">已拥有的智能体</div>
+  <div class="menu-list">
+    <div class="menu-item"><div style="width:36px;height:36px;border-radius:var(--r-sm);background:linear-gradient(135deg,#DBEAFE,#BFDBFE);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎓</div><div class="menu-text"><div class="menu-title">英语小教练</div><div class="menu-sub">预设 · 已激活</div></div></div>
+    <div class="menu-item"><div style="width:36px;height:36px;border-radius:var(--r-sm);background:linear-gradient(135deg,#DCFCE7,#BBF7D0);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🌳</div><div class="menu-text"><div class="menu-title">树洞</div><div class="menu-sub">预设 · 已激活</div></div></div>
+    <div class="menu-item"><div style="width:36px;height:36px;border-radius:var(--r-sm);background:linear-gradient(135deg,#EDE9FE,#DDD6FE);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎨</div><div class="menu-text"><div class="menu-title">创意伙伴</div><div class="menu-sub">预设 · 已激活</div></div></div>
   </div>
 </div>
 </body></html>
