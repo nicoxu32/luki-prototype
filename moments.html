@@ -60,14 +60,6 @@
 </style>
 </head>
 <body>
-<div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
-  <div class="s-icons">
-    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
-    <i class="ph ph-wifi-high" style="font-size:16px"></i>
-    <i class="ph ph-battery-full" style="font-size:16px"></i>
-  </div>
-</div>
 
 <!-- 指令1：页顶标题仅展示"时光机"，沿用现有颜色 -->
 <div style="padding:12px 20px 4px;text-align:center">
@@ -85,12 +77,11 @@
   <!-- 指令2：留言卡片沿用 Tab1 留言卡样式 -->
   <!-- 留言1：小莉 -->
   <div class="msg-flow-card">
-    <div class="msg-heal-title">「每一句留言，都是爱的小纸条」</div>
-    <div class="msg-summary">小莉通过 luki 给你发了一条语音留言，声音里充满了兴奋和喜悦。</div>
-    <div class="msg-meta">
+    <div class="msg-meta" style="margin-bottom:6px">
       <span><i class="ph ph-clock" style="font-size:13px"></i> 10:15</span>
-      <span><i class="ph ph-envelope-simple" style="font-size:13px;color:var(--c-violet)"></i> 小莉的留言</span>
     </div>
+    <div style="font-size:13px;font-weight:600;color:var(--c-violet);margin-bottom:4px"><i class="ph ph-envelope-simple" style="font-size:13px"></i> 小莉的留言</div>
+    <div class="msg-heal-title" style="margin-bottom:10px">「每一句留言，都是爱的小纸条」</div>
     <div class="msg-audio-bar">
       <button class="msg-audio-play" onclick="this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
       <div class="msg-audio-wave" style="background:linear-gradient(to right,#C4B5FD 38%,var(--border) 38%)"></div>
@@ -101,12 +92,11 @@
 
   <!-- 留言2：luki -->
   <div class="msg-flow-card">
-    <div class="msg-heal-title">「小莉今天的笑声特别多呢」</div>
-    <div class="msg-summary">luki 为你总结了小莉今天的精彩瞬间，她和新朋友聊了好多有趣的话题。</div>
-    <div class="msg-meta">
+    <div class="msg-meta" style="margin-bottom:6px">
       <span><i class="ph ph-clock" style="font-size:13px"></i> 17:50</span>
-      <span><i class="ph ph-envelope-simple" style="font-size:13px;color:var(--c-violet)"></i> luki 的留言</span>
     </div>
+    <div style="font-size:13px;font-weight:600;color:var(--c-violet);margin-bottom:4px"><i class="ph ph-envelope-simple" style="font-size:13px"></i> luki 的留言</div>
+    <div class="msg-heal-title" style="margin-bottom:10px">「小莉今天的笑声特别多呢」</div>
     <div class="msg-audio-bar">
       <button class="msg-audio-play" onclick="this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
       <div class="msg-audio-wave" style="background:linear-gradient(to right,#C4B5FD 25%,var(--border) 25%)"></div>
@@ -116,12 +106,11 @@
 
   <!-- 留言3：爸爸 -->
   <div class="msg-flow-card">
-    <div class="msg-heal-title">「爸爸出差也想着你哦」</div>
-    <div class="msg-summary">爸爸给小莉发了一条语音，告诉她出差回来带了一个小惊喜。</div>
-    <div class="msg-meta">
+    <div class="msg-meta" style="margin-bottom:6px">
       <span><i class="ph ph-clock" style="font-size:13px"></i> 昨天</span>
-      <span><i class="ph ph-envelope-simple" style="font-size:13px;color:var(--c-violet)"></i> 爸爸的留言</span>
     </div>
+    <div style="font-size:13px;font-weight:600;color:var(--c-violet);margin-bottom:4px"><i class="ph ph-envelope-simple" style="font-size:13px"></i> 爸爸的留言</div>
+    <div class="msg-heal-title" style="margin-bottom:10px">「爸爸出差也想着你哦」</div>
     <div class="msg-audio-bar">
       <button class="msg-audio-play" onclick="this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
       <div class="msg-audio-wave" style="background:linear-gradient(to right,#C4B5FD 60%,var(--border) 60%)"></div>

@@ -44,21 +44,8 @@
 </style>
 </head>
 <body>
-<div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
-  <div class="s-icons">
-    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
-    <i class="ph ph-wifi-high" style="font-size:16px"></i>
-    <i class="ph ph-battery-full" style="font-size:16px"></i>
-  </div>
-</div>
 
-<!-- 页顶标题 -->
-<div style="padding:12px 20px 4px;text-align:center">
-  <div style="font-size:22px;font-weight:900;color:var(--text-h);letter-spacing:-.02em">我的</div>
-</div>
-
-<div class="page-content" style="padding-top:8px">
+<div class="page-content" style="padding-top:16px">
 
   <!-- ═══ 指令1：设备管理卡片（大区域，luki 设备形象图） ═══ -->
   <a href="device-manage.html" class="device-card">
@@ -86,15 +73,19 @@
       </div>
       <span class="voiceprint-tag voiceprint-done"><i class="ph ph-waveform" style="font-size:12px"></i> 声纹已录</span>
     </div>
-    <!-- 家庭成员 -->
-    <div class="family-members-title">家庭成员</div>
+    <!-- 家庭成员声纹 -->
+    <div class="family-members-title">家庭成员声纹</div>
     <div class="family-member-row">
       <div class="family-member-avatar" style="background:linear-gradient(135deg,#60A5FA,#3B82F6)">爸</div>
       <div class="family-member-info">
         <div class="family-member-name">志远</div>
         <div class="family-member-sub">小莉的爸爸</div>
       </div>
-      <span class="voiceprint-tag voiceprint-done"><i class="ph ph-waveform" style="font-size:12px"></i> 声纹已录</span>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        <span onclick="event.preventDefault();alert('播放志远的声纹样本…')" style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-play" style="font-size:14px;color:#16A34A"></i></span>
+        <span onclick="event.preventDefault();alert('编辑志远的声纹')" style="width:28px;height:28px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-pencil-simple" style="font-size:14px;color:var(--text-sub)"></i></span>
+        <span onclick="event.preventDefault();alert('确认删除志远的声纹？')" style="width:28px;height:28px;border-radius:50%;background:rgba(239,68,68,.08);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-trash" style="font-size:14px;color:#EF4444"></i></span>
+      </div>
     </div>
     <div class="family-member-row">
       <div class="family-member-avatar" style="background:linear-gradient(135deg,#FBBF24,#F59E0B)">莉</div>
@@ -102,25 +93,20 @@
         <div class="family-member-name">小莉</div>
         <div class="family-member-sub">孩子 · 6岁</div>
       </div>
-      <span class="voiceprint-tag voiceprint-done"><i class="ph ph-waveform" style="font-size:12px"></i> 声纹已录</span>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+        <span onclick="event.preventDefault();alert('播放小莉的声纹样本…')" style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-play" style="font-size:14px;color:#16A34A"></i></span>
+        <span onclick="event.preventDefault();alert('编辑小莉的声纹')" style="width:28px;height:28px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-pencil-simple" style="font-size:14px;color:var(--text-sub)"></i></span>
+        <span onclick="event.preventDefault();alert('确认删除小莉的声纹？')" style="width:28px;height:28px;border-radius:50%;background:rgba(239,68,68,.08);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-trash" style="font-size:14px;color:#EF4444"></i></span>
+      </div>
     </div>
     <div class="family-member-row">
       <div class="family-member-avatar" style="background:linear-gradient(135deg,#C4B5FD,#8B5CF6)">+</div>
       <div class="family-member-info">
-        <div class="family-member-name" style="color:var(--text-sub)">添加家庭成员</div>
+        <div class="family-member-name" style="color:var(--text-sub)">添加家庭成员声纹</div>
       </div>
     </div>
   </div>
   </a>
-
-  <!-- 订阅卡片 -->
-  <div class="subscribe-card" onclick="alert('进入订阅页面')">
-    <div style="flex:1;position:relative;z-index:1">
-      <div style="font-size:15px;font-weight:700;margin-bottom:4px">升级 Premium</div>
-      <div style="font-size:12px;opacity:.85">解锁完整成长报告 · 时光回忆录 · 无限存储</div>
-    </div>
-    <div style="font-family:var(--font-en);font-size:22px;font-weight:800;position:relative;z-index:1">$39.9<span style="font-size:11px;font-weight:400;opacity:.7">/月</span></div>
-  </div>
 
   <!-- ═══ 指令3：家庭管理中去掉设备管理（已在顶部展示） ═══ -->
   <!-- 智能体 -->
@@ -151,6 +137,15 @@
       <div class="menu-text"><div class="menu-title">使用时长控制</div><div class="menu-sub">今日已用 1小时20分 / 2小时</div></div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
+  </div>
+
+  <!-- 订阅卡片（移到系统设置上方） -->
+  <div class="subscribe-card" onclick="alert('进入订阅页面')">
+    <div style="flex:1;position:relative;z-index:1">
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px">升级 Premium</div>
+      <div style="font-size:12px;opacity:.85">解锁完整成长报告 · 时光回忆录 · 无限存储</div>
+    </div>
+    <div style="font-family:var(--font-en);font-size:22px;font-weight:800;position:relative;z-index:1">$39.9<span style="font-size:11px;font-weight:400;opacity:.7">/月</span></div>
   </div>
 
   <!-- 系统设置 -->

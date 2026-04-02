@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 记录亲子时光</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+</head>
+<body>
+<div style="display:flex;align-items:center;padding:8px 16px 12px">
+  <a href="javascript:history.back()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center">
+    <i class="ph ph-caret-left" style="font-size:20px;color:var(--text-h)"></i>
+  </a>
+  <div style="flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)">记录亲子时光</div>
+  <div style="width:36px"></div>
+</div>
+<div class="page-content" style="padding-top:0">
+
+  <!-- 上传照片 -->
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:12px">添加照片</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <div onclick="alert('选择照片')" style="width:80px;height:80px;border-radius:var(--r-md);border:2px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer">
+        <i class="ph ph-camera" style="font-size:24px;color:var(--text-muted)"></i>
+        <span style="font-size:10px;color:var(--text-muted);margin-top:4px">拍照</span>
+      </div>
+      <div onclick="alert('从相册选择')" style="width:80px;height:80px;border-radius:var(--r-md);border:2px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer">
+        <i class="ph ph-image" style="font-size:24px;color:var(--text-muted)"></i>
+        <span style="font-size:10px;color:var(--text-muted);margin-top:4px">相册</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 录音 -->
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:12px">录一段声音</div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <button onclick="alert('开始录音…')" style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#FF8A65,#F97316);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(249,115,22,.3)">
+        <i class="ph ph-microphone" style="font-size:24px;color:white"></i>
+      </button>
+      <div style="flex:1">
+        <div style="font-size:13px;color:var(--text-sub)">点击按钮开始录音</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">记录这一刻的声音和笑声</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 文字描述 -->
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:12px">写点什么</div>
+    <textarea placeholder="记录这段美好时光的点滴…" style="width:100%;height:120px;border:1.5px solid var(--border);border-radius:var(--r-md);padding:12px;font-size:14px;font-family:var(--font-cn);color:var(--text-body);resize:none;outline:none;background:var(--bg-subtle)"></textarea>
+  </div>
+
+  <!-- 标签 -->
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:12px">添加标签</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <span style="padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--c-primary-light);color:var(--c-primary-dark);cursor:pointer">🎨 户外写生</span>
+      <span style="padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--bg-muted);color:var(--text-sub);cursor:pointer">📚 亲子阅读</span>
+      <span style="padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--bg-muted);color:var(--text-sub);cursor:pointer">🌳 户外探索</span>
+      <span style="padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--bg-muted);color:var(--text-sub);cursor:pointer">🎮 游戏时间</span>
+      <span style="padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--bg-muted);color:var(--text-sub);cursor:pointer">🍳 一起做饭</span>
+      <span style="padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--bg-muted);color:var(--text-sub);cursor:pointer">+ 自定义</span>
+    </div>
+  </div>
+
+  <!-- 保存按钮 -->
+  <button onclick="alert('亲子时光已保存！这段美好回忆会出现在时光回忆录中 ✨')" style="width:100%;padding:14px;background:linear-gradient(135deg,#FF8A65,#F97316);color:white;border:none;border-radius:var(--r-xl);font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn);box-shadow:0 4px 16px rgba(249,115,22,.3);margin-bottom:16px">保存这段时光</button>
+
+</div>
+</body>
+</html>

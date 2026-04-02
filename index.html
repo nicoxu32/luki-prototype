@@ -72,16 +72,6 @@
 </head>
 <body>
 
-<!-- 状态栏 -->
-<div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
-  <div class="s-icons">
-    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
-    <i class="ph ph-wifi-high" style="font-size:16px"></i>
-    <i class="ph ph-battery-full" style="font-size:16px"></i>
-  </div>
-</div>
-
 <!-- 指令1：顶部"详情"已去掉 -->
 
 <div class="page-content" style="padding-top:8px">
@@ -243,12 +233,11 @@
   <!-- 卡片 4：亲子留言 · 10:15（无图片，留言类别） -->
   <div class="flow-card msg-type" style="cursor:default">
     <div class="flow-body">
-      <div class="flow-heal-title">「每一句留言，都是爱的小纸条」</div>
-      <div class="flow-summary">小莉通过 luki 给你发了一条语音留言，声音里充满了兴奋和喜悦。</div>
-      <div class="flow-meta">
+      <div class="flow-meta" style="margin-bottom:6px">
         <span><i class="ph ph-clock" style="font-size:13px"></i> 10:15</span>
-        <span><i class="ph ph-envelope-simple" style="font-size:13px;color:var(--c-violet)"></i> 亲子留言</span>
       </div>
+      <div style="font-size:13px;font-weight:600;color:var(--c-violet);margin-bottom:4px"><i class="ph ph-envelope-simple" style="font-size:13px"></i> 小莉的留言</div>
+      <div class="flow-heal-title" style="margin-bottom:10px">「每一句留言，都是爱的小纸条」</div>
       <div class="audio-bar">
         <button class="audio-play" style="background:var(--c-violet);box-shadow:0 2px 8px rgba(139,92,246,.3)" onclick="this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
         <div class="audio-wave" style="background:linear-gradient(to right,#C4B5FD 38%,var(--border) 38%)"></div>

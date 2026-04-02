@@ -8,14 +8,6 @@
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 </head>
 <body>
-<div class="status-bar">
-  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
-  <div class="s-icons">
-    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
-    <i class="ph ph-wifi-high" style="font-size:16px"></i>
-    <i class="ph ph-battery-full" style="font-size:16px"></i>
-  </div>
-</div>
 <div style="display:flex;align-items:center;padding:8px 16px 12px">
   <a href="javascript:history.back()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center">
     <i class="ph ph-caret-left" style="font-size:20px;color:var(--text-h)"></i>
@@ -61,6 +53,9 @@
       <a href="#" class="menu-item" onclick="alert('确认恢复出厂设置？此操作不可撤销。')"><div class="menu-icon" style="background:#FEF2F2"><i class="ph ph-trash" style="font-size:20px;color:#EF4444"></i></div><div class="menu-text"><div class="menu-title" style="color:#EF4444">恢复出厂设置</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></a>
     </div>
   </div>
+
+  <!-- 绑定新设备按钮 -->
+  <button onclick="alert('开始绑定新设备…请确保 luki 设备已开机并处于配对模式')" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:var(--bg-card);border-radius:var(--r-xl);border:2px dashed var(--border);color:var(--text-sub);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-cn);margin-bottom:16px;transition:.15s" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'"><i class="ph ph-plus-circle" style="font-size:20px;color:var(--c-primary)"></i> 绑定新设备</button>
 
 </div>
 </body>
