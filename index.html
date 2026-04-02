@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 今日动态</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+/* ── 心情指数卡（独立卡片） ── */
+.mood-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:22px 20px;margin-bottom:12px}
+.mood-top{display:flex;align-items:center;gap:18px}
+.mood-ring{width:80px;height:80px;border-radius:50%;flex-shrink:0;background:conic-gradient(var(--c-primary) 0% 85%,var(--bg-muted) 85% 100%);display:flex;align-items:center;justify-content:center}
+.mood-ring-inner{width:62px;height:62px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-size:30px}
+.mood-right{flex:1}
+.mood-index-label{font-size:12px;color:var(--text-muted);font-weight:500;margin-bottom:2px}
+.mood-score-row{display:flex;align-items:center;gap:10px}
+.mood-score{font-size:46px;font-weight:800;color:var(--c-primary);font-family:var(--font-en);line-height:1}
+.mood-desc{font-size:14px;color:var(--text-sub);font-weight:500}
+
+/* ── 关键词+预警合并卡片 ── */
+.insight-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:14px}
+.keyword-section{margin-bottom:16px}
+.keyword-section-title{font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:10px}
+.keyword-tags{display:flex;flex-wrap:wrap;gap:8px;min-height:68px}
+.keyword-tag{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--bg-muted);color:var(--text-body);transition:transform .15s}
+.keyword-tag:active{transform:scale(.95)}
+.divider{height:1px;background:var(--border-light);margin:0 0 14px}
+.alert-section{position:relative;padding-bottom:4px}
+.alert-top-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.alert-danger-tag{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:#EF4444;color:white}
+.alert-title-text{font-size:15px;font-weight:700;color:var(--text-h)}
+
+.alert-body{font-size:13px;color:var(--text-sub);line-height:1.6;margin-bottom:4px}
+.alert-listen{font-size:12px;font-weight:600;color:#EF4444;position:absolute;bottom:4px;right:0;display:inline-flex;align-items:center;gap:3px;cursor:pointer}
+
+/* ── 情绪曲线 ── */
+.curve-section{margin-bottom:14px}
+.curve-wrap{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px}
+.curve-chart{width:100%;height:110px;margin-top:8px}
+.curve-chart svg{width:100%;height:100%}
+.curve-times{display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);font-family:var(--font-en);margin-top:4px;padding:0 2px}
+
+/* ── 小任务卡片 ── */
+.task-card-v2{background:linear-gradient(135deg,#FF8A65 0%,#F97316 100%);border-radius:var(--r-xl);padding:16px 18px;color:white;margin-bottom:14px;position:relative;overflow:hidden}
+.task-card-v2::before{content:'';position:absolute;right:-20px;bottom:-20px;width:90px;height:90px;background:rgba(255,255,255,.08);border-radius:50%}
+.task-content{font-size:14px;font-weight:500;line-height:1.6;margin-bottom:4px;position:relative;z-index:1}
+.task-record{font-size:12px;font-weight:600;color:rgba(255,255,255,.9);cursor:pointer;position:relative;z-index:1;display:flex;justify-content:flex-end}
+
+/* ── 时光流卡片 ── */
+.flow-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);overflow:hidden;margin-bottom:14px;display:block;color:inherit;text-decoration:none;transition:transform .15s;position:relative}
+.flow-card:active{transform:scale(.985)}
+.flow-img-placeholder{width:100%;height:140px;background:#F0EEE9;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--text-muted);border-radius:var(--r-lg)}
+.flow-body{padding:16px 18px}
+.flow-heal-title{font-size:16px;font-weight:700;color:var(--text-h);line-height:1.4;margin-bottom:10px}
+.flow-summary{font-size:13px;color:var(--text-sub);line-height:1.65;margin-bottom:10px}
+.flow-meta{display:flex;align-items:center;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--text-muted);margin-bottom:10px}
+.flow-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.flow-tags .chip{font-size:11px;padding:4px 10px}
+
+/* 卡片智能体标记（放在 meta 行右侧） */
+.flow-agent{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--text-body);cursor:pointer;margin-left:auto}
+.flow-agent i{font-size:13px}
+.flow-agent-lock{color:var(--text-muted);cursor:default}
+
+/* 树洞卡 */
+.flow-card.treehouse{border:1.5px dashed var(--c-teal);background:var(--c-teal-light)}
+
+/* 留言卡 */
+.flow-card.msg-type{border-left:3px solid var(--c-violet)}
+</style>
+</head>
+<body>
+
+<!-- 状态栏 -->
+<div class="status-bar">
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
+  <div class="s-icons">
+    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
+    <i class="ph ph-wifi-high" style="font-size:16px"></i>
+    <i class="ph ph-battery-full" style="font-size:16px"></i>
+  </div>
+</div>
+
+<!-- 指令1：顶部"详情"已去掉 -->
+
+<div class="page-content" style="padding-top:8px">
+
+  <!-- ===== 指令2a：心情综合指数（独立卡片） ===== -->
+  <div class="mood-card">
+    <div class="mood-top">
+      <div class="mood-ring"><div class="mood-ring-inner">😊</div></div>
+      <div class="mood-right">
+        <div class="mood-index-label">今日心情综合指数</div>
+        <div class="mood-score-row">
+          <div class="mood-score">85</div>
+          <div class="mood-desc">心情愉悦</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 指令2b：对话关键词 + 高危预警（合并卡片） ===== -->
+  <div class="insight-card">
+    <!-- 上半：对话关键词 -->
+    <div class="keyword-section">
+      <div class="keyword-section-title">对话关键词</div>
+      <div class="keyword-tags">
+        <span class="keyword-tag">😊 #学校交了新朋友</span>
+        <span class="keyword-tag">🎨 #画画课很开心</span>
+        <span class="keyword-tag">🤔 #数学作业有点难</span>
+        <span class="keyword-tag">🦕 #恐龙百科探索</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <!-- 下半：高危情绪检测 -->
+    <div class="alert-section" onclick="location.href='capsule-detail.html'">
+      <div class="alert-top-row">
+        <span class="alert-title-text">检测到高危情绪</span>
+        <span class="alert-danger-tag">#我想离家出走</span>
+      </div>
+      <div class="alert-body">孩子在对话中多次提到"考试好害怕，想要离家出走"，建议今晚陪她聊聊考试的感受。</div>
+      <span class="alert-listen">去听听 →</span>
+    </div>
+  </div>
+
+  <!-- ===== 指令3：今日情绪曲线（未到的时间无曲线） ===== -->
+  <div class="curve-section">
+    <div class="curve-wrap">
+      <div style="font-size:15px;font-weight:700;color:var(--text-h)">今日情绪曲线</div>
+      <div class="curve-chart">
+        <svg viewBox="0 0 340 110" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#F97316" stop-opacity=".18"/>
+              <stop offset="100%" stop-color="#F97316" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- 网格线 -->
+          <line x1="0" y1="27" x2="340" y2="27" stroke="#F0EEE9" stroke-width=".5"/>
+          <line x1="0" y1="55" x2="340" y2="55" stroke="#F0EEE9" stroke-width=".5"/>
+          <line x1="0" y1="82" x2="340" y2="82" stroke="#F0EEE9" stroke-width=".5"/>
+          <!-- 曲线只画到 17:45（约 x=255），之后无数据 -->
+          <!-- 时间映射：7:00=x0, 每小时=x20, 8:30=x30, 10:15=x65, 14:00=x140, 15:20=x167, 17:45=x215 -->
+          <path d="M0,45 C10,42 20,30 30,25 S55,20 65,22 S110,28 140,30 S155,65 167,78 S190,28 215,22" fill="none" stroke="#F97316" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M0,45 C10,42 20,30 30,25 S55,20 65,22 S110,28 140,30 S155,65 167,78 S190,28 215,22 L215,110 L0,110Z" fill="url(#cg)"/>
+          <!-- 数据点 -->
+          <circle cx="30" cy="25" r="3.5" fill="#F97316"/><!-- 8:30 -->
+          <circle cx="65" cy="22" r="3.5" fill="#F97316"/><!-- 10:15 -->
+          <circle cx="140" cy="30" r="3.5" fill="#F97316"/><!-- 14:00 -->
+          <circle cx="167" cy="78" r="4.5" fill="#EF4444" stroke="white" stroke-width="2"/><!-- 15:20 低谷 -->
+          <circle cx="215" cy="22" r="3.5" fill="#F97316"/><!-- 17:45 -->
+          <text x="167" y="96" font-size="8" fill="#EF4444" text-anchor="middle" font-family="DM Sans" font-weight="600">32分</text>
+          <!-- 17:45之后虚线表示未到时间 -->
+          <line x1="215" y1="22" x2="340" y2="22" stroke="#E8E6E2" stroke-width="1" stroke-dasharray="4,4"/>
+        </svg>
+      </div>
+      <div class="curve-times">
+        <span>7:00</span><span>9:00</span><span>11:00</span><span>13:00</span><span>15:00</span><span>17:00</span><span>19:00</span><span>21:00</span><span>23:00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 指令4：今日小任务（展示内容，去记录样式同去听听） ===== -->
+  <div class="section-title" style="margin:4px 0 10px">今日小任务</div>
+  <div class="task-card-v2">
+    <div class="task-content">今天小莉画了一只会飞的恐龙，她给恐龙取名叫"飞飞"。晚上可以和她聊聊这只小恐龙的冒险故事，也许她会很开心地分享更多细节。</div>
+    <div class="task-record"><span onclick="alert('已记录！谢谢你的用心陪伴 💛')" style="cursor:pointer">去记录 →</span></div>
+  </div>
+
+  <!-- ===== 指令5：今日时光流 ===== -->
+  <div class="section-title" style="margin:4px 0 12px">今日时光流</div>
+
+  <!-- 卡片 1：创意伙伴 · 17:45 -->
+  <a href="capsule-detail.html" class="flow-card">
+    <div class="flow-body">
+      <div class="flow-heal-title">「每一笔涂鸦，都是孩子心中的一片星空」</div>
+      <div class="flow-img-placeholder" style="margin:0 0 10px">图片占位 · 390 × 140</div>
+      <div class="flow-summary">小莉和创意伙伴一起完成了一幅想象画，展现了丰富的创造力。她给恐龙取名叫"飞飞"，还编了一个探险故事。</div>
+      <div class="flow-meta">
+        <span><i class="ph ph-clock" style="font-size:13px"></i> 17:45</span>
+        <span><i class="ph ph-timer" style="font-size:13px"></i> 18分钟</span>
+        <span><i class="ph ph-chat-circle" style="font-size:13px"></i> 12轮对话</span>
+        <span class="flow-agent"><i class="ph ph-palette"></i> 创意伙伴 <i class="ph ph-caret-right" style="font-size:12px"></i></span>
+      </div>
+      <div class="flow-tags">
+        <span class="chip chip-orange">😄 开心</span>
+        <span class="chip chip-blue">🎨 绘画</span>
+        <span class="chip chip-green">💡 创造力</span>
+      </div>
+      <div class="audio-bar">
+        <button class="audio-play" onclick="event.preventDefault();this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
+        <div class="audio-wave"></div>
+        <span class="audio-dur">0:42</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 卡片 2：情绪陪伴 · 15:20 -->
+  <a href="capsule-detail.html" class="flow-card">
+    <div class="flow-body">
+      <div class="flow-heal-title">「害怕的时候，深呼吸，你比想象中更勇敢」</div>
+      <div class="flow-img-placeholder" style="margin:0 0 10px">图片占位 · 390 × 140</div>
+      <div class="flow-summary">小莉表达了对考试的焦虑，情绪陪伴引导她做了深呼吸练习，并一起回顾了她擅长的科目，情绪逐渐缓解。</div>
+      <div class="flow-meta">
+        <span><i class="ph ph-clock" style="font-size:13px"></i> 15:20</span>
+        <span><i class="ph ph-timer" style="font-size:13px"></i> 12分钟</span>
+        <span><i class="ph ph-chat-circle" style="font-size:13px"></i> 8轮对话</span>
+        <span class="flow-agent"><i class="ph ph-heart"></i> 情绪陪伴 <i class="ph ph-caret-right" style="font-size:12px"></i></span>
+      </div>
+      <div class="flow-tags">
+        <span class="chip chip-red">😰 焦虑</span>
+        <span class="chip chip-violet">📚 考试</span>
+        <span class="chip chip-muted">🧘 放松</span>
+      </div>
+      <div class="audio-bar">
+        <button class="audio-play" style="background:#EF4444;box-shadow:0 2px 8px rgba(239,68,68,.3)" onclick="event.preventDefault();this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
+        <div class="audio-wave" style="background:linear-gradient(to right,#FCA5A5 38%,var(--border) 38%)"></div>
+        <span class="audio-dur">1:15</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 卡片 3：树洞模式 · 14:00（锁图标，不可点击） -->
+  <div class="flow-card treehouse" style="cursor:default">
+    <div class="flow-body">
+      <div class="flow-heal-title">「有些话说出来，心就轻了一点点」</div>
+      <div class="flow-img-placeholder" style="margin:0 0 10px">图片占位 · 390 × 140</div>
+      <div class="flow-summary" style="font-style:italic">树洞模式已开启，仅展示 AI 情绪总结。小莉进行了一次 8 分钟的私密对话，整体情绪平稳，无异常波动。</div>
+      <div class="flow-meta">
+        <span><i class="ph ph-clock" style="font-size:13px"></i> 14:00</span>
+        <span><i class="ph ph-timer" style="font-size:13px"></i> 8分钟</span>
+        <span><i class="ph ph-chat-circle" style="font-size:13px"></i> 8轮对话</span>
+        <span class="flow-agent flow-agent-lock"><i class="ph ph-lock-simple"></i> 树洞模式</span>
+      </div>
+      <div class="flow-tags">
+        <span class="chip chip-teal">🌿 平静</span>
+        <span class="chip chip-muted">🔒 隐私保护中</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 卡片 4：亲子留言 · 10:15（无图片，留言类别） -->
+  <div class="flow-card msg-type" style="cursor:default">
+    <div class="flow-body">
+      <div class="flow-heal-title">「每一句留言，都是爱的小纸条」</div>
+      <div class="flow-summary">小莉通过 luki 给你发了一条语音留言，声音里充满了兴奋和喜悦。</div>
+      <div class="flow-meta">
+        <span><i class="ph ph-clock" style="font-size:13px"></i> 10:15</span>
+        <span><i class="ph ph-envelope-simple" style="font-size:13px;color:var(--c-violet)"></i> 亲子留言</span>
+      </div>
+      <div class="audio-bar">
+        <button class="audio-play" style="background:var(--c-violet);box-shadow:0 2px 8px rgba(139,92,246,.3)" onclick="this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
+        <div class="audio-wave" style="background:linear-gradient(to right,#C4B5FD 38%,var(--border) 38%)"></div>
+        <span class="audio-dur">0:18</span>
+      </div>
+      <div style="margin-top:12px">
+        <a href="send-message.html" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--r-full);background:var(--c-violet-light);color:#6D28D9;font-size:13px;font-weight:600;text-decoration:none">
+          <i class="ph ph-arrow-bend-up-left"></i> 回复留言
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 卡片 5：故事大王 · 8:30 -->
+  <a href="capsule-detail.html" class="flow-card">
+    <div class="flow-body">
+      <div class="flow-heal-title">「想象力是最好的翅膀，带你飞向任何地方」</div>
+      <div class="flow-img-placeholder" style="margin:0 0 10px">图片占位 · 390 × 140</div>
+      <div class="flow-summary">小莉和故事大王一起创作了一个关于小恐龙探险的故事，想象力丰富，全程情绪愉快。</div>
+      <div class="flow-meta">
+        <span><i class="ph ph-clock" style="font-size:13px"></i> 8:30</span>
+        <span><i class="ph ph-timer" style="font-size:13px"></i> 15分钟</span>
+        <span><i class="ph ph-chat-circle" style="font-size:13px"></i> 10轮对话</span>
+        <span class="flow-agent"><i class="ph ph-book-open"></i> 故事大王 <i class="ph ph-caret-right" style="font-size:12px"></i></span>
+      </div>
+      <div class="flow-tags">
+        <span class="chip chip-orange">😄 开心</span>
+        <span class="chip chip-blue">📖 故事</span>
+        <span class="chip chip-green">🦕 恐龙</span>
+      </div>
+      <div class="audio-bar">
+        <button class="audio-play" onclick="event.preventDefault();this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
+        <div class="audio-wave"></div>
+        <span class="audio-dur">0:55</span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<!-- Tab Bar -->
+<nav class="tab-bar">
+  <a href="index.html" class="tab-item active">
+    <div class="tab-icon-wrap"><i class="ph-fill ph-sun-horizon" style="font-size:22px;color:var(--c-primary)"></i></div>
+    <span class="tab-label" style="color:var(--c-primary)">今日动态</span>
+  </a>
+  <a href="growth.html" class="tab-item">
+    <div class="tab-icon-wrap"><i class="ph ph-chart-line-up" style="font-size:22px;color:var(--text-muted)"></i></div>
+    <span class="tab-label">成长趋势</span>
+  </a>
+  <a href="moments.html" class="tab-item">
+    <div class="tab-icon-wrap"><i class="ph ph-clock-countdown" style="font-size:22px;color:var(--text-muted)"></i></div>
+    <span class="tab-label">时光机</span>
+  </a>
+  <a href="profile.html" class="tab-item">
+    <div class="tab-icon-wrap"><i class="ph ph-user-circle" style="font-size:22px;color:var(--text-muted)"></i></div>
+    <span class="tab-label">我的</span>
+  </a>
+</nav>
+
+</body>
+</html>

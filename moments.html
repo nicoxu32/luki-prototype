@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 时光机</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+/* ── 留言卡片（沿用 Tab1 留言卡样式） ── */
+.msg-flow-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);border-left:3px solid var(--c-violet);padding:16px 18px;margin-bottom:10px}
+.msg-heal-title{font-size:15px;font-weight:700;color:var(--text-h);line-height:1.5;margin-bottom:8px}
+.msg-summary{font-size:13px;color:var(--text-sub);line-height:1.6;margin-bottom:10px}
+.msg-meta{display:flex;align-items:center;gap:14px;font-size:11px;color:var(--text-muted);margin-bottom:10px}
+.msg-meta i{vertical-align:-1px}
+.msg-audio-bar{display:flex;align-items:center;gap:10px;background:var(--bg-muted);border-radius:var(--r-full);padding:8px 14px}
+.msg-audio-play{width:32px;height:32px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;color:white;cursor:pointer;flex-shrink:0;background:var(--c-violet);box-shadow:0 2px 8px rgba(139,92,246,.3)}
+.msg-audio-wave{flex:1;height:4px;border-radius:2px;background:var(--border)}
+.msg-audio-dur{font-size:11px;font-family:var(--font-en);color:var(--text-muted);flex-shrink:0}
+.msg-reply-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--r-full);background:var(--c-violet-light);color:#6D28D9;font-size:13px;font-weight:600;text-decoration:none;margin-top:10px}
+
+/* ── 亲子时光任务 ── */
+.task-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border-light)}
+.task-item:last-child{border-bottom:none}
+.task-icon-placeholder{width:40px;height:40px;border-radius:var(--r-md);background:var(--bg-muted);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:var(--text-muted)}
+.task-text{flex:1}
+.task-text-title{font-size:13px;font-weight:600;color:var(--text-h)}
+.task-text-desc{font-size:12px;color:var(--text-muted);margin-top:2px}
+
+/* ── 记录亲子时光按钮 ── */
+.record-moment-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;padding:24px 16px;background:var(--bg-card);border-radius:var(--r-xl);border:2px dashed var(--border);margin-top:12px;cursor:pointer;transition:.15s}
+.record-moment-btn:active{transform:scale(.98)}
+.record-moment-icon{width:40px;height:40px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.record-moment-title{font-size:14px;font-weight:600;color:var(--text-h);margin-bottom:4px}
+.record-moment-desc{font-size:12px;color:var(--text-muted)}
+
+/* ── 时光回忆录卡片（深色风格） ── */
+.memory-dark-card{background:#2C2C2E;border-radius:var(--r-xl);padding:18px;margin-bottom:12px;color:white;position:relative;overflow:hidden}
+.memory-dark-type{font-size:11px;font-weight:700;padding:3px 10px;border-radius:var(--r-full);display:inline-block;margin-bottom:8px}
+.memory-dark-type.monthly{background:rgba(255,193,7,.2);color:#FFD54F}
+.memory-dark-type.highlight{background:rgba(255,235,59,.15);color:#FFF176}
+.memory-dark-type.offline{background:rgba(76,175,80,.2);color:#81C784}
+.memory-dark-type.letter{background:rgba(186,104,200,.2);color:#CE93D8}
+.memory-dark-title{font-size:16px;font-weight:800;margin-bottom:6px;line-height:1.4}
+.memory-dark-stats{font-size:12px;color:rgba(255,255,255,.6);margin-bottom:14px}
+.memory-dark-cover{width:100%;height:100px;background:#3A3A3C;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:12px;color:rgba(255,255,255,.35);margin-bottom:12px}
+.memory-dark-audio{display:flex;align-items:center;gap:10px;background:#3A3A3C;border-radius:var(--r-full);padding:10px 14px;margin-bottom:10px}
+.memory-dark-play{width:36px;height:36px;border-radius:50%;background:#FFC107;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:#2C2C2E}
+.memory-dark-wave{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.15)}
+.memory-dark-wave-fill{height:100%;border-radius:2px;background:rgba(255,255,255,.4)}
+.memory-dark-dur{font-size:12px;font-family:var(--font-en);color:rgba(255,255,255,.5);flex-shrink:0}
+.memory-dark-premium{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:#FFC107;justify-content:flex-end;margin-top:6px}
+.memory-dark-desc{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:10px}
+.memory-dark-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.memory-dark-chip{font-size:10px;padding:3px 10px;border-radius:var(--r-full);background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
+
+/* ── 留言长按钮 ── */
+.leave-msg-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:linear-gradient(135deg,#AB47BC,#7E57C2);border-radius:var(--r-xl);color:white;font-size:15px;font-weight:700;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(126,87,194,.3);margin-top:12px;margin-bottom:16px;transition:.15s;font-family:var(--font-cn)}
+.leave-msg-btn:active{transform:scale(.97)}
+</style>
+</head>
+<body>
+<div class="status-bar">
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
+  <div class="s-icons">
+    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
+    <i class="ph ph-wifi-high" style="font-size:16px"></i>
+    <i class="ph ph-battery-full" style="font-size:16px"></i>
+  </div>
+</div>
+
+<!-- 指令1：页顶标题仅展示"时光机"，沿用现有颜色 -->
+<div style="padding:12px 20px 4px;text-align:center">
+  <div style="font-size:22px;font-weight:900;color:var(--text-h);letter-spacing:-.02em"><span style="color:var(--c-primary)">时光</span>机</div>
+</div>
+
+<div class="page-content" style="padding-top:8px">
+
+  <!-- ═══ 留言板 ═══ -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text-h)">留言板</div>
+    <a href="messages-parent.html" style="font-size:12px;font-weight:600;color:var(--c-primary);text-decoration:none">历史留言 →</a>
+  </div>
+
+  <!-- 指令2：留言卡片沿用 Tab1 留言卡样式 -->
+  <!-- 留言1：小莉 -->
+  <div class="msg-flow-card">
+    <div class="msg-heal-title">「每一句留言，都是爱的小纸条」</div>
+    <div class="msg-summary">小莉通过 luki 给你发了一条语音留言，声音里充满了兴奋和喜悦。</div>
+    <div class="msg-meta">
+      <span><i class="ph ph-clock" style="font-size:13px"></i> 10:15</span>
+      <span><i class="ph ph-envelope-simple" style="font-size:13px;color:var(--c-violet)"></i> 小莉的留言</span>
+    </div>
+    <div class="msg-audio-bar">
+      <button class="msg-audio-play" onclick="this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
+      <div class="msg-audio-wave" style="background:linear-gradient(to right,#C4B5FD 38%,var(--border) 38%)"></div>
+      <span class="msg-audio-dur">0:18</span>
+    </div>
+    <a href="send-message.html" class="msg-reply-btn"><i class="ph ph-arrow-bend-up-left"></i> 回复留言</a>
+  </div>
+
+  <!-- 留言2：luki -->
+  <div class="msg-flow-card">
+    <div class="msg-heal-title">「小莉今天的笑声特别多呢」</div>
+    <div class="msg-summary">luki 为你总结了小莉今天的精彩瞬间，她和新朋友聊了好多有趣的话题。</div>
+    <div class="msg-meta">
+      <span><i class="ph ph-clock" style="font-size:13px"></i> 17:50</span>
+      <span><i class="ph ph-envelope-simple" style="font-size:13px;color:var(--c-violet)"></i> luki 的留言</span>
+    </div>
+    <div class="msg-audio-bar">
+      <button class="msg-audio-play" onclick="this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
+      <div class="msg-audio-wave" style="background:linear-gradient(to right,#C4B5FD 25%,var(--border) 25%)"></div>
+      <span class="msg-audio-dur">0:32</span>
+    </div>
+  </div>
+
+  <!-- 留言3：爸爸 -->
+  <div class="msg-flow-card">
+    <div class="msg-heal-title">「爸爸出差也想着你哦」</div>
+    <div class="msg-summary">爸爸给小莉发了一条语音，告诉她出差回来带了一个小惊喜。</div>
+    <div class="msg-meta">
+      <span><i class="ph ph-clock" style="font-size:13px"></i> 昨天</span>
+      <span><i class="ph ph-envelope-simple" style="font-size:13px;color:var(--c-violet)"></i> 爸爸的留言</span>
+    </div>
+    <div class="msg-audio-bar">
+      <button class="msg-audio-play" onclick="this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
+      <div class="msg-audio-wave" style="background:linear-gradient(to right,#C4B5FD 60%,var(--border) 60%)"></div>
+      <span class="msg-audio-dur">0:12</span>
+    </div>
+  </div>
+
+  <!-- 指令3：留言按钮放在留言板内容下方，长按钮 -->
+  <button class="leave-msg-btn" onclick="location.href='send-message.html'">
+    <i class="ph ph-microphone" style="font-size:18px"></i> 给孩子留言
+  </button>
+
+  <!-- ═══ 建立亲子时光 ═══ -->
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">建立亲子时光</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:0">
+    <!-- 指令4：图标改为占位符 -->
+    <div class="task-item">
+      <div class="task-icon-placeholder">40×40</div>
+      <div class="task-text">
+        <div class="task-text-title">一起画一幅家庭画</div>
+        <div class="task-text-desc">小莉最近对绘画兴趣浓厚，试试和她一起画全家福吧</div>
+      </div>
+    </div>
+    <div class="task-item">
+      <div class="task-icon-placeholder">40×40</div>
+      <div class="task-text">
+        <div class="task-text-title">去自然博物馆看恐龙化石</div>
+        <div class="task-text-desc">小莉对恐龙的兴趣持续增长，带她去实地探索吧</div>
+      </div>
+    </div>
+    <div class="task-item" style="border-bottom:none">
+      <div class="task-icon-placeholder">40×40</div>
+      <div class="task-text">
+        <div class="task-text-title">睡前一起读一本故事书</div>
+        <div class="task-text-desc">小莉喜欢探险故事，推荐《小恐龙的星球之旅》</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 指令4：记录亲子时光直接放在任务下方 -->
+  <a href="add-memory.html" style="text-decoration:none">
+    <div class="record-moment-btn">
+      <div class="record-moment-icon"><i class="ph ph-camera" style="font-size:20px;color:var(--text-muted)"></i></div>
+      <div class="record-moment-title">记录一段亲子时光</div>
+      <div class="record-moment-desc">上传照片、录音或文字，留住美好瞬间</div>
+    </div>
+  </a>
+
+  <!-- ═══ 时光回忆录（指令5：深色卡片风格） ═══ -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text-h)">时光回忆录</div>
+    <span style="font-size:11px;font-weight:600;color:var(--c-violet);background:var(--c-violet-light);padding:3px 10px;border-radius:var(--r-full)">Premium</span>
+  </div>
+
+  <!-- 月度回忆混剪 -->
+  <div class="memory-dark-card" onclick="alert('订阅 Premium 解锁时光回忆录')">
+    <span class="memory-dark-type monthly">🎬 月度回忆混剪</span>
+    <div class="memory-dark-title">2026年3月 · 小莉的成长之旅</div>
+    <div class="memory-dark-stats">32 段对话 · 8 次线下记录 · 15 个里程碑</div>
+    <div class="memory-dark-cover">音频混剪封面 · 358 × 100</div>
+    <div class="memory-dark-audio">
+      <button class="memory-dark-play" onclick="event.stopPropagation();this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:16px"></i></button>
+      <div class="memory-dark-wave"><div class="memory-dark-wave-fill" style="width:0%"></div></div>
+      <span class="memory-dark-dur">3:28</span>
+    </div>
+    <div class="memory-dark-premium">👑 Premium</div>
+  </div>
+
+  <!-- 闪光对话卡 -->
+  <div class="memory-dark-card" onclick="alert('订阅 Premium 解锁时光回忆录')">
+    <span class="memory-dark-type highlight">✨ 闪光对话</span>
+    <div class="memory-dark-title">"妈妈，我长大了想当画家！"</div>
+    <div class="memory-dark-desc">3月28日，小莉在和创意伙伴的对话中第一次表达了自己的梦想，语气中充满了期待和自信。</div>
+    <div class="memory-dark-cover">对话场景封面 · 358 × 100</div>
+    <div class="memory-dark-premium">👑 Premium</div>
+  </div>
+
+  <!-- 线下时光卡 -->
+  <div class="memory-dark-card" onclick="alert('订阅 Premium 解锁时光回忆录')">
+    <span class="memory-dark-type offline">🌳 线下时光</span>
+    <div class="memory-dark-title">周末公园野餐</div>
+    <div class="memory-dark-desc">3月23日，全家人一起去公园野餐，小莉在草地上画了一幅风景画。</div>
+    <div class="memory-dark-cover">照片封面 · 358 × 100</div>
+    <div class="memory-dark-chips">
+      <span class="memory-dark-chip">🎨 户外写生</span>
+      <span class="memory-dark-chip">🌸 春天</span>
+      <span class="memory-dark-chip">👨‍👩‍👧 全家</span>
+    </div>
+    <div class="memory-dark-premium">👑 Premium</div>
+  </div>
+
+  <!-- 留言信件卡 -->
+  <div class="memory-dark-card" onclick="alert('订阅 Premium 解锁时光回忆录')">
+    <span class="memory-dark-type letter">💌 留言信件</span>
+    <div class="memory-dark-title">小莉给妈妈的第一封信</div>
+    <div class="memory-dark-desc">"妈妈我爱你，你是世界上最好的妈妈！" —— 来自小莉的语音留言沉淀</div>
+    <div class="memory-dark-audio">
+      <button class="memory-dark-play" onclick="event.stopPropagation();this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:16px"></i></button>
+      <div class="memory-dark-wave"><div class="memory-dark-wave-fill" style="width:0%"></div></div>
+      <span class="memory-dark-dur">0:45</span>
+    </div>
+    <div class="memory-dark-premium">👑 Premium</div>
+  </div>
+
+</div>
+
+<!-- Tab Bar（与 Tab1 定稿一致） -->
+<nav class="tab-bar">
+  <a href="index.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-sun-horizon" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">今日动态</span></a>
+  <a href="growth.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-chart-line-up" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">成长趋势</span></a>
+  <a href="moments.html" class="tab-item active"><div class="tab-icon-wrap"><i class="ph-fill ph-clock-countdown" style="font-size:22px;color:var(--c-primary)"></i></div><span class="tab-label" style="color:var(--c-primary)">时光机</span></a>
+  <a href="profile.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-user-circle" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">我的</span></a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 成长趋势</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+/* ── 综合心情指数卡（与 Tab1 风格一致） ── */
+.growth-mood-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:22px 20px;margin-bottom:12px}
+.growth-mood-top{display:flex;align-items:center;gap:18px}
+.growth-ring{width:80px;height:80px;border-radius:50%;flex-shrink:0;background:conic-gradient(#22C55E 0% 78%,var(--bg-muted) 78% 100%);display:flex;align-items:center;justify-content:center}
+.growth-ring-inner{width:62px;height:62px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;font-size:30px}
+.growth-mood-right{flex:1}
+.growth-index-label{font-size:12px;color:var(--text-muted);font-weight:500;margin-bottom:2px}
+.growth-score-row{display:flex;align-items:center;gap:10px}
+.growth-score{font-size:46px;font-weight:800;color:#22C55E;font-family:var(--font-en);line-height:1}
+.growth-desc{font-size:14px;color:var(--text-sub);font-weight:500}
+.growth-sub{font-size:11px;color:var(--text-muted);margin-top:4px}
+.growth-stats{display:flex;gap:8px;margin-top:16px}
+.growth-stat{flex:1;background:var(--bg-muted);border-radius:var(--r-lg);padding:12px 10px;text-align:center}
+.growth-stat-val{font-size:20px;font-weight:800;color:var(--text-h);font-family:var(--font-en);line-height:1}
+.growth-stat-val span{font-size:11px;font-weight:400;color:var(--text-muted)}
+.growth-stat-lbl{font-size:10px;color:var(--text-muted);margin-top:4px}
+
+/* ── 情绪标签气泡 ── */
+.topic-bubble{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:var(--r-full);font-weight:700;color:white;cursor:pointer;transition:.15s;text-decoration:none}
+.topic-bubble:active{transform:scale(.95)}
+
+/* ── 学习统计网格 ── */
+.learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.learn-cell{background:var(--bg-muted);border-radius:var(--r-md);padding:10px 12px;text-align:center}
+.learn-val{font-family:var(--font-en);font-size:20px;font-weight:800;color:var(--text-h);line-height:1}
+.learn-lbl{font-size:11px;color:var(--text-muted);margin-top:3px}
+.learn-cmp{font-size:10px;font-weight:600;margin-top:2px}
+
+/* ── 小任务卡（与 Tab1 一致） ── */
+.task-card-v2{background:linear-gradient(135deg,#FF8A65 0%,#F97316 100%);border-radius:var(--r-xl);padding:16px 18px;color:white;margin-bottom:14px;position:relative;overflow:hidden}
+.task-card-v2::before{content:'';position:absolute;right:-20px;bottom:-20px;width:90px;height:90px;background:rgba(255,255,255,.08);border-radius:50%}
+.task-content{font-size:14px;font-weight:500;line-height:1.6;margin-bottom:4px;position:relative;z-index:1}
+.task-record{font-size:12px;font-weight:600;color:rgba(255,255,255,.9);cursor:pointer;position:relative;z-index:1;display:flex;justify-content:flex-end}
+</style>
+</head>
+<body>
+
+<!-- 状态栏 -->
+<div class="status-bar">
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
+  <div class="s-icons">
+    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
+    <i class="ph ph-wifi-high" style="font-size:16px"></i>
+    <i class="ph ph-battery-full" style="font-size:16px"></i>
+  </div>
+</div>
+
+<!-- 指令1：标题居中，去掉历史记录 -->
+<div style="padding:12px 20px 4px;text-align:center">
+  <div style="font-size:22px;font-weight:800;color:var(--text-h)">成长趋势</div>
+</div>
+
+<div class="page-content" style="padding-top:8px">
+
+  <!-- 时间段切换（可交互） -->
+  <div class="seg">
+    <button class="seg-btn active" id="tab7" onclick="switchTab('7day')">最近 7 天</button>
+    <button class="seg-btn" id="tab30" onclick="switchTab('30day')" style="position:relative">最近 30 天 <span style="display:inline-block;background:#1a1a1a;color:white;font-size:8px;font-weight:800;padding:1px 4px;border-radius:3px;vertical-align:super;margin-left:2px;letter-spacing:.5px;font-family:var(--font-en)">PRO</span></button>
+    <button class="seg-btn" id="tabAll" onclick="switchTab('all')" style="position:relative">全部历史 <span style="display:inline-block;background:#1a1a1a;color:white;font-size:8px;font-weight:800;padding:1px 4px;border-radius:3px;vertical-align:super;margin-left:2px;letter-spacing:.5px;font-family:var(--font-en)">PRO</span></button>
+  </div>
+
+  <!-- 订阅遮罩（点击30天/全部历史时显示，与底部订阅模块100%一致） -->
+  <div id="paywall-overlay" style="display:none;background:linear-gradient(135deg,#7E57C2,#AB47BC);border-radius:var(--r-xl);padding:20px;color:white;margin-bottom:14px;position:relative;overflow:hidden;text-align:center">
+    <div style="position:absolute;right:-30px;top:-30px;width:100px;height:100px;background:rgba(255,255,255,.1);border-radius:50%"></div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:10px;position:relative;z-index:1">解锁 30 天趋势、全部历史数据完整成长报告</div>
+    <div style="font-family:var(--font-en);font-size:28px;font-weight:700;margin-bottom:12px;position:relative;z-index:1">$39.9<span style="font-size:14px;font-weight:400;opacity:.8">/月</span></div>
+    <button style="display:inline-block;padding:10px 28px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:var(--r-full);color:white;font-size:14px;font-weight:600;cursor:pointer;position:relative;z-index:1">立即订阅</button>
+  </div>
+
+  <!-- 主内容区域 -->
+  <div id="main-content">
+
+  <!-- 指令3：综合心情指数（与 Tab1 结构一致） -->
+  <div class="growth-mood-card">
+    <div class="growth-mood-top">
+      <div class="growth-ring"><div class="growth-ring-inner">🌟</div></div>
+      <div class="growth-mood-right">
+        <div class="growth-index-label">综合心情指数</div>
+        <div class="growth-score-row">
+          <div class="growth-score">78</div>
+          <div class="growth-desc">情绪稳定</div>
+        </div>
+        <div class="growth-sub">较上周 ↑ 6 分</div>
+      </div>
+    </div>
+    <div class="growth-stats">
+      <div class="growth-stat">
+        <div class="growth-stat-val">32<span>次</span></div>
+        <div class="growth-stat-lbl">总对话次数</div>
+      </div>
+      <div class="growth-stat">
+        <div class="growth-stat-val">4.2<span>小时</span></div>
+        <div class="growth-stat-lbl">总对话时长</div>
+      </div>
+      <div class="growth-stat">
+        <div class="growth-stat-val">6<span>/7</span></div>
+        <div class="growth-stat-lbl">连续天数</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 情绪总结 -->
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:8px">本周情绪总结</div>
+    <div style="font-size:13px;color:var(--text-sub);line-height:1.7">小莉本周整体情绪积极，开心情绪占比最高（58%）。周三因考试出现短暂焦虑，但通过深呼吸练习后恢复。对恐龙和绘画的兴趣持续增长，社交能力有明显进步。</div>
+  </div>
+
+  <!-- 指令4：情绪日历热力图（点击跳转 Tab1） -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text-h)">情绪日历</div>
+  </div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px">
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:4px;text-align:center;font-size:10px;color:var(--text-muted);font-weight:600">
+      <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+    </div>
+    <div class="heatmap-grid">
+      <a href="index.html" class="hm-cell hm-4" style="text-decoration:none;color:white;font-size:9px;font-weight:700">85</a>
+      <a href="index.html" class="hm-cell hm-3" style="text-decoration:none;color:white;font-size:9px;font-weight:700">72</a>
+      <a href="index.html" class="hm-cell hm-1" style="text-decoration:none;color:#9A3412;font-size:9px;font-weight:700">45</a>
+      <a href="index.html" class="hm-cell hm-3" style="text-decoration:none;color:white;font-size:9px;font-weight:700">68</a>
+      <a href="index.html" class="hm-cell hm-4" style="text-decoration:none;color:white;font-size:9px;font-weight:700">82</a>
+      <a href="index.html" class="hm-cell hm-5" style="text-decoration:none;color:white;font-size:9px;font-weight:700">91</a>
+      <a href="index.html" class="hm-cell hm-4 hm-today" style="text-decoration:none;color:white;font-size:9px;font-weight:700">85</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:10px;justify-content:flex-end">
+      <span style="font-size:10px;color:var(--text-muted)">低</span>
+      <div style="width:12px;height:12px;border-radius:3px;background:#FED7AA"></div>
+      <div style="width:12px;height:12px;border-radius:3px;background:#FDBA74"></div>
+      <div style="width:12px;height:12px;border-radius:3px;background:#FB923C"></div>
+      <div style="width:12px;height:12px;border-radius:3px;background:var(--c-primary)"></div>
+      <div style="width:12px;height:12px;border-radius:3px;background:var(--c-primary-dark)"></div>
+      <span style="font-size:10px;color:var(--text-muted)">高</span>
+    </div>
+  </div>
+
+  <!-- 情绪标签分布（去掉点击查看详情） -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text-h)">情绪标签分布</div>
+  </div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div class="bubble-wrap">
+      <a href="emotion-detail.html" class="bubble" style="width:82px;height:82px;background:var(--mood-happy-bg);text-decoration:none">
+        <div class="bubble-emoji" style="font-size:28px">😄</div>
+        <div class="bubble-label" style="color:#F57F17">开心</div>
+        <div class="bubble-count">18次</div>
+      </a>
+      <a href="emotion-detail.html" class="bubble" style="width:64px;height:64px;background:var(--mood-curious-bg);text-decoration:none">
+        <div class="bubble-emoji" style="font-size:22px">🔍</div>
+        <div class="bubble-label" style="color:#0277BD">好奇</div>
+        <div class="bubble-count">12次</div>
+      </a>
+      <a href="emotion-detail.html" class="bubble" style="width:56px;height:56px;background:var(--mood-calm-bg);text-decoration:none">
+        <div class="bubble-emoji" style="font-size:20px">🌿</div>
+        <div class="bubble-label" style="color:#2E7D32">平静</div>
+        <div class="bubble-count">8次</div>
+      </a>
+      <a href="emotion-detail.html" class="bubble" style="width:46px;height:46px;background:var(--mood-anxious-bg);text-decoration:none">
+        <div class="bubble-emoji" style="font-size:18px">😰</div>
+        <div class="bubble-label" style="color:#7B1FA2">焦虑</div>
+        <div class="bubble-count">3次</div>
+      </a>
+      <a href="emotion-detail.html" class="bubble" style="width:40px;height:40px;background:var(--mood-sad-bg);text-decoration:none">
+        <div class="bubble-emoji" style="font-size:16px">😢</div>
+        <div class="bubble-label" style="color:#546E7A">沮丧</div>
+        <div class="bubble-count">1次</div>
+      </a>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:8px">
+      <span style="font-size:10px;color:var(--text-muted)">气泡越大代表出现频次越高</span>
+    </div>
+  </div>
+
+  <!-- 兴趣与探索（去掉点击查看详情） -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text-h)">兴趣与探索</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#F97316,#FB923C);font-size:15px;box-shadow:0 4px 12px rgba(249,115,22,.28)">🦕 恐龙 · 15次</a>
+    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#3B82F6,#60A5FA);font-size:14px">🎨 绘画 · 11次</a>
+    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA);font-size:13px">🌟 太空 · 7次</a>
+    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#06B6D4,#67E8F9);font-size:12px">🐱 小动物 · 5次</a>
+    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#22C55E,#4ADE80);font-size:12px">🌸 花朵 · 3次</a>
+  </div>
+
+  <!-- 指令7：学习与成长（去掉"基于学习类智能体的统计"文案） -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div style="font-size:16px;font-weight:700;color:var(--text-h)">学习与成长</div>
+  </div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
+    <div class="learn-grid">
+      <div class="learn-cell">
+        <div class="learn-val">59<span style="font-size:12px;font-weight:400;color:var(--text-muted)">分钟</span></div>
+        <div class="learn-lbl">本周学习时长</div>
+        <div class="learn-cmp" style="color:#22C55E">↑ 比上周多 12 分钟</div>
+      </div>
+      <div class="learn-cell">
+        <div class="learn-val">8<span style="font-size:12px;font-weight:400;color:var(--text-muted)">次</span></div>
+        <div class="learn-lbl">对话次数</div>
+        <div class="learn-cmp" style="color:#22C55E">↑ 比上周多 3 次</div>
+      </div>
+      <div class="learn-cell">
+        <div class="learn-val">6<span style="font-size:12px;font-weight:400;color:var(--text-muted)">/7天</span></div>
+        <div class="learn-lbl">连续学习天数</div>
+        <div class="learn-cmp" style="color:var(--c-primary)">即将 7 天连续</div>
+      </div>
+      <div class="learn-cell">
+        <div class="learn-val" style="font-size:16px">英语小教练</div>
+        <div class="learn-lbl">使用最多的智能体</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 指令8：近期亲子小任务（与 Tab1 样式一致，去掉标题，只保留内容） -->
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">近期亲子小任务</div>
+  <div class="task-card-v2">
+    <div class="task-content">小莉本周对绘画兴趣大增，试着带她去户外画画，感受大自然的色彩吧！</div>
+    <div class="task-record"><span onclick="alert('已记录！谢谢你的用心陪伴 💛')" style="cursor:pointer">去记录 →</span></div>
+  </div>
+
+  <!-- 指令9：里程碑模块已去掉 -->
+
+  <!-- 订阅引导 -->
+  <div id="subscribe-card" style="background:linear-gradient(135deg,#7E57C2,#AB47BC);border-radius:var(--r-xl);padding:20px;color:white;margin-bottom:14px;position:relative;overflow:hidden;text-align:center">
+    <div style="position:absolute;right:-30px;top:-30px;width:100px;height:100px;background:rgba(255,255,255,.1);border-radius:50%"></div>
+    <div style="font-size:14px;font-weight:700;margin-bottom:10px;position:relative;z-index:1">解锁 30 天趋势、全部历史数据完整成长报告</div>
+    <div style="font-family:var(--font-en);font-size:28px;font-weight:700;margin-bottom:12px;position:relative;z-index:1">$39.9<span style="font-size:14px;font-weight:400;opacity:.8">/月</span></div>
+    <button style="display:inline-block;padding:10px 28px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:var(--r-full);color:white;font-size:14px;font-weight:600;cursor:pointer;position:relative;z-index:1">立即订阅</button>
+  </div>
+
+</div>
+</div>
+
+<script>
+function switchTab(tab) {
+  var btns = document.querySelectorAll('.seg-btn');
+  btns.forEach(function(b){ b.classList.remove('active'); });
+  var mainContent = document.getElementById('main-content');
+  var paywall = document.getElementById('paywall-overlay');
+  var subscribeCard = document.getElementById('subscribe-card');
+  if(tab === '7day') {
+    document.getElementById('tab7').classList.add('active');
+    mainContent.style.display = 'block';
+    paywall.style.display = 'none';
+    subscribeCard.style.display = 'block';
+  } else if(tab === '30day') {
+    document.getElementById('tab30').classList.add('active');
+    mainContent.style.display = 'none';
+    paywall.style.display = 'block';
+    subscribeCard.style.display = 'none';
+  } else {
+    document.getElementById('tabAll').classList.add('active');
+    mainContent.style.display = 'none';
+    paywall.style.display = 'block';
+    subscribeCard.style.display = 'none';
+  }
+}
+</script>
+
+<!-- Tab Bar 与 Tab1 定稿一致 -->
+<nav class="tab-bar">
+  <a href="index.html" class="tab-item">
+    <div class="tab-icon-wrap"><i class="ph ph-sun-horizon" style="font-size:22px;color:var(--text-muted)"></i></div>
+    <span class="tab-label">今日动态</span>
+  </a>
+  <a href="growth.html" class="tab-item active">
+    <div class="tab-icon-wrap"><i class="ph-fill ph-chart-line-up" style="font-size:22px;color:#22C55E"></i></div>
+    <span class="tab-label" style="color:#22C55E">成长趋势</span>
+  </a>
+  <a href="moments.html" class="tab-item">
+    <div class="tab-icon-wrap"><i class="ph ph-clock-countdown" style="font-size:22px;color:var(--text-muted)"></i></div>
+    <span class="tab-label">时光机</span>
+  </a>
+  <a href="profile.html" class="tab-item">
+    <div class="tab-icon-wrap"><i class="ph ph-user-circle" style="font-size:22px;color:var(--text-muted)"></i></div>
+    <span class="tab-label">我的</span>
+  </a>
+</nav>
+
+</body>
+</html>
