@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 智能体管理</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+</head>
+<body>
+<div class="status-bar">
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
+  <div class="s-icons">
+    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
+    <i class="ph ph-wifi-high" style="font-size:16px"></i>
+    <i class="ph ph-battery-full" style="font-size:16px"></i>
+  </div>
+</div>
+<div style="display:flex;align-items:center;padding:8px 16px 12px">
+  <a href="javascript:history.back()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center">
+    <i class="ph ph-caret-left" style="font-size:20px;color:var(--text-h)"></i>
+  </a>
+  <div style="flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)">智能体管理</div>
+  <div style="width:36px"></div>
+</div>
+<div class="page-content" style="padding-top:0">
+
+  <div style="font-size:13px;font-weight:700;color:var(--text-sub);margin:4px 0 10px;padding:0 2px">已开启的智能体</div>
+
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:10px">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#FBBF24,#F97316);display:flex;align-items:center;justify-content:center;font-size:24px">🦕</div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text-h)">luki 伙伴</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">默认陪伴智能体 · 情感支持</div></div>
+      <div style="width:44px;height:24px;border-radius:12px;background:#16A34A;position:relative"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;top:2px;right:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
+    </div>
+  </div>
+
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:10px">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#60A5FA,#3B82F6);display:flex;align-items:center;justify-content:center;font-size:24px">📚</div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text-h)">英语小教练</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">学习类智能体 · 英语启蒙</div></div>
+      <div style="width:44px;height:24px;border-radius:12px;background:#16A34A;position:relative"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;top:2px;right:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
+    </div>
+  </div>
+
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:10px">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#C4B5FD,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:24px">🎨</div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text-h)">创意伙伴</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">创意类智能体 · 画画 / 故事</div></div>
+      <div style="width:44px;height:24px;border-radius:12px;background:#16A34A;position:relative"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;top:2px;right:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
+    </div>
+  </div>
+
+  <div style="font-size:13px;font-weight:700;color:var(--text-sub);margin:16px 0 10px;padding:0 2px">更多智能体</div>
+
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:10px;opacity:.6">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#FCA5A5,#EF4444);display:flex;align-items:center;justify-content:center;font-size:24px">🌙</div>
+      <div style="flex:1"><div style="font-size:15px;font-weight:700;color:var(--text-h)">睡前故事</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">助眠类智能体 · 未开启</div></div>
+      <div style="width:44px;height:24px;border-radius:12px;background:var(--bg-muted);position:relative"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;top:2px;left:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

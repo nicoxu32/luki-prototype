@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 设备管理</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+</head>
+<body>
+<div class="status-bar">
+  <span style="font-weight:700;font-size:15px;font-family:var(--font-en)">9:41</span>
+  <div class="s-icons">
+    <i class="ph ph-cell-signal-full" style="font-size:16px"></i>
+    <i class="ph ph-wifi-high" style="font-size:16px"></i>
+    <i class="ph ph-battery-full" style="font-size:16px"></i>
+  </div>
+</div>
+<div style="display:flex;align-items:center;padding:8px 16px 12px">
+  <a href="javascript:history.back()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center">
+    <i class="ph ph-caret-left" style="font-size:20px;color:var(--text-h)"></i>
+  </a>
+  <div style="flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)">设备管理</div>
+  <div style="width:36px"></div>
+</div>
+<div class="page-content" style="padding-top:0">
+
+  <div style="text-align:center;padding:20px 0">
+    <img src="luki-device.webp" alt="luki" style="width:140px;height:140px;object-fit:cover;border-radius:28px;box-shadow:0 8px 32px rgba(0,0,0,.1)">
+    <div style="font-size:20px;font-weight:800;color:var(--text-h);margin-top:14px">luki 小恐龙</div>
+    <div style="display:flex;justify-content:center;gap:10px;margin-top:8px">
+      <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;background:rgba(34,197,94,.1);color:#16A34A"><span style="width:6px;height:6px;border-radius:50%;background:#16A34A;display:inline-block"></span> 在线</span>
+      <span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--text-sub)"><i class="ph ph-battery-high" style="font-size:15px"></i> 78%</span>
+    </div>
+  </div>
+
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:12px">
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:12px">设备信息</div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:13px;color:var(--text-sub)">设备名称</span><span style="font-size:13px;color:var(--text-h);font-weight:600">luki 小恐龙</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:13px;color:var(--text-sub)">序列号</span><span style="font-size:13px;color:var(--text-h);font-family:var(--font-en)">LK-2026-0328</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:13px;color:var(--text-sub)">固件版本</span><span style="font-size:13px;color:var(--text-h);font-family:var(--font-en)">v3.2.1</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:13px;color:var(--text-sub)">Wi-Fi</span><span style="font-size:13px;color:var(--text-h)">Home_WiFi_5G</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:13px;color:var(--text-sub)">存储空间</span><span style="font-size:13px;color:var(--text-h)">已用 2.1GB / 8GB</span></div>
+  </div>
+
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:12px">
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:12px">音量控制</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <i class="ph ph-speaker-low" style="font-size:18px;color:var(--text-sub)"></i>
+      <div style="flex:1;height:6px;border-radius:3px;background:var(--bg-muted);position:relative"><div style="width:65%;height:100%;border-radius:3px;background:var(--c-primary)"></div></div>
+      <i class="ph ph-speaker-high" style="font-size:18px;color:var(--text-sub)"></i>
+      <span style="font-size:13px;font-weight:600;color:var(--text-h);min-width:30px;text-align:right">65%</span>
+    </div>
+  </div>
+
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:12px">
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:12px">设备操作</div>
+    <div class="menu-list" style="margin:0;border-radius:0;box-shadow:none;border:none">
+      <a href="#" class="menu-item" onclick="alert('正在检查固件更新…')"><div class="menu-icon" style="background:#DBEAFE"><i class="ph ph-arrow-clockwise" style="font-size:20px;color:#3B82F6"></i></div><div class="menu-text"><div class="menu-title">检查固件更新</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></a>
+      <a href="#" class="menu-item" onclick="alert('正在重启设备…')"><div class="menu-icon" style="background:#FFEDD5"><i class="ph ph-power" style="font-size:20px;color:#F97316"></i></div><div class="menu-text"><div class="menu-title">重启设备</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></a>
+      <a href="#" class="menu-item" onclick="alert('确认恢复出厂设置？此操作不可撤销。')"><div class="menu-icon" style="background:#FEF2F2"><i class="ph ph-trash" style="font-size:20px;color:#EF4444"></i></div><div class="menu-text"><div class="menu-title" style="color:#EF4444">恢复出厂设置</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
