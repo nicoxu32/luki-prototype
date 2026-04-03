@@ -3,67 +3,373 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>luki · 家庭成员与声纹</title>
+<title>luki · 声纹识人</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+/* ── 声纹成员卡片 ── */
+.vp-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:14px 18px;margin-bottom:10px}
+.vp-row{display:flex;align-items:center;gap:12px}
+.vp-avatar{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:white;flex-shrink:0}
+.vp-info{flex:1}
+.vp-name{font-size:15px;font-weight:700;color:var(--text-h)}
+.vp-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:var(--r-full);font-size:10px;font-weight:600;margin-top:5px}
+.vp-badge-done{background:rgba(34,197,94,.1);color:#16A34A}
+.vp-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.vp-icon-btn{width:32px;height:32px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s}
+.vp-icon-btn:active{transform:scale(.9)}
+
+/* ── 底部弹窗 ── */
+.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;display:none;align-items:flex-end;justify-content:center}
+.sheet-overlay.show{display:flex}
+.sheet{background:white;border-radius:var(--r-xl) var(--r-xl) 0 0;padding:20px 20px 36px;width:100%;max-width:480px;animation:slideUp .25s ease;max-height:92vh;overflow-y:auto}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sheet-title{font-size:16px;font-weight:800;color:var(--text-h);text-align:center;margin-bottom:20px}
+.sheet-label{font-size:12px;font-weight:700;color:var(--text-sub);margin-bottom:6px}
+.sheet-input{width:100%;padding:11px 14px;border:1.5px solid var(--border-light);border-radius:var(--r-lg);font-size:14px;color:var(--text-h);font-family:var(--font-cn);outline:none;transition:.2s;box-sizing:border-box}
+.sheet-input:focus{border-color:var(--c-primary)}
+.role-btn{padding:7px 16px;border-radius:var(--r-full);font-size:12px;font-weight:600;border:1.5px solid var(--border-light);background:white;color:var(--text-sub);cursor:pointer;font-family:var(--font-cn);transition:.15s}
+.role-btn.active{background:var(--c-primary);color:white;border-color:var(--c-primary)}
+
+/* ── 声纹录入方式 tab ── */
+.vp-source-tabs{display:flex;gap:0;background:var(--bg-muted);border-radius:var(--r-lg);padding:3px;margin-bottom:12px}
+.vp-source-tab{flex:1;padding:8px 4px;text-align:center;font-size:13px;font-weight:600;color:var(--text-sub);border-radius:var(--r-md);cursor:pointer;transition:.15s;border:none;background:transparent;font-family:var(--font-cn)}
+.vp-source-tab.active{background:white;color:var(--text-h);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+
+/* ── 录音区 ── */
+.vp-record-area{background:var(--bg-muted);border-radius:var(--r-lg);padding:16px;text-align:center}
+.vp-mic-btn{width:60px;height:60px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;margin:0 auto 8px;transition:.15s}
+.vp-mic-btn.idle{background:linear-gradient(135deg,#AB47BC,#7E57C2);box-shadow:0 4px 14px rgba(126,87,194,.3)}
+.vp-mic-btn.recording{background:linear-gradient(135deg,#EF4444,#DC2626);box-shadow:0 4px 14px rgba(239,68,68,.4);animation:micPulse 1s ease infinite}
+.vp-mic-btn.done{background:linear-gradient(135deg,#22C55E,#16A34A);box-shadow:0 4px 14px rgba(34,197,94,.3)}
+@keyframes micPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+/* ── luki 语音列表 ── */
+.luki-voice-list{display:flex;flex-direction:column;gap:8px}
+.luki-voice-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r-lg);border:1.5px solid var(--border-light);cursor:pointer;transition:.15s;background:white}
+.luki-voice-item.selected{border-color:var(--c-primary);background:#FFF7ED}
+.luki-voice-item:active{transform:scale(.98)}
+
+/* ── 弹窗按钮 ── */
+.sheet-btn-row{display:flex;gap:10px;margin-top:16px}
+.sheet-cancel{flex:1;padding:13px;border-radius:var(--r-lg);border:1.5px solid var(--border-light);background:white;color:var(--text-body);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-cn)}
+.sheet-confirm{flex:2;padding:13px;border-radius:var(--r-lg);border:none;background:linear-gradient(135deg,var(--c-primary),#FB923C);color:white;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)}
+</style>
 </head>
 <body>
+
+<!-- 顶部导航 -->
 <div style="display:flex;align-items:center;padding:8px 16px 12px">
   <a href="javascript:history.back()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center">
     <i class="ph ph-caret-left" style="font-size:20px;color:var(--text-h)"></i>
   </a>
-  <div style="flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)">家庭成员声纹</div>
+  <div style="flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)">声纹识人</div>
   <div style="width:36px"></div>
 </div>
+
 <div class="page-content" style="padding-top:0">
 
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px">
-    <div style="display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--border-light)">
-      <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#FB923C,#F97316);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:white">妈</div>
-      <div style="flex:1"><div style="font-size:17px;font-weight:700;color:var(--text-h)">晓梅</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px">小莉的妈妈 · 管理员 · 138****6789</div></div>
-      <span style="display:inline-flex;align-items:center;gap:3px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(34,197,94,.1);color:#16A34A"><i class="ph ph-waveform" style="font-size:13px"></i> 声纹已录</span>
-    </div>
-    <div style="padding-top:14px">
-      <div style="font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:10px">个人信息</div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0"><span style="font-size:13px;color:var(--text-sub)">昵称</span><span style="font-size:13px;color:var(--text-h)">晓梅</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0"><span style="font-size:13px;color:var(--text-sub)">角色</span><span style="font-size:13px;color:var(--text-h)">妈妈（管理员）</span></div>
-      <div style="display:flex;justify-content:space-between;padding:6px 0"><span style="font-size:13px;color:var(--text-sub)">手机号</span><span style="font-size:13px;color:var(--text-h)">138****6789</span></div>
-    </div>
+  <div style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:16px;padding:10px 14px;background:var(--bg-muted);border-radius:var(--r-lg)">
+    <i class="ph ph-info" style="font-size:13px;vertical-align:middle;margin-right:4px;color:var(--text-sub)"></i>
+    录入家人声纹后，luki 可以识别每位家人的声音，实现个性化回应。
   </div>
 
-  <div style="font-size:13px;font-weight:700;color:var(--text-sub);margin:8px 0 10px;padding:0 2px">其他家庭成员</div>
-
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:14px 18px;margin-bottom:10px">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#60A5FA,#3B82F6);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:white">爸</div>
-      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:var(--text-h)">志远</div><div style="font-size:11px;color:var(--text-muted)">小莉的爸爸</div></div>
-      <div style="display:flex;align-items:center;gap:6px">
-        <span onclick="alert('播放志远的声纹样本…')" style="width:30px;height:30px;border-radius:50%;background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-play" style="font-size:15px;color:#16A34A"></i></span>
-        <span onclick="alert('编辑志远的声纹')" style="width:30px;height:30px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-pencil-simple" style="font-size:15px;color:var(--text-sub)"></i></span>
-        <span onclick="alert('确认删除志远的声纹？')" style="width:30px;height:30px;border-radius:50%;background:rgba(239,68,68,.08);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-trash" style="font-size:15px;color:#EF4444"></i></span>
+  <!-- 晓梅·妈妈 -->
+  <div class="vp-card">
+    <div class="vp-row">
+      <div class="vp-avatar" style="background:linear-gradient(135deg,#FB923C,#F97316)">妈</div>
+      <div class="vp-info">
+        <div class="vp-name">晓梅 · 妈妈</div>
+        <div class="vp-badge vp-badge-done"><i class="ph ph-waveform" style="font-size:11px"></i> 声纹已录</div>
+      </div>
+      <div class="vp-actions">
+        <button class="vp-icon-btn" style="background:rgba(34,197,94,.1)" onclick="playVoice('晓梅')">
+          <i class="ph ph-play" style="font-size:15px;color:#16A34A"></i>
+        </button>
+        <button class="vp-icon-btn" style="background:var(--bg-muted)" onclick="openEditSheet('晓梅','妈妈','妈','linear-gradient(135deg,#FB923C,#F97316)')">
+          <i class="ph ph-pencil-simple" style="font-size:15px;color:var(--text-sub)"></i>
+        </button>
+        <button class="vp-icon-btn" style="background:rgba(239,68,68,.08)" onclick="deleteVoice('晓梅')">
+          <i class="ph ph-trash" style="font-size:15px;color:#EF4444"></i>
+        </button>
       </div>
     </div>
   </div>
 
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:14px 18px;margin-bottom:10px">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#FBBF24,#F59E0B);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:white">莉</div>
-      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:var(--text-h)">小莉</div><div style="font-size:11px;color:var(--text-muted)">孩子 · 6岁</div></div>
-      <div style="display:flex;align-items:center;gap:6px">
-        <span onclick="alert('播放小莉的声纹样本…')" style="width:30px;height:30px;border-radius:50%;background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-play" style="font-size:15px;color:#16A34A"></i></span>
-        <span onclick="alert('编辑小莉的声纹')" style="width:30px;height:30px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-pencil-simple" style="font-size:15px;color:var(--text-sub)"></i></span>
-        <span onclick="alert('确认删除小莉的声纹？')" style="width:30px;height:30px;border-radius:50%;background:rgba(239,68,68,.08);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-trash" style="font-size:15px;color:#EF4444"></i></span>
+  <!-- 志远·爸爸 -->
+  <div class="vp-card">
+    <div class="vp-row">
+      <div class="vp-avatar" style="background:linear-gradient(135deg,#60A5FA,#3B82F6)">爸</div>
+      <div class="vp-info">
+        <div class="vp-name">志远 · 爸爸</div>
+        <div class="vp-badge vp-badge-done"><i class="ph ph-waveform" style="font-size:11px"></i> 声纹已录</div>
+      </div>
+      <div class="vp-actions">
+        <button class="vp-icon-btn" style="background:rgba(34,197,94,.1)" onclick="playVoice('志远')">
+          <i class="ph ph-play" style="font-size:15px;color:#16A34A"></i>
+        </button>
+        <button class="vp-icon-btn" style="background:var(--bg-muted)" onclick="openEditSheet('志远','爸爸','爸','linear-gradient(135deg,#60A5FA,#3B82F6)')">
+          <i class="ph ph-pencil-simple" style="font-size:15px;color:var(--text-sub)"></i>
+        </button>
+        <button class="vp-icon-btn" style="background:rgba(239,68,68,.08)" onclick="deleteVoice('志远')">
+          <i class="ph ph-trash" style="font-size:15px;color:#EF4444"></i>
+        </button>
       </div>
     </div>
   </div>
 
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:14px 18px;margin-bottom:10px;cursor:pointer" onclick="alert('邀请新成员')">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="width:44px;height:44px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center"><i class="ph ph-plus" style="font-size:20px;color:var(--text-muted)"></i></div>
-      <div style="flex:1"><div style="font-size:15px;font-weight:600;color:var(--text-sub)">添加家庭成员声纹</div><div style="font-size:11px;color:var(--text-muted)">录入家人声纹，让 luki 识别每一位家人</div></div>
+  <!-- 小莉·孩子 -->
+  <div class="vp-card">
+    <div class="vp-row">
+      <div class="vp-avatar" style="background:linear-gradient(135deg,#FBBF24,#F59E0B)">莉</div>
+      <div class="vp-info">
+        <div class="vp-name">小莉 · 孩子</div>
+        <div class="vp-badge vp-badge-done"><i class="ph ph-waveform" style="font-size:11px"></i> 声纹已录</div>
+      </div>
+      <div class="vp-actions">
+        <button class="vp-icon-btn" style="background:rgba(34,197,94,.1)" onclick="playVoice('小莉')">
+          <i class="ph ph-play" style="font-size:15px;color:#16A34A"></i>
+        </button>
+        <button class="vp-icon-btn" style="background:var(--bg-muted)" onclick="openEditSheet('小莉','孩子','莉','linear-gradient(135deg,#FBBF24,#F59E0B)')">
+          <i class="ph ph-pencil-simple" style="font-size:15px;color:var(--text-sub)"></i>
+        </button>
+        <button class="vp-icon-btn" style="background:rgba(239,68,68,.08)" onclick="deleteVoice('小莉')">
+          <i class="ph ph-trash" style="font-size:15px;color:#EF4444"></i>
+        </button>
+      </div>
     </div>
   </div>
+
+  <!-- 添加按钮 -->
+  <button onclick="openAddSheet()" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:var(--bg-card);border-radius:var(--r-xl);border:2px dashed var(--border);color:var(--text-sub);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-cn);margin-top:4px;transition:.15s">
+    <i class="ph ph-plus-circle" style="font-size:20px;color:var(--c-primary)"></i> 添加家庭成员声纹
+  </button>
 
 </div>
+
+<!-- ═══ 添加弹窗 ═══ -->
+<div class="sheet-overlay" id="addSheet" onclick="if(event.target===this)closeSheet('addSheet')">
+  <div class="sheet">
+    <div class="sheet-title">添加家庭成员</div>
+
+    <div class="sheet-label">昵称</div>
+    <input type="text" class="sheet-input" id="addName" placeholder="输入称呼" maxlength="10" style="margin-bottom:14px">
+
+    <div class="sheet-label">称谓</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px" id="addRoleRow">
+      <button class="role-btn" onclick="selRole(this,'addRoleRow')">爸爸</button>
+      <button class="role-btn" onclick="selRole(this,'addRoleRow')">妈妈</button>
+      <button class="role-btn" onclick="selRole(this,'addRoleRow')">爷爷</button>
+      <button class="role-btn" onclick="selRole(this,'addRoleRow')">奶奶</button>
+      <button class="role-btn" onclick="selRole(this,'addRoleRow')">姥姥</button>
+      <button class="role-btn" onclick="selRole(this,'addRoleRow')">姥爷</button>
+      <button class="role-btn" onclick="selRole(this,'addRoleRow')">其他</button>
+    </div>
+
+    <div class="sheet-label">声纹录入方式</div>
+    <div class="vp-source-tabs">
+      <button class="vp-source-tab active" id="addTab-record" onclick="switchVpTab('add','record')">🎤 现场录音</button>
+      <button class="vp-source-tab" id="addTab-luki" onclick="switchVpTab('add','luki')">🦕 从 luki 中选择</button>
+    </div>
+
+    <!-- 录音面板 -->
+    <div id="addPanel-record" class="vp-record-area">
+      <button class="vp-mic-btn idle" id="addMicBtn" onclick="toggleRec('addMicBtn','addRecHint')">
+        <i class="ph ph-microphone" style="font-size:26px;color:white"></i>
+      </button>
+      <div style="font-size:12px;color:var(--text-muted)" id="addRecHint">点击麦克风开始录制（5–10 秒）</div>
+    </div>
+
+    <!-- luki 语音面板 -->
+    <div id="addPanel-luki" style="display:none">
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">选择 luki 中记录的一段语音作为声纹样本</div>
+      <div class="luki-voice-list">
+        <div class="luki-voice-item" onclick="selLukiVoice(this)">
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:600;color:var(--text-h)">今天上午 10:15</div>
+            <div style="font-size:11px;color:var(--text-muted)">「每一句留言，都是爱的小纸条」· 0:18</div>
+          </div>
+          <button onclick="event.stopPropagation();previewLukiVoice(this)" style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,.1);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+            <i class="ph ph-play" style="font-size:13px;color:#16A34A"></i>
+          </button>
+        </div>
+        <div class="luki-voice-item" onclick="selLukiVoice(this)">
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:600;color:var(--text-h)">昨天 08:20</div>
+            <div style="font-size:11px;color:var(--text-muted)">「今天在学校要开心哦，妈妈爱你」· 0:22</div>
+          </div>
+          <button onclick="event.stopPropagation();previewLukiVoice(this)" style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,.1);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+            <i class="ph ph-play" style="font-size:13px;color:#16A34A"></i>
+          </button>
+        </div>
+        <div class="luki-voice-item" onclick="selLukiVoice(this)">
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:600;color:var(--text-h)">3月30日 20:15</div>
+            <div style="font-size:11px;color:var(--text-muted)">「妈妈我今天画了一只恐龙送给你！」· 0:15</div>
+          </div>
+          <button onclick="event.stopPropagation();previewLukiVoice(this)" style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,.1);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+            <i class="ph ph-play" style="font-size:13px;color:#16A34A"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-btn-row">
+      <button class="sheet-cancel" onclick="closeSheet('addSheet')">取消</button>
+      <button class="sheet-confirm" onclick="confirmAdd()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 编辑弹窗 ═══ -->
+<div class="sheet-overlay" id="editSheet" onclick="if(event.target===this)closeSheet('editSheet')">
+  <div class="sheet">
+    <div class="sheet-title" id="editTitle">编辑声纹</div>
+
+    <div class="sheet-label">昵称</div>
+    <input type="text" class="sheet-input" id="editName" maxlength="10" style="margin-bottom:14px">
+
+    <div class="sheet-label">称谓</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px" id="editRoleRow">
+      <button class="role-btn" onclick="selRole(this,'editRoleRow')">爸爸</button>
+      <button class="role-btn" onclick="selRole(this,'editRoleRow')">妈妈</button>
+      <button class="role-btn" onclick="selRole(this,'editRoleRow')">爷爷</button>
+      <button class="role-btn" onclick="selRole(this,'editRoleRow')">奶奶</button>
+      <button class="role-btn" onclick="selRole(this,'editRoleRow')">姥姥</button>
+      <button class="role-btn" onclick="selRole(this,'editRoleRow')">姥爷</button>
+      <button class="role-btn" onclick="selRole(this,'editRoleRow')">其他</button>
+    </div>
+
+    <div class="sheet-label">重新录入声纹 <span style="font-weight:400;color:var(--text-muted)">(可选)</span></div>
+    <div class="vp-source-tabs">
+      <button class="vp-source-tab active" id="editTab-record" onclick="switchVpTab('edit','record')">🎤 现场录音</button>
+      <button class="vp-source-tab" id="editTab-luki" onclick="switchVpTab('edit','luki')">🦕 从 luki 中选择</button>
+    </div>
+
+    <!-- 录音面板 -->
+    <div id="editPanel-record" class="vp-record-area">
+      <button class="vp-mic-btn idle" id="editMicBtn" onclick="toggleRec('editMicBtn','editRecHint')">
+        <i class="ph ph-microphone" style="font-size:26px;color:white"></i>
+      </button>
+      <div style="font-size:12px;color:var(--text-muted)" id="editRecHint">点击重新录制（保留现有可跳过）</div>
+    </div>
+
+    <!-- luki 语音面板 -->
+    <div id="editPanel-luki" style="display:none">
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">选择 luki 中记录的一段语音作为声纹样本</div>
+      <div class="luki-voice-list">
+        <div class="luki-voice-item" onclick="selLukiVoice(this)">
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:600;color:var(--text-h)">今天上午 10:15</div>
+            <div style="font-size:11px;color:var(--text-muted)">「每一句留言，都是爱的小纸条」· 0:18</div>
+          </div>
+          <button onclick="event.stopPropagation();previewLukiVoice(this)" style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,.1);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+            <i class="ph ph-play" style="font-size:13px;color:#16A34A"></i>
+          </button>
+        </div>
+        <div class="luki-voice-item" onclick="selLukiVoice(this)">
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:600;color:var(--text-h)">昨天 08:20</div>
+            <div style="font-size:11px;color:var(--text-muted)">「今天在学校要开心哦，妈妈爱你」· 0:22</div>
+          </div>
+          <button onclick="event.stopPropagation();previewLukiVoice(this)" style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,.1);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+            <i class="ph ph-play" style="font-size:13px;color:#16A34A"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-btn-row">
+      <button class="sheet-cancel" onclick="closeSheet('editSheet')">取消</button>
+      <button class="sheet-confirm" onclick="confirmEdit()">保存修改</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var recTimer=null, recSecs=0;
+
+function playVoice(n){ alert('播放 '+n+' 的声纹样本…'); }
+function deleteVoice(n){ if(confirm('确认删除 '+n+' 的声纹记录？此操作不可恢复。')) alert(n+' 的声纹已删除。'); }
+
+/* ── 弹窗 ── */
+function openAddSheet(){
+  document.getElementById('addName').value='';
+  document.querySelectorAll('#addRoleRow .role-btn').forEach(function(b){b.classList.remove('active');});
+  resetMic('addMicBtn','addRecHint','点击麦克风开始录制（5–10 秒）');
+  switchVpTab('add','record');
+  document.getElementById('addSheet').classList.add('show');
+}
+function openEditSheet(name,role,ch,grad){
+  document.getElementById('editTitle').textContent='编辑 · '+name;
+  document.getElementById('editName').value=name;
+  document.querySelectorAll('#editRoleRow .role-btn').forEach(function(b){b.classList.toggle('active',b.textContent===role);});
+  resetMic('editMicBtn','editRecHint','点击重新录制（保留现有可跳过）');
+  switchVpTab('edit','record');
+  document.getElementById('editSheet').classList.add('show');
+}
+function closeSheet(id){ document.getElementById(id).classList.remove('show'); }
+
+/* ── 称谓单选 ── */
+function selRole(btn,rowId){
+  document.querySelectorAll('#'+rowId+' .role-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+}
+
+/* ── 声纹来源 Tab ── */
+function switchVpTab(prefix,tab){
+  var tabs=['record','luki'];
+  tabs.forEach(function(t){
+    document.getElementById(prefix+'Tab-'+t).classList.toggle('active',t===tab);
+    document.getElementById(prefix+'Panel-'+t).style.display=(t===tab)?'block':'none';
+  });
+}
+
+/* ── 录音 ── */
+function toggleRec(micId,hintId){
+  var btn=document.getElementById(micId);
+  if(btn.classList.contains('idle')){
+    btn.classList.replace('idle','recording');
+    btn.querySelector('i').className='ph ph-stop'; btn.querySelector('i').style.fontSize='22px';
+    recSecs=0;
+    document.getElementById(hintId).textContent='录音中 0:00 · 点击停止';
+    recTimer=setInterval(function(){
+      recSecs++;
+      document.getElementById(hintId).textContent='录音中 '+fmt(recSecs)+' · 点击停止';
+      if(recSecs>=15) stopRec(micId,hintId);
+    },1000);
+  } else if(btn.classList.contains('recording')){ stopRec(micId,hintId); }
+}
+function stopRec(micId,hintId){
+  clearInterval(recTimer);
+  var btn=document.getElementById(micId);
+  btn.className='vp-mic-btn done';
+  btn.querySelector('i').className='ph ph-check'; btn.querySelector('i').style.fontSize='26px';
+  document.getElementById(hintId).textContent='录音完成 '+fmt(recSecs)+' ✓ · 点击重录';
+}
+function resetMic(micId,hintId,txt){
+  clearInterval(recTimer);
+  var btn=document.getElementById(micId);
+  btn.className='vp-mic-btn idle';
+  btn.querySelector('i').className='ph ph-microphone'; btn.querySelector('i').style.fontSize='26px';
+  document.getElementById(hintId).textContent=txt;
+}
+function fmt(s){ return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60); }
+
+/* ── luki 语音选择 ── */
+function selLukiVoice(item){
+  item.closest('.luki-voice-list').querySelectorAll('.luki-voice-item').forEach(function(i){i.classList.remove('selected');});
+  item.classList.add('selected');
+}
+function previewLukiVoice(btn){ alert('播放语音片段预览…'); }
+
+/* ── 确认 ── */
+function confirmAdd(){
+  var n=document.getElementById('addName').value.trim();
+  if(!n){alert('请填写昵称');return;}
+  alert('已添加 '+n+' 的声纹！'); closeSheet('addSheet');
+}
+function confirmEdit(){ alert('声纹信息已更新！'); closeSheet('editSheet'); }
+</script>
 </body>
 </html>
