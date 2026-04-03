@@ -58,13 +58,11 @@
 .flow-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
 .flow-tags .chip{font-size:11px;padding:4px 10px}
 
-/* 卡片智能体标记（放在 meta 行右侧） */
-.flow-agent{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;color:var(--text-body);cursor:pointer;margin-left:auto}
-.flow-agent i{font-size:13px}
-.flow-agent-lock{color:var(--text-muted);cursor:default}
 
-/* 树洞卡 */
-.flow-card.treehouse{border:1.5px dashed var(--c-teal);background:var(--c-teal-light)}
+
+/* 高光卡片 */
+.flow-card.highlight{border:2px solid var(--c-primary);background:linear-gradient(135deg,#FFF7ED 0%,#FFFBF5 100%);position:relative}
+.flow-card.highlight::before{content:'✨ 今日高光';position:absolute;top:0;right:0;background:linear-gradient(135deg,#F97316,#FB923C);color:white;font-size:11px;font-weight:700;padding:4px 12px;border-radius:0 0 0 12px}
 
 /* 留言卡 */
 .flow-card.msg-type{border-left:3px solid var(--c-violet)}
@@ -72,16 +70,19 @@
 </head>
 <body>
 
-<!-- 指令1：顶部"详情"已去掉 -->
-
 <div class="page-content" style="padding-top:8px">
 
-  <!-- ===== 指令2a：心情综合指数（独立卡片） ===== -->
+  <!-- 问候语 -->
+  <div style="margin-bottom:14px">
+    <div style="font-size:20px;font-weight:700;color:var(--text-h);line-height:1.4">Hi，晓梅，上午好 ☀️</div>
+  </div>
+
+  <!-- ===== 心情综合指数（独立卡片） ===== -->
   <div class="mood-card">
     <div class="mood-top">
       <div class="mood-ring"><div class="mood-ring-inner">😊</div></div>
       <div class="mood-right">
-        <div class="mood-index-label">今日心情综合指数</div>
+        <div class="mood-index-label">今日心情综合指数 <span style="color:var(--text-muted);font-weight:400">· 截止 17:45</span></div>
         <div class="mood-score-row">
           <div class="mood-score">85</div>
           <div class="mood-desc">心情愉悦</div>
@@ -158,20 +159,41 @@
     <div class="task-record"><span onclick="alert('已记录！谢谢你的用心陪伴 💛')" style="cursor:pointer">去记录 →</span></div>
   </div>
 
-  <!-- ===== 指令5：今日时光流 ===== -->
+  <!-- ===== 今日时光流 ===== -->
   <div class="section-title" style="margin:4px 0 12px">今日时光流</div>
 
+  <!-- 高光卡片（置顶） -->
+  <div class="flow-card highlight" style="cursor:default">
+    <div class="flow-body">
+      <div class="flow-heal-title">「妈妈，我长大了想当画家！」</div>
+      <div class="flow-img-placeholder" style="margin:0 0 10px">图片占位 · 390 × 140</div>
+      <div class="flow-summary">小莉在和创意伙伴的对话中第一次表达了自己的梦想，语气中充满了期待和自信。这是一个值得记录的成长瞬间。</div>
+      <div class="flow-meta">
+        <span><i class="ph ph-clock" style="font-size:13px"></i> 16:30</span>
+        <span><i class="ph ph-timer" style="font-size:13px"></i> 22分钟</span>
+      </div>
+      <div class="flow-tags">
+        <span class="chip chip-orange">✨ 梦想</span>
+        <span class="chip chip-blue">🎨 绘画</span>
+        <span class="chip chip-green">💪 自信</span>
+      </div>
+      <div class="audio-bar">
+        <button class="audio-play" onclick="this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
+        <div class="audio-wave"></div>
+        <span class="audio-dur">1:05</span>
+      </div>
+    </div>
+  </div>
+
   <!-- 卡片 1：创意伙伴 · 17:45 -->
-  <a href="capsule-detail.html" class="flow-card">
+  <div class="flow-card" style="cursor:default">
     <div class="flow-body">
       <div class="flow-heal-title">「每一笔涂鸦，都是孩子心中的一片星空」</div>
       <div class="flow-img-placeholder" style="margin:0 0 10px">图片占位 · 390 × 140</div>
-      <div class="flow-summary">小莉和创意伙伴一起完成了一幅想象画，展现了丰富的创造力。她给恐龙取名叫"飞飞"，还编了一个探险故事。</div>
+      <div class="flow-summary">小莉和创意伙伴一起完成了一幅想象画，展现了丰富的创造力。她给恐龙取名叫“飞飞”，还编了一个探险故事。</div>
       <div class="flow-meta">
         <span><i class="ph ph-clock" style="font-size:13px"></i> 17:45</span>
         <span><i class="ph ph-timer" style="font-size:13px"></i> 18分钟</span>
-        <span><i class="ph ph-chat-circle" style="font-size:13px"></i> 12轮对话</span>
-        <span class="flow-agent"><i class="ph ph-palette"></i> 创意伙伴 <i class="ph ph-caret-right" style="font-size:12px"></i></span>
       </div>
       <div class="flow-tags">
         <span class="chip chip-orange">😄 开心</span>
@@ -184,10 +206,10 @@
         <span class="audio-dur">0:42</span>
       </div>
     </div>
-  </a>
+  </div>
 
   <!-- 卡片 2：情绪陪伴 · 15:20 -->
-  <a href="capsule-detail.html" class="flow-card">
+  <div class="flow-card" style="cursor:default">
     <div class="flow-body">
       <div class="flow-heal-title">「害怕的时候，深呼吸，你比想象中更勇敢」</div>
       <div class="flow-img-placeholder" style="margin:0 0 10px">图片占位 · 390 × 140</div>
@@ -195,8 +217,6 @@
       <div class="flow-meta">
         <span><i class="ph ph-clock" style="font-size:13px"></i> 15:20</span>
         <span><i class="ph ph-timer" style="font-size:13px"></i> 12分钟</span>
-        <span><i class="ph ph-chat-circle" style="font-size:13px"></i> 8轮对话</span>
-        <span class="flow-agent"><i class="ph ph-heart"></i> 情绪陪伴 <i class="ph ph-caret-right" style="font-size:12px"></i></span>
       </div>
       <div class="flow-tags">
         <span class="chip chip-red">😰 焦虑</span>
@@ -207,25 +227,6 @@
         <button class="audio-play" style="background:#EF4444;box-shadow:0 2px 8px rgba(239,68,68,.3)" onclick="event.preventDefault();this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:14px"></i></button>
         <div class="audio-wave" style="background:linear-gradient(to right,#FCA5A5 38%,var(--border) 38%)"></div>
         <span class="audio-dur">1:15</span>
-      </div>
-    </div>
-  </a>
-
-  <!-- 卡片 3：树洞模式 · 14:00（锁图标，不可点击） -->
-  <div class="flow-card treehouse" style="cursor:default">
-    <div class="flow-body">
-      <div class="flow-heal-title">「有些话说出来，心就轻了一点点」</div>
-      <div class="flow-img-placeholder" style="margin:0 0 10px">图片占位 · 390 × 140</div>
-      <div class="flow-summary" style="font-style:italic">树洞模式已开启，仅展示 AI 情绪总结。小莉进行了一次 8 分钟的私密对话，整体情绪平稳，无异常波动。</div>
-      <div class="flow-meta">
-        <span><i class="ph ph-clock" style="font-size:13px"></i> 14:00</span>
-        <span><i class="ph ph-timer" style="font-size:13px"></i> 8分钟</span>
-        <span><i class="ph ph-chat-circle" style="font-size:13px"></i> 8轮对话</span>
-        <span class="flow-agent flow-agent-lock"><i class="ph ph-lock-simple"></i> 树洞模式</span>
-      </div>
-      <div class="flow-tags">
-        <span class="chip chip-teal">🌿 平静</span>
-        <span class="chip chip-muted">🔒 隐私保护中</span>
       </div>
     </div>
   </div>
@@ -252,7 +253,7 @@
   </div>
 
   <!-- 卡片 5：故事大王 · 8:30 -->
-  <a href="capsule-detail.html" class="flow-card">
+  <div class="flow-card" style="cursor:default">
     <div class="flow-body">
       <div class="flow-heal-title">「想象力是最好的翅膀，带你飞向任何地方」</div>
       <div class="flow-img-placeholder" style="margin:0 0 10px">图片占位 · 390 × 140</div>
@@ -260,8 +261,6 @@
       <div class="flow-meta">
         <span><i class="ph ph-clock" style="font-size:13px"></i> 8:30</span>
         <span><i class="ph ph-timer" style="font-size:13px"></i> 15分钟</span>
-        <span><i class="ph ph-chat-circle" style="font-size:13px"></i> 10轮对话</span>
-        <span class="flow-agent"><i class="ph ph-book-open"></i> 故事大王 <i class="ph ph-caret-right" style="font-size:12px"></i></span>
       </div>
       <div class="flow-tags">
         <span class="chip chip-orange">😄 开心</span>
@@ -274,7 +273,7 @@
         <span class="audio-dur">0:55</span>
       </div>
     </div>
-  </a>
+  </div>
 
 </div>
 
