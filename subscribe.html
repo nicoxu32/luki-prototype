@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 升级 Premium</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+/* ── 顶部导航 ── */
+.sub-nav{display:flex;align-items:center;padding:10px 16px 6px;position:relative}
+.sub-close{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.06);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.sub-nav-title{flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)}
+
+/* ── 插画区 ── */
+.sub-hero{height:220px;background:linear-gradient(135deg,#FFF7ED 0%,#FEF3C7 50%,#FDE8D8 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.sub-hero-circle{width:130px;height:130px;border-radius:50%;background:white;box-shadow:0 8px 40px rgba(249,115,22,.18);display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;z-index:1}
+.sub-hero-glow{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(249,115,22,.15) 0%,transparent 70%)}
+/* 用户评价弹幕 */
+.sub-review{position:absolute;background:white;border-radius:var(--r-full);padding:7px 12px;font-size:11px;font-weight:600;color:var(--text-body);box-shadow:0 4px 16px rgba(0,0,0,.12);white-space:nowrap;z-index:2}
+.sub-review-left{left:12px;bottom:32px}
+.sub-review-right{right:8px;top:24px}
+
+/* ── 主内容 ── */
+.sub-content{padding:0 20px 140px}
+
+/* ── 标题 ── */
+.sub-title{text-align:center;padding:22px 0 18px}
+.sub-title h1{font-size:22px;font-weight:800;color:var(--text-h);margin-bottom:6px}
+.sub-title p{font-size:14px;color:var(--text-muted)}
+
+/* ── 价值卖点 ── */
+.sub-value-card{background:var(--bg-muted);border-radius:var(--r-xl);padding:18px;margin-bottom:20px}
+.sub-value-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+.sub-value-item:last-child{margin-bottom:0}
+.sub-value-emoji{font-size:24px;flex-shrink:0;margin-top:1px}
+.sub-value-text h3{font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:3px}
+.sub-value-text p{font-size:12px;color:var(--text-muted);line-height:1.6}
+
+/* ── 定价卡片 ── */
+.sub-plans{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.sub-plan{border:1.5px solid var(--border-light);border-radius:var(--r-xl);padding:16px 18px;cursor:pointer;transition:.15s;position:relative;background:white}
+.sub-plan:active{transform:scale(.99)}
+.sub-plan.active{border-color:#F97316;border-width:2px;background:linear-gradient(135deg,#FFF7ED,#FFFBF5)}
+.sub-plan.dimmed{opacity:.55}
+.sub-plan-badge{position:absolute;top:-10px;right:16px;background:linear-gradient(135deg,#EF4444,#DC2626);color:white;font-size:10px;font-weight:700;padding:3px 12px;border-radius:var(--r-full);white-space:nowrap}
+.sub-plan-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.sub-plan-name{font-size:14px;font-weight:700;color:var(--text-h)}
+.sub-plan-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s}
+.sub-plan.active .sub-plan-radio{border-color:#F97316;background:#F97316}
+.sub-plan.active .sub-plan-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:white}
+.sub-plan-price{font-family:var(--font-en);font-size:26px;font-weight:800;color:var(--text-h);line-height:1}
+.sub-plan.active .sub-plan-price{color:#F97316}
+.sub-plan-unit{font-size:12px;font-weight:400;color:var(--text-muted)}
+.sub-plan-sub{font-size:11px;color:var(--text-muted);margin-top:3px}
+
+/* ── 固定底部 ── */
+.sub-footer{position:fixed;bottom:0;left:0;right:0;padding:12px 20px 32px;background:white;border-top:1px solid var(--border-light)}
+.sub-btn{width:100%;padding:16px;border-radius:var(--r-xl);border:none;background:linear-gradient(135deg,#F97316,#FB923C);color:white;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--font-cn);margin-bottom:8px;box-shadow:0 4px 20px rgba(249,115,22,.35)}
+.sub-btn:active{transform:scale(.99)}
+.sub-micro{text-align:center;font-size:11px;color:var(--text-muted);margin-bottom:8px}
+.sub-links{display:flex;justify-content:center;gap:20px}
+.sub-links a{font-size:11px;color:var(--text-muted);text-decoration:underline}
+</style>
+</head>
+<body style="background:var(--bg-page)">
+
+<!-- 顶部导航 -->
+<div class="sub-nav">
+  <button class="sub-close" onclick="history.back()">
+    <i class="ph ph-x" style="font-size:18px;color:var(--text-h)"></i>
+  </button>
+  <div class="sub-nav-title">升级 Premium</div>
+  <div style="width:36px"></div>
+</div>
+
+<!-- 插画区 -->
+<div class="sub-hero">
+  <div class="sub-hero-glow"></div>
+  <div class="sub-hero-circle">👨‍👩‍👧</div>
+  <!-- 用户评价弹幕 -->
+  <div class="sub-review sub-review-left">📍 第一次看到小莉的成长曲线，感动哭了 — 张妈妈</div>
+  <div class="sub-review sub-review-right">⭐ AI 建议让我更懂孩子了 — 李爸爸</div>
+</div>
+
+<!-- 主内容 -->
+<div class="sub-content">
+
+  <!-- 主标题 -->
+  <div class="sub-title">
+    <h1>解锁 luki Premium</h1>
+    <p>永久珍藏孩子的童年时光</p>
+  </div>
+
+  <!-- 三大价值卖点 -->
+  <div class="sub-value-card">
+    <div class="sub-value-item">
+      <span class="sub-value-emoji">✨</span>
+      <div class="sub-value-text">
+        <h3>深度情绪洞察</h3>
+        <p>解锁 30 天完整情绪报告，获取 AI 专属个性化育儿建议</p>
+      </div>
+    </div>
+    <div class="sub-value-item">
+      <span class="sub-value-emoji">📖</span>
+      <div class="sub-value-text">
+        <h3>全景时光回忆录</h3>
+        <p>突破 7 天限制，用全部历史珍贵瞬间编织最完整的童年绘本</p>
+      </div>
+    </div>
+    <div class="sub-value-item">
+      <span class="sub-value-emoji">☁️</span>
+      <div class="sub-value-text">
+        <h3>永久记忆存储</h3>
+        <p>尊享 5GB 云端空间，永久保存孩子的每一次对话与笑声</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 定价方案 -->
+  <div class="sub-plans">
+
+    <!-- 年度订阅（主推，默认选中） -->
+    <div class="sub-plan active" id="plan-year" onclick="selectPlan('year')">
+      <div class="sub-plan-badge">🔥 最受欢迎 · 省 27%</div>
+      <div class="sub-plan-top">
+        <span class="sub-plan-name">年度订阅</span>
+        <div class="sub-plan-radio"></div>
+      </div>
+      <div class="sub-plan-price">$348<span class="sub-plan-unit">/年</span></div>
+      <div class="sub-plan-sub">折合 $29/月 · 比月度省 $130.8</div>
+    </div>
+
+    <!-- 季度订阅 -->
+    <div class="sub-plan" id="plan-quarter" onclick="selectPlan('quarter')">
+      <div class="sub-plan-top">
+        <span class="sub-plan-name">季度订阅</span>
+        <div class="sub-plan-radio"></div>
+      </div>
+      <div class="sub-plan-price">$99<span class="sub-plan-unit">/季</span></div>
+      <div class="sub-plan-sub">折合 $33/月</div>
+    </div>
+
+    <!-- 月度订阅（高价锚点，置灰） -->
+    <div class="sub-plan dimmed" id="plan-month" onclick="selectPlan('month')">
+      <div class="sub-plan-top">
+        <span class="sub-plan-name" style="color:var(--text-muted)">月度订阅</span>
+        <div class="sub-plan-radio"></div>
+      </div>
+      <div class="sub-plan-price" style="color:var(--text-muted)">$39.9<span class="sub-plan-unit">/月</span></div>
+      <div class="sub-plan-sub">按月结算，灵活随时取消</div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- 固定底部操作区 -->
+<div class="sub-footer">
+  <button class="sub-btn" id="subBtn" onclick="startTrial()">
+    免费试用 7 天，随后 $348/年
+  </button>
+  <div class="sub-micro">试用期结束前 2 天发送提醒 · 随时可取消</div>
+  <div class="sub-links">
+    <a href="#">隐私政策</a>
+    <a href="#">服务协议</a>
+  </div>
+</div>
+
+<script>
+/* 定价方案价格配置 */
+var plans = {
+  year:    { label: '免费试用 7 天，随后 $348/年', price: '$348/年' },
+  quarter: { label: '开始订阅，$99/季', price: '$99/季' },
+  month:   { label: '开始订阅，$39.9/月', price: '$39.9/月' }
+};
+
+var currentPlan = 'year';
+
+/* 切换选中方案 */
+function selectPlan(plan) {
+  currentPlan = plan;
+  /* 重置所有卡片状态 */
+  ['year', 'quarter', 'month'].forEach(function(p) {
+    var el = document.getElementById('plan-' + p);
+    el.classList.remove('active');
+    if (p === 'month') el.classList.add('dimmed');
+    else el.classList.remove('dimmed');
+  });
+  /* 激活选中卡片 */
+  var active = document.getElementById('plan-' + plan);
+  active.classList.add('active');
+  active.classList.remove('dimmed');
+  /* 更新按钮文案 */
+  document.getElementById('subBtn').textContent = plans[plan].label;
+}
+
+/* 开始试用 */
+function startTrial() {
+  var p = plans[currentPlan];
+  if (currentPlan === 'year') {
+    alert('开始 7 天免费试用！\n试用期结束后将自动续费 $348/年，可随时在 App Store 中取消。');
+  } else {
+    alert('确认订阅 ' + p.price + '？\n可随时在 App Store 中取消自动续费。');
+  }
+}
+</script>
+
+</body>
+</html>

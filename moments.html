@@ -162,7 +162,9 @@
   <!-- ═══ 时光回忆录（指令5：深色卡片风格） ═══ -->
   <div style="display:flex;align-items:center;justify-content:space-between;margin:20px 0 10px">
     <div style="font-size:16px;font-weight:700;color:var(--text-h)">时光回忆录</div>
-    <span style="font-size:11px;font-weight:600;color:var(--c-violet);background:var(--c-violet-light);padding:3px 10px;border-radius:var(--r-full)">Premium</span>
+    <button onclick="openMemorySheet()" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--r-full);background:linear-gradient(135deg,#AB47BC,#7E57C2);color:white;font-size:12px;font-weight:700;border:none;cursor:pointer;font-family:var(--font-cn);box-shadow:0 3px 10px rgba(126,87,194,.3)">
+      <i class="ph ph-sparkle" style="font-size:13px"></i> 生成回忆录
+    </button>
   </div>
 
   <!-- 月度回忆混剪 -->
@@ -375,6 +377,82 @@ function vmSend(){
   <a href="moments.html" class="tab-item active"><div class="tab-icon-wrap"><i class="ph-fill ph-clock-countdown" style="font-size:22px;color:var(--c-primary)"></i></div><span class="tab-label" style="color:var(--c-primary)">时光机</span></a>
   <a href="profile.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-user-circle" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">我的</span></a>
 </nav>
+
+<!-- ===== 生成时光回忆录 选项 Bottom Sheet ===== -->
+<div id="memorySheetOverlay" onclick="if(event.target===this)closeMemorySheet()" style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;display:none;align-items:flex-end;justify-content:center">
+  <div style="background:white;border-radius:24px 24px 0 0;padding:24px 20px 44px;width:100%;max-width:480px;animation:slideUpM .25s ease">
+    <!-- 标题 -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+      <div style="font-size:17px;font-weight:800;color:var(--text-h)">生成时光回忆录</div>
+      <button onclick="closeMemorySheet()" style="width:32px;height:32px;border-radius:50%;background:var(--bg-muted);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-x" style="font-size:16px;color:var(--text-sub)"></i></button>
+    </div>
+    <!-- Aha Moment 提示 -->
+    <div style="font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6">小莉在过去 30 天里有 <strong style="color:var(--text-h)">42 个精彩瞬间</strong>，升级 Premium 将它们全部编织进回忆录，让故事更完整！</div>
+    <!-- 免费选项 -->
+    <div onclick="freeGenerate()" style="border:1.5px solid var(--border-light);border-radius:var(--r-xl);padding:16px 18px;margin-bottom:10px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:14px">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="ph ph-calendar" style="font-size:20px;color:var(--text-sub)"></i>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600;color:var(--text-h);margin-bottom:2px">仅使用近 7 天素材生成</div>
+        <div style="font-size:12px;color:var(--text-muted)">免费 · 包含最近 7 天的 12 个瞬间</div>
+      </div>
+      <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
+    </div>
+    <!-- Premium 选项（高亮） -->
+    <div onclick="premiumGenerate()" style="border:2px solid #F97316;border-radius:var(--r-xl);padding:16px 18px;margin-bottom:6px;cursor:pointer;background:linear-gradient(135deg,#FFF7ED,#FFFBF5);display:flex;align-items:center;gap:14px;position:relative">
+      <!-- 皇冠角标 -->
+      <div style="position:absolute;top:-10px;right:14px;background:linear-gradient(135deg,#F59E0B,#D97706);color:white;font-size:10px;font-weight:700;padding:2px 10px;border-radius:var(--r-full)">👑 Premium 专属</div>
+      <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#F97316,#FB923C);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 10px rgba(249,115,22,.3)">
+        <i class="ph ph-sparkle" style="font-size:20px;color:white"></i>
+      </div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:2px">使用全部历史素材生成</div>
+        <div style="font-size:12px;color:#B45309">Premium · 包含过去 30 天的 42 个精彩瞬间</div>
+      </div>
+      <i class="ph ph-caret-right" style="font-size:16px;color:#F97316"></i>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 时光机 Paywall Bottom Sheet ===== -->
+<div id="momentsPaywallOverlay" onclick="if(event.target===this)closeMomentsPaywall()" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1001;display:none;align-items:flex-end;justify-content:center">
+  <div style="background:white;border-radius:24px 24px 0 0;padding:24px 20px 44px;width:100%;max-width:480px;animation:slideUpM .3s ease;max-height:85vh;overflow-y:auto">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+      <button onclick="closeMomentsPaywall()" style="width:32px;height:32px;border-radius:50%;background:var(--bg-muted);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-x" style="font-size:16px;color:var(--text-sub)"></i></button>
+    </div>
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:20px;font-weight:800;color:var(--text-h);margin-bottom:6px">解锁 luki Premium</div>
+      <div style="font-size:13px;color:var(--text-muted)">让 42 个精彩瞬间都留在回忆录里</div>
+    </div>
+    <div style="background:var(--bg-muted);border-radius:var(--r-xl);padding:16px;margin-bottom:20px">
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px"><span style="font-size:20px">📖</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">全景时光回忆录</div><div style="font-size:12px;color:var(--text-muted)">突破 7 天限制，用全部历史珍贵瞬间编织最完整的童年绘本</div></div></div>
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px"><span style="font-size:20px">✨</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">深度情绪洞察</div><div style="font-size:12px;color:var(--text-muted)">解锁 30 天完整情绪报告，获取 AI 专属个性化育儿建议</div></div></div>
+      <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">☁️</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">永久记忆存储</div><div style="font-size:12px;color:var(--text-muted)">尊享 5GB 云端空间，永久保存孩子的每一次对话与笑声</div></div></div>
+    </div>
+    <div style="border:2px solid #F97316;border-radius:var(--r-xl);padding:16px;margin-bottom:14px;background:linear-gradient(135deg,#FFF7ED,#FFFBF5);position:relative">
+      <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#EF4444,#DC2626);color:white;font-size:11px;font-weight:700;padding:3px 14px;border-radius:var(--r-full);white-space:nowrap">🔥 最受欢迎 · 省 27%</div>
+      <div style="text-align:center"><div style="font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:4px">年度订阅</div><div style="font-family:var(--font-en);font-size:32px;font-weight:800;color:#F97316;line-height:1">$348<span style="font-size:14px;font-weight:400;color:var(--text-muted)">/年</span></div><div style="font-size:12px;color:var(--text-muted);margin-top:4px">折合 $29/月</div></div>
+    </div>
+    <button onclick="alert('开始 7 天免费试用！\n试用期结束后将自动续费 $348/年，可随时在 App Store 中取消。');closeMomentsPaywall()" style="width:100%;padding:16px;border-radius:var(--r-xl);border:none;background:linear-gradient(135deg,#F97316,#FB923C);color:white;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--font-cn);margin-bottom:8px">免费试用 7 天，随后 $348/年</button>
+    <div style="text-align:center;font-size:11px;color:var(--text-muted)">试用期结束前 2 天发送提醒 · 随时可取消</div>
+  </div>
+</div>
+
+<style>@keyframes slideUpM{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
+
+<script>
+/* 时光回忆录选项 Sheet */
+function openMemorySheet(){ document.getElementById('memorySheetOverlay').style.display='flex'; document.body.style.overflow='hidden'; }
+function closeMemorySheet(){ document.getElementById('memorySheetOverlay').style.display='none'; document.body.style.overflow=''; }
+/* 免费生成 */
+function freeGenerate(){ closeMemorySheet(); setTimeout(function(){ alert('正在生成近 7 天时光回忆录…\n生成完成后将通知您！'); },200); }
+/* Premium 生成 → 打开 Paywall */
+function premiumGenerate(){ closeMemorySheet(); setTimeout(function(){ openMomentsPaywall(); },300); }
+/* 时光机 Paywall */
+function openMomentsPaywall(){ document.getElementById('momentsPaywallOverlay').style.display='flex'; document.body.style.overflow='hidden'; }
+function closeMomentsPaywall(){ document.getElementById('momentsPaywallOverlay').style.display='none'; document.body.style.overflow=''; }
+</script>
 
 </body>
 </html>

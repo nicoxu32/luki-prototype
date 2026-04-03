@@ -52,6 +52,38 @@
     <div class="device-arrow"><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></div>
   </a>
 
+  <!-- ===== 存储空间进度条模块（免费版：数据即将过期告警） ===== -->
+  <div onclick="openStoragePaywall()" style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1.5px solid #FCA5A5;padding:16px 18px;margin-bottom:14px;cursor:pointer;position:relative;overflow:hidden">
+    <!-- 装饰光斑 -->
+    <div style="position:absolute;right:-20px;top:-20px;width:70px;height:70px;background:rgba(239,68,68,.05);border-radius:50%;pointer-events:none"></div>
+    <!-- 标题行 -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:6px">
+        <i class="ph ph-cloud" style="font-size:16px;color:#EF4444"></i>
+        <span style="font-size:13px;font-weight:700;color:var(--text-h)">云端存储</span>
+      </div>
+      <span style="font-size:11px;font-weight:600;color:#EF4444;background:#FEF2F2;padding:2px 8px;border-radius:var(--r-full)">即将到期</span>
+    </div>
+    <!-- 描述 -->
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;line-height:1.5">免费版仅保留近 <strong style="color:#DC2626">30 天</strong>数据，早期对话将永久删除。</div>
+    <!-- 进度条（红色，几乎满了） -->
+    <div style="height:8px;border-radius:4px;background:#FEE2E2;overflow:hidden;margin-bottom:6px">
+      <div style="height:100%;width:88%;border-radius:4px;background:linear-gradient(90deg,#EF4444,#DC2626)"></div>
+    </div>
+    <!-- 进度说明 -->
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:12px">
+      <span>已使用 26.4 天数据</span>
+      <span style="color:#DC2626;font-weight:600">剩余 3.6 天</span>
+    </div>
+    <!-- 升级按钮 -->
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <span style="font-size:12px;color:var(--text-muted)">升级获得 5GB 永久存储</span>
+      <span style="display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border-radius:var(--r-full);background:linear-gradient(135deg,#F97316,#FB923C);color:white;font-size:12px;font-weight:700">
+        <i class="ph ph-crown-simple" style="font-size:12px"></i> 升级永久存储
+      </span>
+    </div>
+  </div>
+
   <!-- ═══ 第一个卡片：我的资料 ═══ -->
   <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin:4px 0 8px;padding:0 2px">我的账户</div>
   <div class="profile-section">
@@ -244,5 +276,51 @@
   <a href="moments.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-clock-countdown" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">时光机</span></a>
   <a href="profile.html" class="tab-item active"><div class="tab-icon-wrap"><i class="ph-fill ph-user-circle" style="font-size:22px;color:var(--c-primary)"></i></div><span class="tab-label" style="color:var(--c-primary)">我的</span></a>
 </nav>
+
+<!-- ===== 存储空间 Paywall Bottom Sheet ===== -->
+<div id="storagePaywallOverlay" onclick="if(event.target===this)closeStoragePaywall()" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:none;align-items:flex-end;justify-content:center">
+  <div style="background:white;border-radius:24px 24px 0 0;padding:24px 20px 44px;width:100%;max-width:480px;animation:slideUpS .3s ease;max-height:85vh;overflow-y:auto">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+      <button onclick="closeStoragePaywall()" style="width:32px;height:32px;border-radius:50%;background:var(--bg-muted);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-x" style="font-size:16px;color:var(--text-sub)"></i></button>
+    </div>
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:20px;font-weight:800;color:var(--text-h);margin-bottom:6px">解锁 luki Premium</div>
+      <div style="font-size:13px;color:var(--text-muted)">永久珍藏孩子的童年时光</div>
+    </div>
+    <!-- 存储对比 -->
+    <div style="display:flex;gap:10px;margin-bottom:20px">
+      <div style="flex:1;background:#FEF2F2;border-radius:var(--r-xl);padding:14px;text-align:center;border:1px solid #FCA5A5">
+        <div style="font-size:11px;color:#EF4444;font-weight:700;margin-bottom:6px">免费版</div>
+        <div style="font-size:22px;font-weight:800;color:#EF4444;font-family:var(--font-en)">30天</div>
+        <div style="font-size:11px;color:#DC2626;margin-top:4px">数据自动删除</div>
+      </div>
+      <div style="display:flex;align-items:center;font-size:20px">→</div>
+      <div style="flex:1;background:linear-gradient(135deg,#FFF7ED,#FFFBF5);border-radius:var(--r-xl);padding:14px;text-align:center;border:2px solid #F97316">
+        <div style="font-size:11px;color:#F97316;font-weight:700;margin-bottom:6px">Premium</div>
+        <div style="font-size:22px;font-weight:800;color:#F97316;font-family:var(--font-en)">5GB</div>
+        <div style="font-size:11px;color:#B45309;margin-top:4px">永久云端存储</div>
+      </div>
+    </div>
+    <div style="background:var(--bg-muted);border-radius:var(--r-xl);padding:16px;margin-bottom:20px">
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px"><span style="font-size:20px">☁️</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">永久记忆存储</div><div style="font-size:12px;color:var(--text-muted)">尊享 5GB 云端空间，永久保存孩子的每一次对话与笑声</div></div></div>
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px"><span style="font-size:20px">✨</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">深度情绪洞察</div><div style="font-size:12px;color:var(--text-muted)">解锁 30 天完整情绪报告，获取 AI 专属个性化育儿建议</div></div></div>
+      <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">📖</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">全景时光回忆录</div><div style="font-size:12px;color:var(--text-muted)">突破 7 天限制，用全部历史珍贵瞬间编织最完整的童年绘本</div></div></div>
+    </div>
+    <div style="border:2px solid #F97316;border-radius:var(--r-xl);padding:16px;margin-bottom:14px;background:linear-gradient(135deg,#FFF7ED,#FFFBF5);position:relative">
+      <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#EF4444,#DC2626);color:white;font-size:11px;font-weight:700;padding:3px 14px;border-radius:var(--r-full);white-space:nowrap">🔥 最受欢迎 · 省 27%</div>
+      <div style="text-align:center"><div style="font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:4px">年度订阅</div><div style="font-family:var(--font-en);font-size:32px;font-weight:800;color:#F97316;line-height:1">$348<span style="font-size:14px;font-weight:400;color:var(--text-muted)">/年</span></div><div style="font-size:12px;color:var(--text-muted);margin-top:4px">折合 $29/月</div></div>
+    </div>
+    <button onclick="alert('开始 7 天免费试用！\n试用期结束后将自动续费 $348/年，可随时在 App Store 中取消。');closeStoragePaywall()" style="width:100%;padding:16px;border-radius:var(--r-xl);border:none;background:linear-gradient(135deg,#F97316,#FB923C);color:white;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--font-cn);margin-bottom:8px">免费试用 7 天，随后 $348/年</button>
+    <div style="text-align:center;font-size:11px;color:var(--text-muted)">试用期结束前 2 天发送提醒 · 随时可取消</div>
+  </div>
+</div>
+
+<style>@keyframes slideUpS{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
+
+<script>
+/* 存储 Paywall */
+function openStoragePaywall(){ document.getElementById('storagePaywallOverlay').style.display='flex'; document.body.style.overflow='hidden'; }
+function closeStoragePaywall(){ document.getElementById('storagePaywallOverlay').style.display='none'; document.body.style.overflow=''; }
+</script>
 </body>
 </html>
