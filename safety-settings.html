@@ -6,35 +6,154 @@
 <title>luki · 安全与隐私</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+.sp-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:14px}
+.sp-card-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:16px}
+.sp-card-title i{font-size:20px}
+.sp-item{padding:14px 0;border-bottom:1px solid var(--border-light)}
+.sp-item:last-child{border-bottom:none}
+.sp-item-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.sp-item-title{font-size:14px;font-weight:600;color:var(--text-h)}
+.sp-item-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+.sp-select{display:flex;gap:6px;margin-top:8px}
+.sp-select-btn{padding:6px 16px;border-radius:var(--r-full);font-size:12px;font-weight:600;border:1.5px solid var(--border-light);background:white;color:var(--text-sub);cursor:pointer;transition:.15s}
+.sp-select-btn.active{background:var(--c-primary);color:white;border-color:var(--c-primary)}
+.sp-select-btn:active{transform:scale(.95)}
+.sp-toggle{position:relative;width:44px;height:24px;border-radius:12px;background:#E5E7EB;cursor:pointer;transition:.2s;flex-shrink:0}
+.sp-toggle.on{background:var(--c-primary)}
+.sp-toggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:white;box-shadow:0 1px 3px rgba(0,0,0,.15);transition:.2s}
+.sp-toggle.on::after{left:22px}
+.sp-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:var(--r-full);font-size:10px;font-weight:600;flex-shrink:0}
+.sp-badge-green{background:rgba(34,197,94,.1);color:#16A34A}
+.sp-badge-blue{background:rgba(59,130,246,.1);color:#3B82F6}
+.sp-badge-amber{background:rgba(245,158,11,.1);color:#F59E0B}
+.sp-danger-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;border-radius:var(--r-lg);border:1.5px solid #FCA5A5;background:#FEF2F2;color:#DC2626;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px;transition:.15s}
+.sp-danger-btn:active{transform:scale(.98)}
+.sp-info-box{background:var(--bg-muted);border-radius:var(--r-md);padding:10px 12px;margin-top:8px;font-size:11px;color:var(--text-muted);line-height:1.6}
+.sp-info-box i{font-size:13px;color:var(--text-sub);vertical-align:middle;margin-right:4px}
+</style>
 </head>
 <body>
-<div style="display:flex;align-items:center;padding:8px 16px 12px">
-  <a href="javascript:history.back()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center">
-    <i class="ph ph-caret-left" style="font-size:20px;color:var(--text-h)"></i>
-  </a>
-  <div style="flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)">安全与隐私</div>
-  <div style="width:36px"></div>
+
+<!-- 顶部导航 -->
+<div class="detail-header">
+  <a href="profile.html" class="back-btn"><i class="ph ph-caret-left"></i></a>
+  <div class="detail-title">安全与隐私</div>
+  <div style="width:32px"></div>
 </div>
-<div class="page-content" style="padding-top:0">
 
-  <div class="menu-list" style="margin-bottom:12px">
-    <div class="menu-item"><div class="menu-icon" style="background:#FEF2F2"><i class="ph ph-warning-circle" style="font-size:20px;color:#EF4444"></i></div><div class="menu-text"><div class="menu-title">情绪预警阈值</div><div class="menu-sub">当前：中等敏感度</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></div>
-    <div class="menu-item"><div class="menu-icon" style="background:#FFFBEB"><i class="ph ph-list-bullets" style="font-size:20px;color:#F59E0B"></i></div><div class="menu-text"><div class="menu-title">自定义预警词</div><div class="menu-sub">已添加 5 个预警关键词</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></div>
+<div class="page-content" style="padding-top:8px">
+
+  <!-- ═══════════ 安全 卡片 ═══════════ -->
+  <div class="sp-card">
+    <div class="sp-card-title"><i class="ph ph-shield-check" style="color:#EF4444"></i> 安全</div>
+
+    <!-- 1. 情绪预警敏感度 -->
+    <div class="sp-item">
+      <div class="sp-item-top">
+        <div class="sp-item-title">情绪预警敏感度</div>
+      </div>
+      <div class="sp-item-desc">设置 AI 检测到潜在情绪风险时的预警灵敏程度。敏感度越高，越容易触发预警通知。</div>
+      <div class="sp-select">
+        <button class="sp-select-btn" onclick="selectSensitivity(this)">低</button>
+        <button class="sp-select-btn active" onclick="selectSensitivity(this)">中</button>
+        <button class="sp-select-btn" onclick="selectSensitivity(this)">高</button>
+      </div>
+      <div class="sp-info-box"><i class="ph ph-info"></i> 建议选择"中"。"高"模式下，轻微负面情绪也会触发通知；"低"模式仅在检测到严重风险时通知。</div>
+    </div>
+
+    <!-- 2. luki 对话安全：儿童模式 -->
+    <div class="sp-item">
+      <div class="sp-item-top">
+        <div class="sp-item-title">luki 对话安全</div>
+        <div class="sp-toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="sp-item-desc">开启儿童模式，即开启敏感词和敏感话题的过滤。AI 将自动屏蔽不适合儿童的内容，包括暴力、色情、恐怖等敏感词汇和话题。</div>
+      <div class="sp-info-box"><i class="ph ph-warning-circle"></i> 根据 COPPA（儿童在线隐私保护法）及相关法规要求，建议始终保持开启状态以保护儿童安全。</div>
+    </div>
+
+    <!-- 3. 对话内容不可见 -->
+    <div class="sp-item" style="border-bottom:none">
+      <div class="sp-item-top">
+        <div class="sp-item-title">对话内容</div>
+        <span class="sp-badge sp-badge-green"><i class="ph ph-lock-simple" style="font-size:11px"></i> 隐私内容，不可见</span>
+      </div>
+      <div class="sp-item-desc">孩子与 luki 的对话原文受隐私保护，家长端仅展示 AI 生成的情绪摘要和安全预警，不可查看具体对话内容。</div>
+      <div class="sp-info-box"><i class="ph ph-info"></i> 此设计遵循儿童隐私权保护原则，在保障安全的同时尊重孩子的表达自由。</div>
+    </div>
   </div>
 
-  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin:16px 0 8px;padding:0 2px">对话隐私</div>
-  <div class="menu-list" style="margin-bottom:12px">
-    <div class="menu-item"><div class="menu-icon" style="background:#F3EFFE"><i class="ph ph-tree-evergreen" style="font-size:20px;color:#8B5CF6"></i></div><div class="menu-text"><div class="menu-title">树洞模式</div><div class="menu-sub">已开启 · 树洞对话不可查看详情</div></div><div style="width:44px;height:24px;border-radius:12px;background:#16A34A;position:relative;flex-shrink:0"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;top:2px;right:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div></div>
-    <div class="menu-item"><div class="menu-icon" style="background:#FEF2F2"><i class="ph ph-prohibit" style="font-size:20px;color:#EF4444"></i></div><div class="menu-text"><div class="menu-title">敏感词过滤</div><div class="menu-sub">已开启 · 自动过滤不当内容</div></div><div style="width:44px;height:24px;border-radius:12px;background:#16A34A;position:relative;flex-shrink:0"><div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;top:2px;right:2px;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div></div></div>
+  <!-- ═══════════ 隐私 卡片 ═══════════ -->
+  <div class="sp-card">
+    <div class="sp-card-title"><i class="ph ph-lock" style="color:#3B82F6"></i> 隐私</div>
+
+    <!-- 1. 对话隐私 -->
+    <div class="sp-item">
+      <div class="sp-item-top">
+        <div class="sp-item-title">对话隐私</div>
+        <span class="sp-badge sp-badge-blue"><i class="ph ph-eye-slash" style="font-size:11px"></i> 隐私保护中</span>
+      </div>
+      <div class="sp-item-desc">对话内容为隐私内容，不可见。所有对话数据经端到端加密传输和存储，仅用于生成情绪分析和安全预警。</div>
+      <div class="sp-info-box"><i class="ph ph-info"></i> 符合 GDPR（通用数据保护条例）第 8 条关于儿童数据处理的特别保护要求。对话内容不会用于广告投放或第三方数据共享。</div>
+    </div>
+
+    <!-- 2. 数据隐私 -->
+    <div class="sp-item">
+      <div class="sp-item-top">
+        <div class="sp-item-title">数据隐私</div>
+      </div>
+      <div class="sp-item-desc">免费客户数据留存期限为 <strong>30 天</strong>，到期后将自动删除所有对话记录和分析数据。</div>
+      <div style="background:linear-gradient(135deg,rgba(126,87,194,.08),rgba(171,71,188,.08));border-radius:var(--r-md);padding:10px 12px;margin-top:8px">
+        <div style="font-size:12px;font-weight:600;color:#7E57C2;margin-bottom:4px">订阅用户数据存储</div>
+        <div style="font-size:11px;color:var(--text-sub);line-height:1.5">订阅 Premium 即视为同意数据存储。订阅期间数据将持续保留，取消订阅后数据将保留 30 天后自动删除。您可随时手动删除数据。</div>
+      </div>
+      <div class="sp-info-box"><i class="ph ph-info"></i> 根据 COPPA 规定，我们仅收集提供服务所必需的最少数据，且不会将儿童数据用于商业目的。数据存储符合 GDPR 数据最小化原则。</div>
+    </div>
+
+    <!-- 3. 数据导出（GDPR 合规） -->
+    <div class="sp-item">
+      <div class="sp-item-top">
+        <div class="sp-item-title">数据导出</div>
+        <span class="sp-badge sp-badge-amber"><i class="ph ph-download-simple" style="font-size:11px"></i> GDPR 合规</span>
+      </div>
+      <div class="sp-item-desc">根据 GDPR 第 20 条数据可携权，您有权随时导出您和孩子的所有数据副本。</div>
+      <div style="margin-top:8px">
+        <button onclick="alert('正在生成数据导出包，将通过邮件发送至您的注册邮箱。')" style="display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:var(--r-full);background:var(--bg-muted);color:var(--text-body);font-size:13px;font-weight:600;border:1px solid var(--border-light);cursor:pointer"><i class="ph ph-export" style="font-size:14px"></i> 导出我的数据</button>
+      </div>
+    </div>
+
+    <!-- 4. 清除对话内容 -->
+    <div class="sp-item" style="border-bottom:none">
+      <div class="sp-item-top">
+        <div class="sp-item-title">清除对话内容</div>
+      </div>
+      <div class="sp-item-desc">永久删除所有对话记录和相关分析数据。此操作不可恢复，请谨慎操作。</div>
+      <button class="sp-danger-btn" onclick="alert('确认清除所有对话内容？此操作不可恢复。')">
+        <i class="ph ph-trash" style="font-size:16px"></i> 清除所有对话内容
+      </button>
+      <div class="sp-info-box"><i class="ph ph-warning-circle"></i> 根据 GDPR 第 17 条被遗忘权，您有权要求删除所有个人数据。删除后，情绪分析报告和成长趋势数据也将一并清除。</div>
+    </div>
   </div>
 
-  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin:16px 0 8px;padding:0 2px">数据管理</div>
-  <div class="menu-list">
-    <div class="menu-item"><div class="menu-icon" style="background:#DBEAFE"><i class="ph ph-database" style="font-size:20px;color:#3B82F6"></i></div><div class="menu-text"><div class="menu-title">数据留存期限</div><div class="menu-sub">当前：365 天</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></div>
-    <div class="menu-item"><div class="menu-icon" style="background:#F1F5F9"><i class="ph ph-download-simple" style="font-size:20px;color:#64748B"></i></div><div class="menu-text"><div class="menu-title">导出我的数据</div><div class="menu-sub">GDPR 合规 · 下载全部数据</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></div>
-    <div class="menu-item"><div class="menu-icon" style="background:#FEF2F2"><i class="ph ph-trash" style="font-size:20px;color:#EF4444"></i></div><div class="menu-text"><div class="menu-title" style="color:#EF4444">删除所有对话数据</div><div class="menu-sub">此操作不可恢复</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></div>
+  <!-- 合规声明 -->
+  <div style="background:var(--bg-muted);border-radius:var(--r-lg);padding:14px 16px;margin-bottom:20px">
+    <div style="font-size:12px;font-weight:600;color:var(--text-sub);margin-bottom:6px">合规声明</div>
+    <div style="font-size:11px;color:var(--text-muted);line-height:1.7">
+      luki 严格遵守以下儿童数据保护法规：<br>
+      · <strong>COPPA</strong>（美国儿童在线隐私保护法）— 13 岁以下儿童数据保护<br>
+      · <strong>GDPR 第 8 条</strong>（欧盟通用数据保护条例）— 儿童数据处理特别保护<br>
+      · <strong>UK Age Appropriate Design Code</strong>（英国适龄设计准则）— 儿童最佳利益优先<br>
+      · <strong>CCPA / CPRA</strong>（加州消费者隐私法）— 16 岁以下未成年人数据保护
+    </div>
   </div>
 
 </div>
+
+<script>
+function selectSensitivity(btn) {
+  btn.parentElement.querySelectorAll('.sp-select-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+</script>
 </body>
 </html>

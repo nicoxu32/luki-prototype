@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 兴趣探索详情</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+.topic-hero{background:linear-gradient(135deg,#F97316,#FB923C);border-radius:var(--r-xl);padding:22px 20px;color:white;margin-bottom:14px;position:relative;overflow:hidden}
+.topic-hero::before{content:'';position:absolute;right:-20px;bottom:-20px;width:90px;height:90px;background:rgba(255,255,255,.08);border-radius:50%}
+.topic-hero-emoji{font-size:42px;margin-bottom:8px}
+.topic-hero-name{font-size:22px;font-weight:800;margin-bottom:4px}
+.topic-hero-stat{font-size:13px;opacity:.9}
+.topic-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:14px}
+.topic-card-title{font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:12px}
+.topic-timeline{position:relative;padding-left:20px}
+.topic-timeline::before{content:'';position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:var(--border-light)}
+.topic-tl-item{position:relative;padding:10px 0 10px 16px}
+.topic-tl-item::before{content:'';position:absolute;left:-17px;top:14px;width:10px;height:10px;border-radius:50%;background:var(--c-primary);border:2px solid white;box-shadow:0 0 0 2px var(--border-light)}
+.topic-tl-date{font-size:11px;color:var(--text-muted);margin-bottom:3px;font-family:var(--font-en)}
+.topic-tl-text{font-size:13px;color:var(--text-sub);line-height:1.6}
+.topic-kw{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--bg-muted);color:var(--text-body);margin:3px}
+.topic-stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px}
+.topic-stat-cell{background:var(--bg-muted);border-radius:var(--r-md);padding:12px 10px;text-align:center}
+.topic-stat-val{font-family:var(--font-en);font-size:20px;font-weight:800;color:var(--text-h);line-height:1}
+.topic-stat-lbl{font-size:10px;color:var(--text-muted);margin-top:4px}
+</style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<div class="detail-header">
+  <a href="growth.html" class="back-btn"><i class="ph ph-caret-left"></i></a>
+  <div class="detail-title">兴趣探索详情</div>
+  <div style="width:32px"></div>
+</div>
+
+<div class="page-content" style="padding-top:8px">
+
+  <!-- 主题英雄卡 -->
+  <div class="topic-hero">
+    <div class="topic-hero-emoji">🦕</div>
+    <div class="topic-hero-name">恐龙</div>
+    <div class="topic-hero-stat">本周提及 15 次 · 排名第 1 · 持续 3 周热门</div>
+  </div>
+
+  <!-- 统计概览 -->
+  <div class="topic-card">
+    <div class="topic-card-title">探索数据</div>
+    <div class="topic-stat-grid">
+      <div class="topic-stat-cell">
+        <div class="topic-stat-val">15</div>
+        <div class="topic-stat-lbl">本周提及</div>
+      </div>
+      <div class="topic-stat-cell">
+        <div class="topic-stat-val">42</div>
+        <div class="topic-stat-lbl">累计提及</div>
+      </div>
+      <div class="topic-stat-cell">
+        <div class="topic-stat-val">3<span style="font-size:12px;font-weight:400;color:var(--text-muted)">周</span></div>
+        <div class="topic-stat-lbl">持续关注</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 相关关键词 -->
+  <div class="topic-card">
+    <div class="topic-card-title">相关关键词</div>
+    <div style="display:flex;flex-wrap:wrap;gap:4px">
+      <span class="topic-kw">🦕 霸王龙</span>
+      <span class="topic-kw">🦴 化石</span>
+      <span class="topic-kw">🌋 火山</span>
+      <span class="topic-kw">🥚 恐龙蛋</span>
+      <span class="topic-kw">🦖 三角龙</span>
+      <span class="topic-kw">✈️ 翼龙</span>
+      <span class="topic-kw">📚 恐龙百科</span>
+      <span class="topic-kw">🎨 画恐龙</span>
+    </div>
+  </div>
+
+  <!-- 探索时间线 -->
+  <div class="topic-card">
+    <div class="topic-card-title">探索时间线</div>
+    <div class="topic-timeline">
+      <div class="topic-tl-item">
+        <div class="topic-tl-date">04/03 17:45</div>
+        <div class="topic-tl-text">画了一只会飞的恐龙，取名"飞飞"，编了一个探险故事。</div>
+      </div>
+      <div class="topic-tl-item">
+        <div class="topic-tl-date">04/02 16:20</div>
+        <div class="topic-tl-text">和故事大王创作了小恐龙冒险故事，探索了恐龙的生活习性。</div>
+      </div>
+      <div class="topic-tl-item">
+        <div class="topic-tl-date">04/01 09:15</div>
+        <div class="topic-tl-text">主动询问恐龙为什么会灭绝，对火山和陨石非常好奇。</div>
+      </div>
+      <div class="topic-tl-item">
+        <div class="topic-tl-date">03/31 14:30</div>
+        <div class="topic-tl-text">学习了三角龙和霸王龙的区别，能准确说出5种恐龙的名字。</div>
+      </div>
+      <div class="topic-tl-item">
+        <div class="topic-tl-date">03/30 10:00</div>
+        <div class="topic-tl-text">第一次提到想去自然历史博物馆看恐龙化石。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 其他兴趣快速切换 -->
+  <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:10px">其他兴趣主题</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+    <span style="display:inline-flex;align-items:center;gap:4px;padding:8px 16px;border-radius:var(--r-full);background:linear-gradient(135deg,#3B82F6,#60A5FA);color:white;font-size:12px;font-weight:700;cursor:pointer">🎨 绘画 · 11次</span>
+    <span style="display:inline-flex;align-items:center;gap:4px;padding:8px 16px;border-radius:var(--r-full);background:linear-gradient(135deg,#8B5CF6,#A78BFA);color:white;font-size:12px;font-weight:700;cursor:pointer">🌟 太空 · 7次</span>
+    <span style="display:inline-flex;align-items:center;gap:4px;padding:8px 16px;border-radius:var(--r-full);background:linear-gradient(135deg,#06B6D4,#67E8F9);color:white;font-size:12px;font-weight:700;cursor:pointer">🐱 小动物 · 5次</span>
+    <span style="display:inline-flex;align-items:center;gap:4px;padding:8px 16px;border-radius:var(--r-full);background:linear-gradient(135deg,#22C55E,#4ADE80);color:white;font-size:12px;font-weight:700;cursor:pointer">🌸 花朵 · 3次</span>
+  </div>
+
+</div>
+</body>
+</html>

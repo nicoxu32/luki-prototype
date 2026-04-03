@@ -3,33 +3,152 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>luki · 使用时长控制</title>
+<title>luki · 家长管控</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+.pc-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:14px}
+.pc-card-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:16px}
+.pc-card-title i{font-size:20px}
+.pc-item{padding:14px 0;border-bottom:1px solid var(--border-light)}
+.pc-item:last-child{border-bottom:none}
+.pc-item-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.pc-item-title{font-size:14px;font-weight:600;color:var(--text-h)}
+.pc-item-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+.pc-toggle{position:relative;width:44px;height:24px;border-radius:12px;background:#E5E7EB;cursor:pointer;transition:.2s;flex-shrink:0}
+.pc-toggle.on{background:var(--c-primary)}
+.pc-toggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:white;box-shadow:0 1px 3px rgba(0,0,0,.15);transition:.2s}
+.pc-toggle.on::after{left:22px}
+.pc-map{width:100%;height:180px;border-radius:var(--r-lg);background:linear-gradient(135deg,#E8F4FD 0%,#D1E9F6 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-top:10px}
+.pc-map-pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-100%);font-size:28px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
+.pc-map-label{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:white;padding:4px 12px;border-radius:var(--r-full);font-size:11px;font-weight:600;color:var(--text-h);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.pc-map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.06) 1px,transparent 1px);background-size:30px 30px}
+.pc-location-info{display:flex;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;background:var(--bg-muted);border-radius:var(--r-md)}
+.pc-location-dot{width:10px;height:10px;border-radius:50%;background:#16A34A;flex-shrink:0;box-shadow:0 0 0 3px rgba(34,197,94,.2)}
+.pc-location-text{flex:1}
+.pc-location-addr{font-size:13px;font-weight:600;color:var(--text-h)}
+.pc-location-time{font-size:11px;color:var(--text-muted)}
+.pc-usage-bar-wrap{margin-top:12px}
+.pc-usage-bar-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.pc-usage-bar-title{font-size:13px;font-weight:600;color:var(--text-h)}
+.pc-usage-bar-val{font-size:13px;color:var(--text-muted)}
+.pc-usage-bar{height:10px;border-radius:5px;background:var(--bg-muted);overflow:hidden}
+.pc-usage-bar-fill{height:100%;border-radius:5px;transition:.3s}
+.pc-setting-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border-light)}
+.pc-setting-row:last-child{border-bottom:none}
+.pc-setting-label{font-size:13px;font-weight:500;color:var(--text-body)}
+.pc-setting-value{font-size:13px;font-weight:600;color:var(--c-primary);cursor:pointer;display:flex;align-items:center;gap:4px}
+</style>
 </head>
 <body>
-<div style="display:flex;align-items:center;padding:8px 16px 12px">
-  <a href="javascript:history.back()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center">
-    <i class="ph ph-caret-left" style="font-size:20px;color:var(--text-h)"></i>
-  </a>
-  <div style="flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)">使用时长控制</div>
-  <div style="width:36px"></div>
-</div>
-<div class="page-content" style="padding-top:0">
 
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:20px;margin-bottom:14px;text-align:center">
-    <div style="font-size:13px;color:var(--text-sub);margin-bottom:8px">今日已使用</div>
-    <div style="font-size:36px;font-weight:900;color:var(--text-h);font-family:var(--font-en)">1:20</div>
-    <div style="font-size:12px;color:var(--text-muted);margin-top:4px">每日限额 2 小时</div>
-    <div style="height:8px;border-radius:4px;background:var(--bg-muted);margin-top:14px"><div style="width:67%;height:100%;border-radius:4px;background:linear-gradient(90deg,#F97316,#FB923C)"></div></div>
-    <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--text-muted)"><span>0:00</span><span>2:00</span></div>
+<!-- 顶部导航 -->
+<div class="detail-header">
+  <a href="profile.html" class="back-btn"><i class="ph ph-caret-left"></i></a>
+  <div class="detail-title">家长管控</div>
+  <div style="width:32px"></div>
+</div>
+
+<div class="page-content" style="padding-top:8px">
+
+  <!-- ═══════════ 设备定位 卡片 ═══════════ -->
+  <div class="pc-card">
+    <div class="pc-card-title"><i class="ph ph-map-pin" style="color:#3B82F6"></i> 设备定位</div>
+
+    <div class="pc-item" style="padding-top:0">
+      <div class="pc-item-top">
+        <div class="pc-item-title">实时定位</div>
+        <div class="pc-toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="pc-item-desc">开启后可实时查看 luki 设备的地理位置。</div>
+
+      <!-- 地图占位 -->
+      <div class="pc-map">
+        <div class="pc-map-grid"></div>
+        <div class="pc-map-pin">📍</div>
+        <div class="pc-map-label"><i class="ph ph-map-pin" style="font-size:12px;color:#3B82F6"></i> 深圳市南山区科技园</div>
+      </div>
+
+      <!-- 当前位置信息 -->
+      <div class="pc-location-info">
+        <div class="pc-location-dot"></div>
+        <div class="pc-location-text">
+          <div class="pc-location-addr">深圳市南山区科技园南路 XX 号</div>
+          <div class="pc-location-time">最后更新：2026-04-03 16:30</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pc-item" style="border-bottom:none">
+      <div class="pc-item-top">
+        <div class="pc-item-title">位置历史</div>
+        <div class="pc-toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="pc-item-desc">记录设备的位置移动轨迹，可查看过去 7 天的位置历史。</div>
+    </div>
   </div>
 
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:12px">
-    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:14px">时长设置</div>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:14px;color:var(--text-h)">每日使用上限</span><span style="font-size:14px;font-weight:700;color:var(--c-primary)">2 小时</span></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:14px;color:var(--text-h)">单次对话上限</span><span style="font-size:14px;font-weight:700;color:var(--c-primary)">30 分钟</span></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0"><span style="font-size:14px;color:var(--text-h)">到时提醒方式</span><span style="font-size:14px;font-weight:700;color:var(--c-primary)">温柔提醒</span></div>
+  <!-- ═══════════ 使用时长控制 卡片 ═══════════ -->
+  <div class="pc-card">
+    <div class="pc-card-title"><i class="ph ph-clock" style="color:#F59E0B"></i> 使用时长控制</div>
+
+    <!-- 今日使用概览 -->
+    <div class="pc-item" style="padding-top:0">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="text-align:center">
+          <div style="font-family:var(--font-en);font-size:32px;font-weight:800;color:var(--text-h);line-height:1">1:20</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">今日已用</div>
+        </div>
+        <div style="font-size:20px;color:var(--text-muted)">/</div>
+        <div style="text-align:center">
+          <div style="font-family:var(--font-en);font-size:32px;font-weight:800;color:var(--c-primary);line-height:1">2:00</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">每日上限</div>
+        </div>
+      </div>
+      <div class="pc-usage-bar">
+        <div class="pc-usage-bar-fill" style="width:67%;background:linear-gradient(90deg,#FB923C,#F97316)"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--text-muted)">
+        <span>0:00</span><span>剩余 40 分钟</span><span>2:00</span>
+      </div>
+    </div>
+
+    <!-- 时长设置 -->
+    <div class="pc-item">
+      <div class="pc-item-title" style="margin-bottom:10px">时长设置</div>
+      <div class="pc-setting-row">
+        <div class="pc-setting-label">每日使用上限</div>
+        <div class="pc-setting-value" onclick="alert('设置每日使用上限')">2 小时 <i class="ph ph-caret-right" style="font-size:14px"></i></div>
+      </div>
+      <div class="pc-setting-row">
+        <div class="pc-setting-label">单次对话上限</div>
+        <div class="pc-setting-value" onclick="alert('设置单次对话上限')">30 分钟 <i class="ph ph-caret-right" style="font-size:14px"></i></div>
+      </div>
+      <div class="pc-setting-row">
+        <div class="pc-setting-label">到时提醒方式</div>
+        <div class="pc-setting-value" onclick="alert('设置提醒方式')">温和提醒 <i class="ph ph-caret-right" style="font-size:14px"></i></div>
+      </div>
+    </div>
+
+    <!-- 休息时间 -->
+    <div class="pc-item" style="border-bottom:none">
+      <div class="pc-item-top">
+        <div class="pc-item-title">休息时间</div>
+        <div class="pc-toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+      <div class="pc-item-desc">在设定的休息时间段内，luki 将自动进入休眠模式，不再响应对话。</div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <div style="flex:1;background:var(--bg-muted);border-radius:var(--r-md);padding:10px;text-align:center">
+          <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">开始</div>
+          <div style="font-family:var(--font-en);font-size:18px;font-weight:700;color:var(--text-h)">21:00</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:14px;color:var(--text-muted)">→</div>
+        <div style="flex:1;background:var(--bg-muted);border-radius:var(--r-md);padding:10px;text-align:center">
+          <div style="font-size:10px;color:var(--text-muted);margin-bottom:2px">结束</div>
+          <div style="font-family:var(--font-en);font-size:18px;font-weight:700;color:var(--text-h)">07:00</div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
