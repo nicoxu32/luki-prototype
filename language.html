@@ -6,31 +6,123 @@
 <title>luki · 语言模式</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+/* ── 语言选项行 ── */
+.lang-item{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border-light);cursor:pointer;transition:.1s}
+.lang-item:last-child{border-bottom:none}
+.lang-item:active{background:var(--bg-muted);margin:0 -4px;padding-left:4px;padding-right:4px;border-radius:var(--r-md)}
+.lang-name{font-size:14px;color:var(--text-h)}
+.lang-native{font-size:11px;color:var(--text-muted);margin-top:1px}
+</style>
 </head>
 <body>
+
+<!-- 顶部导航 -->
 <div style="display:flex;align-items:center;padding:8px 16px 12px">
   <a href="javascript:history.back()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center">
     <i class="ph ph-caret-left" style="font-size:20px;color:var(--text-h)"></i>
   </a>
-  <div style="flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)">语言模式</div>
+  <div style="flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)">APP 语言设置</div>
   <div style="width:36px"></div>
 </div>
+
 <div class="page-content" style="padding-top:0">
 
+  <!-- APP语言设置卡片 -->
   <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:12px">
-    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:14px">界面语言</div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:14px;color:var(--text-h)">简体中文</span><i class="ph-fill ph-check-circle" style="font-size:20px;color:var(--c-primary)"></i></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:14px;color:var(--text-h)">English</span><i class="ph ph-circle" style="font-size:20px;color:var(--text-muted)"></i></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0"><span style="font-size:14px;color:var(--text-h)">繁體中文</span><i class="ph ph-circle" style="font-size:20px;color:var(--text-muted)"></i></div>
-  </div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:14px">选择语言</div>
 
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px">
-    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:14px">对话语言</div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:14px;color:var(--text-h)">中文对话</span><i class="ph-fill ph-check-circle" style="font-size:20px;color:var(--c-primary)"></i></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:14px;color:var(--text-h)">中英双语</span><i class="ph ph-circle" style="font-size:20px;color:var(--text-muted)"></i></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0"><span style="font-size:14px;color:var(--text-h)">英文对话</span><i class="ph ph-circle" style="font-size:20px;color:var(--text-muted)"></i></div>
+    <!-- 简体中文（当前选中） -->
+    <div class="lang-item" onclick="selectLang(this)" data-selected="true">
+      <div>
+        <div class="lang-name">简体中文</div>
+        <div class="lang-native">Chinese Simplified</div>
+      </div>
+      <i class="ph-fill ph-check-circle" style="font-size:20px;color:var(--c-primary)" id="check-zh-hans"></i>
+    </div>
+
+    <!-- English -->
+    <div class="lang-item" onclick="selectLang(this)">
+      <div>
+        <div class="lang-name">English</div>
+        <div class="lang-native">English</div>
+      </div>
+      <i class="ph ph-circle" style="font-size:20px;color:var(--text-muted)"></i>
+    </div>
+
+    <!-- 繁體中文 -->
+    <div class="lang-item" onclick="selectLang(this)">
+      <div>
+        <div class="lang-name">繁體中文</div>
+        <div class="lang-native">Chinese Traditional</div>
+      </div>
+      <i class="ph ph-circle" style="font-size:20px;color:var(--text-muted)"></i>
+    </div>
+
+    <!-- 日语 -->
+    <div class="lang-item" onclick="selectLang(this)">
+      <div>
+        <div class="lang-name">日语</div>
+        <div class="lang-native">日本語</div>
+      </div>
+      <i class="ph ph-circle" style="font-size:20px;color:var(--text-muted)"></i>
+    </div>
+
+    <!-- 韩语 -->
+    <div class="lang-item" onclick="selectLang(this)">
+      <div>
+        <div class="lang-name">韩语</div>
+        <div class="lang-native">한국어</div>
+      </div>
+      <i class="ph ph-circle" style="font-size:20px;color:var(--text-muted)"></i>
+    </div>
+
+    <!-- 阿拉伯语 -->
+    <div class="lang-item" onclick="selectLang(this)">
+      <div>
+        <div class="lang-name">阿拉伯语</div>
+        <div class="lang-native">العربية</div>
+      </div>
+      <i class="ph ph-circle" style="font-size:20px;color:var(--text-muted)"></i>
+    </div>
+
+    <!-- 俄语 -->
+    <div class="lang-item" onclick="selectLang(this)">
+      <div>
+        <div class="lang-name">俄语</div>
+        <div class="lang-native">Русский</div>
+      </div>
+      <i class="ph ph-circle" style="font-size:20px;color:var(--text-muted)"></i>
+    </div>
+
   </div>
 
 </div>
+
+<script>
+/* ── 选择语言：点击后弹窗确认，确定后才更新选中状态 ── */
+function selectLang(item) {
+  /* 获取语言名称 */
+  var langName = item.querySelector('.lang-name').textContent;
+  /* 如果已经是当前选中语言，不再弹窗 */
+  if (item.dataset.selected === 'true') return;
+  /* 弹窗确认 */
+  var confirmed = confirm('是否将 APP 语言更改为「' + langName + '」？');
+  if (!confirmed) return;
+  /* 确认后重置所有图标为未选中 */
+  document.querySelectorAll('.lang-item').forEach(function(el) {
+    var icon = el.querySelector('i');
+    icon.className = 'ph ph-circle';
+    icon.style.color = 'var(--text-muted)';
+    delete el.dataset.selected;
+  });
+  /* 设置当前选中图标 */
+  var icon = item.querySelector('i');
+  icon.className = 'ph-fill ph-check-circle';
+  icon.style.color = 'var(--c-primary)';
+  item.dataset.selected = 'true';
+}
+</script>
+
 </body>
 </html>

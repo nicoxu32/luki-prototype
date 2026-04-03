@@ -6,8 +6,55 @@
 <title>luki · 设备管理</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+/* ── 设备卡片 ── */
+.dev-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:0 0 18px;margin-bottom:14px;overflow:hidden}
+
+/* ── 设备卡片顶部：居中大图 + 名称 + 状态 ── */
+.dev-hero{text-align:center;padding:24px 20px 18px;border-bottom:1px solid var(--border-light);margin-bottom:0}
+.dev-hero-img{width:120px;height:120px;border-radius:24px;object-fit:cover;box-shadow:0 8px 28px rgba(0,0,0,.12);display:block;margin:0 auto 14px}
+.dev-hero-name{font-size:18px;font-weight:800;color:var(--text-h);margin-bottom:6px}
+.dev-status-row{display:flex;align-items:center;justify-content:center;gap:8px}
+.dev-online{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(34,197,94,.12);color:#16A34A}
+.dev-offline{display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600;background:var(--bg-muted);color:var(--text-muted)}
+.dev-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.dev-battery{display:inline-flex;align-items:center;gap:3px;font-size:12px;color:var(--text-sub)}
+
+/* ── 信息行（在卡片内部，加横向内边距） ── */
+.dev-info-body{padding:4px 20px 0}
+.dev-info-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border-light);font-size:13px}
+.dev-info-row:last-child{border-bottom:none}
+.dev-info-label{color:var(--text-sub)}
+.dev-info-val{color:var(--text-h);font-weight:500;display:flex;align-items:center;gap:6px}
+
+/* ── 设备名称编辑内联 ── */
+.dev-edit-btn{width:20px;height:20px;border-radius:50%;background:var(--bg-muted);border:none;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;vertical-align:middle}
+.dev-name-edit-wrap{display:flex;align-items:center;gap:6px}
+.dev-name-input{font-size:13px;font-weight:600;color:var(--text-h);border:1.5px solid var(--c-primary);border-radius:8px;padding:3px 8px;outline:none;background:white;font-family:var(--font-cn);width:120px}
+.dev-name-save{padding:3px 10px;border-radius:8px;border:none;background:var(--c-primary);color:white;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-cn)}
+
+/* ── 切换设备按钮 ── */
+
+/* ── 解绑弹窗 ── */
+
+/* ── 解绑按钮 ── */
+.dev-unbind-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:calc(100% - 40px);margin:12px 20px 0;padding:11px;border-radius:var(--r-lg);border:1.5px solid #FCA5A5;background:#FEF2F2;color:#DC2626;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-cn);transition:.15s}
+.dev-unbind-btn:active{transform:scale(.98)}
+
+/* ── 绑定新设备（底部固定，固定宽度居中） ── */
+.bind-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:220px;padding:13px 0;background:var(--bg-card);border-radius:var(--r-xl);border:2px dashed var(--border);color:var(--text-sub);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-cn);transition:.15s}
+.bind-btn:active{transform:scale(.98);background:var(--bg-muted)}
+
+/* ── 解绑弹窗 ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;display:none;align-items:flex-end;justify-content:center}
+.overlay.show{display:flex}
+.sheet{background:white;border-radius:var(--r-xl) var(--r-xl) 0 0;padding:24px 20px 40px;width:100%;max-width:480px;animation:slideUp .25s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+</style>
 </head>
 <body>
+
+<!-- 顶部导航 -->
 <div style="display:flex;align-items:center;padding:8px 16px 12px">
   <a href="javascript:history.back()" style="width:36px;height:36px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center">
     <i class="ph ph-caret-left" style="font-size:20px;color:var(--text-h)"></i>
@@ -15,48 +62,228 @@
   <div style="flex:1;text-align:center;font-size:17px;font-weight:700;color:var(--text-h)">设备管理</div>
   <div style="width:36px"></div>
 </div>
-<div class="page-content" style="padding-top:0">
 
-  <div style="text-align:center;padding:20px 0">
-    <img src="luki-device.webp" alt="luki" style="width:140px;height:140px;object-fit:cover;border-radius:28px;box-shadow:0 8px 32px rgba(0,0,0,.1)">
-    <div style="font-size:20px;font-weight:800;color:var(--text-h);margin-top:14px">luki 小恐龙</div>
-    <div style="display:flex;justify-content:center;gap:10px;margin-top:8px">
-      <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 12px;border-radius:20px;font-size:12px;font-weight:600;background:rgba(34,197,94,.1);color:#16A34A"><span style="width:6px;height:6px;border-radius:50%;background:#16A34A;display:inline-block"></span> 在线</span>
-      <span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--text-sub)"><i class="ph ph-battery-high" style="font-size:15px"></i> 78%</span>
+<div class="page-content" style="padding-top:0;padding-bottom:100px">
+
+  <!-- ═══ 设备1：在线（当前活跃） ═══ -->
+  <div class="dev-card">
+
+    <!-- 居中大图 + 名称 + 状态（无编辑 icon） -->
+    <div class="dev-hero">
+      <img src="luki-device.webp" alt="luki" class="dev-hero-img">
+      <div class="dev-hero-name" id="devName1">luki 小恐龙</div>
+      <div class="dev-status-row">
+        <span class="dev-online"><span class="dev-dot" style="background:#16A34A"></span> 在线</span>
+        <span class="dev-battery"><i class="ph ph-battery-high" style="font-size:14px"></i> 78%</span>
+      </div>
     </div>
-  </div>
 
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:12px">
-    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:12px">设备信息</div>
-    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:13px;color:var(--text-sub)">设备名称</span><span style="font-size:13px;color:var(--text-h);font-weight:600">luki 小恐龙</span></div>
-    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:13px;color:var(--text-sub)">序列号</span><span style="font-size:13px;color:var(--text-h);font-family:var(--font-en)">LK-2026-0328</span></div>
-    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:13px;color:var(--text-sub)">固件版本</span><span style="font-size:13px;color:var(--text-h);font-family:var(--font-en)">v3.2.1</span></div>
-    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-light)"><span style="font-size:13px;color:var(--text-sub)">Wi-Fi</span><span style="font-size:13px;color:var(--text-h)">Home_WiFi_5G</span></div>
-    <div style="display:flex;justify-content:space-between;padding:8px 0"><span style="font-size:13px;color:var(--text-sub)">存储空间</span><span style="font-size:13px;color:var(--text-h)">已用 2.1GB / 8GB</span></div>
-  </div>
-
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:12px">
-    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:12px">音量控制</div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <i class="ph ph-speaker-low" style="font-size:18px;color:var(--text-sub)"></i>
-      <div style="flex:1;height:6px;border-radius:3px;background:var(--bg-muted);position:relative"><div style="width:65%;height:100%;border-radius:3px;background:var(--c-primary)"></div></div>
-      <i class="ph ph-speaker-high" style="font-size:18px;color:var(--text-sub)"></i>
-      <span style="font-size:13px;font-weight:600;color:var(--text-h);min-width:30px;text-align:right">65%</span>
+    <!-- 设备信息（固件版本+检查更新合并在最后一行） -->
+    <div class="dev-info-body">
+      <div class="dev-info-row">
+        <span class="dev-info-label">设备名称</span>
+        <span class="dev-info-val">
+          <span id="infoNameText1">luki 小恐龙</span>
+          <button class="dev-edit-btn" onclick="startEdit(1)" title="修改设备名称">
+            <i class="ph ph-pencil-simple" style="font-size:10px;color:var(--text-sub)"></i>
+          </button>
+          <span id="infoNameEdit1" style="display:none" class="dev-name-edit-wrap">
+            <input class="dev-name-input" id="nameInput1" maxlength="16" value="luki 小恐龙">
+            <button class="dev-name-save" onclick="saveEdit(1)">保存</button>
+          </span>
+        </span>
+      </div>
+      <div class="dev-info-row">
+        <span class="dev-info-label">序列号</span>
+        <span class="dev-info-val" style="font-family:var(--font-en)">LK-2026-0328</span>
+      </div>
+      <div class="dev-info-row">
+        <span class="dev-info-label">Wi-Fi</span>
+        <span class="dev-info-val">Home_WiFi_5G</span>
+      </div>
+      <div class="dev-info-row">
+        <span class="dev-info-label">存储空间</span>
+        <span class="dev-info-val">已用 2.1 GB / 8 GB</span>
+      </div>
+      <!-- 固件版本与检查更新合并在最后一行 -->
+      <div class="dev-info-row">
+        <span class="dev-info-label">固件版本</span>
+        <span class="dev-info-val" style="gap:10px">
+          <span style="font-family:var(--font-en);color:var(--text-muted);font-weight:400">v3.2.1</span>
+          <span onclick="alert('当前已是最新版本 v3.2.1')" style="font-size:12px;font-weight:600;color:var(--c-primary);cursor:pointer;display:flex;align-items:center;gap:3px">
+            <i class="ph ph-arrow-clockwise" style="font-size:13px"></i> 检查更新
+          </span>
+        </span>
+      </div>
     </div>
+
+    <!-- 操作按钮区：在线设备只有解绑，无需「切换为此设备」 -->
+    <button class="dev-unbind-btn" onclick="showUnbind('luki 小恐龙', 1)">
+      <i class="ph ph-link-break" style="font-size:16px"></i> 解绑此设备
+    </button>
   </div>
 
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:12px">
-    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:12px">设备操作</div>
-    <div class="menu-list" style="margin:0;border-radius:0;box-shadow:none;border:none">
-      <a href="#" class="menu-item" onclick="alert('正在检查固件更新…')"><div class="menu-icon" style="background:#DBEAFE"><i class="ph ph-arrow-clockwise" style="font-size:20px;color:#3B82F6"></i></div><div class="menu-text"><div class="menu-title">检查固件更新</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></a>
-      <a href="#" class="menu-item" onclick="alert('正在重启设备…')"><div class="menu-icon" style="background:#FFEDD5"><i class="ph ph-power" style="font-size:20px;color:#F97316"></i></div><div class="menu-text"><div class="menu-title">重启设备</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></a>
-      <a href="#" class="menu-item" onclick="alert('确认恢复出厂设置？此操作不可撤销。')"><div class="menu-icon" style="background:#FEF2F2"><i class="ph ph-trash" style="font-size:20px;color:#EF4444"></i></div><div class="menu-text"><div class="menu-title" style="color:#EF4444">恢复出厂设置</div></div><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></a>
+  <!-- ═══ 设备2：离线 ═══ -->
+  <div class="dev-card">
+
+    <!-- 居中大图 + 名称 + 状态（无编辑 icon） -->
+    <div class="dev-hero" style="background:linear-gradient(180deg,#F8FAFC,transparent)">
+      <img src="luki-device.webp" alt="luki" class="dev-hero-img" style="filter:grayscale(.5);opacity:.85">
+      <div class="dev-hero-name" id="devName2" style="color:var(--text-sub)">luki 粉粉</div>
+      <div class="dev-status-row">
+        <span class="dev-offline"><span class="dev-dot" style="background:#94A3B8"></span> 离线</span>
+        <span style="font-size:11px;color:var(--text-muted)">上次在线 2 天前</span>
+        <span onclick="switchDevice('luki 粉粉')" style="font-size:11px;font-weight:600;color:var(--c-primary);cursor:pointer;margin-left:4px">切换为此设备</span>
+      </div>
     </div>
-  </div>
 
-  <!-- 绑定新设备按钮 -->
-  <button onclick="alert('开始绑定新设备…请确保 luki 设备已开机并处于配对模式')" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;background:var(--bg-card);border-radius:var(--r-xl);border:2px dashed var(--border);color:var(--text-sub);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-cn);margin-bottom:16px;transition:.15s" onmousedown="this.style.transform='scale(.98)'" onmouseup="this.style.transform='scale(1)'"><i class="ph ph-plus-circle" style="font-size:20px;color:var(--c-primary)"></i> 绑定新设备</button>
+    <!-- 同时只有一台在线提示 -->
+    <div style="margin:12px 20px 0;background:#FFFBEB;border-radius:var(--r-md);padding:9px 12px;font-size:12px;color:#92400E;display:flex;align-items:center;gap:6px">
+      <i class="ph ph-info" style="font-size:14px;flex-shrink:0;color:#D97706"></i>
+      同时仅支持一台设备在线，切换使用时另一台将自动断开。
+    </div>
+
+    <!-- 设备信息 -->
+    <div class="dev-info-body" style="margin-top:4px">
+      <div class="dev-info-row">
+        <span class="dev-info-label">设备名称</span>
+        <span class="dev-info-val">
+          <span id="infoNameText2">luki 粉粉</span>
+          <button class="dev-edit-btn" onclick="startEdit(2)" title="修改设备名称">
+            <i class="ph ph-pencil-simple" style="font-size:10px;color:var(--text-sub)"></i>
+          </button>
+          <span id="infoNameEdit2" style="display:none" class="dev-name-edit-wrap">
+            <input class="dev-name-input" id="nameInput2" maxlength="16" value="luki 粉粉">
+            <button class="dev-name-save" onclick="saveEdit(2)">保存</button>
+          </span>
+        </span>
+      </div>
+      <div class="dev-info-row">
+        <span class="dev-info-label">序列号</span>
+        <span class="dev-info-val" style="font-family:var(--font-en)">LK-2025-1102</span>
+      </div>
+      <div class="dev-info-row">
+        <span class="dev-info-label">Wi-Fi</span>
+        <span class="dev-info-val">Grandma_Home</span>
+      </div>
+      <!-- 固件版本与检查更新合并在最后一行 -->
+      <div class="dev-info-row">
+        <span class="dev-info-label">固件版本</span>
+        <span class="dev-info-val" style="gap:10px">
+          <span style="font-family:var(--font-en);color:var(--text-muted);font-weight:400">v3.1.4</span>
+          <span onclick="alert('检测到新版本 v3.2.1，设备上线后可更新。')" style="font-size:12px;font-weight:600;color:var(--c-primary);cursor:pointer;display:flex;align-items:center;gap:3px">
+            <i class="ph ph-arrow-clockwise" style="font-size:13px"></i> 检查更新
+          </span>
+        </span>
+      </div>
+    </div>
+
+    <!-- 操作按钮区：只保留解绑，切换入口已在状态行 -->
+    <button class="dev-unbind-btn" onclick="showUnbind('luki 粉粉', 2)">
+      <i class="ph ph-link-break" style="font-size:16px"></i> 解绑此设备
+    </button>
+  </div>
 
 </div>
+
+<!-- ═══ 绑定新设备按钮（固定在底部，固定宽度居中） ═══ -->
+<div style="position:fixed;bottom:0;left:0;right:0;padding:12px 16px 28px;background:var(--bg-page);border-top:1px solid var(--border-light);display:flex;justify-content:center">
+  <button class="bind-btn" onclick="alert('开始绑定新设备…\n请确保 luki 设备已开机并处于配对模式。')">
+    <i class="ph ph-plus-circle" style="font-size:20px;color:var(--c-primary)"></i> 绑定新设备
+  </button>
+</div>
+
+<!-- ═══ 解绑确认弹窗 ═══ -->
+<div class="overlay" id="unbindOverlay" onclick="if(event.target===this)hideUnbind()">
+  <div class="sheet">
+    <div style="text-align:center;margin-bottom:14px">
+      <div style="width:60px;height:60px;border-radius:50%;background:#FEF2F2;display:inline-flex;align-items:center;justify-content:center">
+        <i class="ph ph-link-break" style="font-size:28px;color:#DC2626"></i>
+      </div>
+    </div>
+    <div style="font-size:17px;font-weight:800;color:#DC2626;text-align:center;margin-bottom:6px">确认解绑设备？</div>
+    <div id="unbindDevName" style="font-size:13px;color:var(--text-sub);text-align:center;margin-bottom:14px"></div>
+    <div style="background:#FEF2F2;border-radius:var(--r-md);padding:10px 14px;font-size:12px;color:#DC2626;line-height:1.7;margin-bottom:20px;display:flex;gap:6px">
+      <i class="ph ph-warning" style="font-size:15px;flex-shrink:0;margin-top:1px"></i>
+      <span>此操作不可恢复！孩子的对话记录、情绪分析及成长数据将被永久删除。</span>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button onclick="hideUnbind()" style="flex:1;padding:13px;border-radius:var(--r-lg);border:1.5px solid var(--border-light);background:white;color:var(--text-body);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-cn)">取消</button>
+      <button id="unbindConfirmBtn" style="flex:1;padding:13px;border-radius:var(--r-lg);border:none;background:#DC2626;color:white;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)">确认解绑</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── 设备名称编辑：点击 icon 切换为内联输入框 ── */
+function startEdit(id) {
+  document.getElementById('infoNameText' + id).style.display = 'none';
+  document.getElementById('infoNameEdit' + id).style.display = 'flex';
+  var input = document.getElementById('nameInput' + id);
+  input.value = document.getElementById('infoNameText' + id).textContent;
+  input.focus();
+  input.select();
+}
+
+function saveEdit(id) {
+  var val = document.getElementById('nameInput' + id).value.trim();
+  if (!val) { alert('设备名称不能为空'); return; }
+  if (!confirm('确认将设备名称修改为「' + val + '」？')) return;
+  document.getElementById('devName' + id).textContent = val;
+  document.getElementById('infoNameText' + id).textContent = val;
+  document.getElementById('nameInput' + id).value = val;
+  document.getElementById('infoNameEdit' + id).style.display = 'none';
+  document.getElementById('infoNameText' + id).style.display = 'inline';
+}
+
+/* ── 切换设备 ── */
+function switchDevice(name) {
+  if (!confirm('确认切换为「' + name + '」？\n切换后当前在线设备将自动断开连接。')) return;
+  alert('已切换为「' + name + '」，原设备已断开。');
+}
+
+/* ── 解绑弹窗 ── */
+var _unbindId = null;
+
+function showUnbind(name, id) {
+  _unbindId = id;
+  document.getElementById('unbindDevName').textContent =
+    '解绑「' + name + '」后，该设备将与账号断开连接。';
+  document.getElementById('unbindConfirmBtn').onclick = doUnbind;
+  document.getElementById('unbindOverlay').classList.add('show');
+}
+
+function hideUnbind() {
+  document.getElementById('unbindOverlay').classList.remove('show');
+}
+
+function doUnbind() {
+  hideUnbind();
+  var cards = document.querySelectorAll('.dev-card');
+  if (_unbindId && cards[_unbindId - 1]) {
+    cards[_unbindId - 1].style.transition = 'opacity .3s';
+    cards[_unbindId - 1].style.opacity = '0';
+    setTimeout(function() { cards[_unbindId - 1].remove(); }, 300);
+  }
+  _unbindId = null;
+}
+
+/* ── 回车确认编辑 ── */
+document.addEventListener('DOMContentLoaded', function() {
+  [1, 2].forEach(function(id) {
+    var input = document.getElementById('nameInput' + id);
+    if (input) {
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') saveEdit(id);
+        if (e.key === 'Escape') {
+          document.getElementById('infoNameEdit' + id).style.display = 'none';
+          document.getElementById('infoNameText' + id).style.display = 'inline';
+        }
+      });
+    }
+  });
+});
+</script>
+
 </body>
 </html>

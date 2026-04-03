@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 对话隐私</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+.sp-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:14px}
+.sp-item{padding:14px 0;border-bottom:1px solid var(--border-light)}
+.sp-item:last-child{border-bottom:none;padding-bottom:0}
+.sp-item:first-child{padding-top:0}
+.sp-item-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.sp-item-title{font-size:14px;font-weight:600;color:var(--text-h)}
+.sp-item-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+.sp-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:var(--r-full);font-size:10px;font-weight:600;flex-shrink:0}
+.sp-badge-blue{background:rgba(59,130,246,.1);color:#3B82F6}
+.sp-badge-amber{background:rgba(245,158,11,.1);color:#D97706}
+.sp-info-box{background:var(--bg-muted);border-radius:var(--r-md);padding:10px 12px;margin-top:8px;font-size:11px;color:var(--text-muted);line-height:1.6}
+.sp-info-box i{font-size:13px;color:var(--text-sub);vertical-align:middle;margin-right:4px}
+.sp-danger-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;border-radius:var(--r-lg);border:1.5px solid #FCA5A5;background:#FEF2F2;color:#DC2626;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px;font-family:var(--font-cn);transition:.15s}
+.sp-danger-btn:active{transform:scale(.98)}
+</style>
+</head>
+<body>
+<div class="detail-header">
+  <a href="profile.html" class="back-btn"><i class="ph ph-caret-left"></i></a>
+  <div class="detail-title">对话隐私</div>
+  <div style="width:32px"></div>
+</div>
+
+<div class="page-content" style="padding-top:8px">
+
+  <!-- 卡片1：对话隐私 -->
+  <div class="sp-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--text-h)">
+        <i class="ph ph-chat-dots" style="font-size:18px;color:#3B82F6"></i> 对话隐私
+      </div>
+      <span class="sp-badge sp-badge-blue"><i class="ph ph-eye-slash" style="font-size:11px"></i> 保护中</span>
+    </div>
+    <div class="sp-item-desc">所有对话数据经端到端加密传输和存储，不用于广告或第三方数据共享。</div>
+  </div>
+
+  <!-- 卡片2：数据留存 -->
+  <div class="sp-card">
+    <div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:6px">
+      <i class="ph ph-database" style="font-size:18px;color:#7E57C2"></i> 数据留存
+    </div>
+    <div class="sp-item-desc">免费用户数据保留 <strong>30 天</strong>后自动删除；Premium 订阅期间持续保留，取消后保留 30 天。</div>
+  </div>
+
+  <!-- 卡片3：数据导出 -->
+  <div class="sp-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+      <div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--text-h)">
+        <i class="ph ph-export" style="font-size:18px;color:#D97706"></i> 数据导出
+      </div>
+      <span class="sp-badge sp-badge-amber"><i class="ph ph-download-simple" style="font-size:11px"></i> GDPR 合规</span>
+    </div>
+    <div class="sp-item-desc" style="margin-bottom:10px">您有权随时导出全部数据副本，文件将通过邮件发送至注册邮箱。</div>
+    <button onclick="confirmExport()" style="display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:var(--r-full);background:var(--bg-muted);color:var(--text-body);font-size:13px;font-weight:600;border:1px solid var(--border-light);cursor:pointer;font-family:var(--font-cn)">
+      <i class="ph ph-export" style="font-size:14px"></i> 导出我的数据
+    </button>
+  </div>
+
+  <!-- 卡片4：清除数据 -->
+  <div class="sp-card">
+    <div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:6px">
+      <i class="ph ph-trash" style="font-size:18px;color:#DC2626"></i> 清除数据
+    </div>
+    <div class="sp-item-desc" style="margin-bottom:10px">永久删除所有对话记录及分析数据，此操作不可恢复，请谨慎操作。</div>
+    <button class="sp-danger-btn" onclick="confirmClear()">
+      <i class="ph ph-trash" style="font-size:16px"></i> 清除所有对话内容
+    </button>
+  </div>
+
+</div>
+
+<script>
+/* ── 导出数据：二次确认 ── */
+function confirmExport() {
+  if (!confirm('确认申请导出全部数据？导出包将通过邮件发送至您的注册邮箱。')) return;
+  alert('已提交导出申请，请留意注册邮箱。');
+}
+
+/* ── 清除数据：二次确认（危险操作） ── */
+function confirmClear() {
+  if (!confirm('此操作将永久删除所有对话记录及分析数据，且不可恢复。\n\n确认要清除吗？')) return;
+  /* 第二次确认 */
+  if (!confirm('再次确认：清除后情绪报告和成长趋势也将同步删除，是否继续？')) return;
+  alert('已成功清除所有对话内容。');
+}
+</script>
+
+</body>
+</html>

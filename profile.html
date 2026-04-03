@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
 <style>
-/* ── 指令1：设备管理卡片（区域大，展示 luki 设备形象） ── */
+/* ── 设备管理卡片 ── */
 .device-card{background:linear-gradient(170deg,#F0F4F8 0%,#E8EDF2 100%);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:20px;margin-bottom:14px;display:flex;align-items:center;gap:18px;cursor:pointer;transition:.15s;text-decoration:none;color:inherit}
 .device-card:active{transform:scale(.98)}
 .device-img{width:100px;height:100px;border-radius:20px;overflow:hidden;flex-shrink:0;background:white;box-shadow:0 4px 16px rgba(0,0,0,.08)}
@@ -21,33 +21,24 @@
 .device-sn{font-size:11px;color:var(--text-muted)}
 .device-arrow{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.05);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-/* ── 指令2：个人资料+家庭成员+声纹合并卡片 ── */
-.family-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px}
-.family-profile-row{display:flex;align-items:center;gap:14px;padding-bottom:14px;border-bottom:1px solid var(--border-light)}
-.family-avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:white;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.family-name{font-size:16px;font-weight:700;color:var(--text-h)}
-.family-role{font-size:12px;color:var(--text-muted);margin-top:2px}
-.family-members-title{font-size:13px;font-weight:600;color:var(--text-sub);margin:14px 0 10px}
-.family-member-row{display:flex;align-items:center;gap:12px;padding:8px 0}
-.family-member-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:white;flex-shrink:0}
-.family-member-info{flex:1}
-.family-member-name{font-size:14px;font-weight:600;color:var(--text-h)}
-.family-member-sub{font-size:11px;color:var(--text-muted)}
-.voiceprint-tag{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:var(--r-full);font-size:10px;font-weight:600;flex-shrink:0}
-.voiceprint-done{background:rgba(34,197,94,.1);color:#16A34A}
-.voiceprint-pending{background:rgba(245,158,11,.1);color:#F59E0B}
-
-.profile-section{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:12px}
+/* ── 通用卡片 ── */
+.profile-section{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:4px 0;margin-bottom:14px}
 .section-label{font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin:16px 0 8px;padding:0 2px}
+
+/* ── 订阅卡片 ── */
 .subscribe-card{background:linear-gradient(135deg,#7E57C2,#AB47BC);border-radius:var(--r-xl);padding:18px 20px;color:white;margin-bottom:14px;position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;cursor:pointer}
 .subscribe-card::after{content:'';position:absolute;right:-20px;bottom:-20px;width:80px;height:80px;background:rgba(255,255,255,.08);border-radius:50%}
+
+/* ── APP版本行 ── */
+.version-row{display:flex;align-items:center;justify-content:space-between;padding:13px 18px}
+.version-check{font-size:12px;font-weight:600;color:var(--c-primary);cursor:pointer}
 </style>
 </head>
 <body>
 
 <div class="page-content" style="padding-top:16px">
 
-  <!-- ═══ 指令1：设备管理卡片（大区域，luki 设备形象图） ═══ -->
+  <!-- ═══ 设备管理卡片（大区域，顶部展示） ═══ -->
   <a href="device-manage.html" class="device-card">
     <div class="device-img"><img src="luki-device.webp" alt="luki 设备"></div>
     <div class="device-info">
@@ -61,85 +52,136 @@
     <div class="device-arrow"><i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i></div>
   </a>
 
-  <!-- ═══ 指令2：个人资料 + 家庭成员 + 声纹合并 ═══ -->
-  <a href="family-member.html" style="text-decoration:none;color:inherit;display:block">
-  <div class="family-card">
-    <!-- 个人资料 -->
-    <div class="family-profile-row">
-      <div class="family-avatar" style="background:linear-gradient(135deg,#FB923C,#F97316)">妈</div>
+  <!-- ═══ 第一个卡片：我的资料 ═══ -->
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin:4px 0 8px;padding:0 2px">我的账户</div>
+  <div class="profile-section">
+
+    <!-- 我的资料 · 横向一行 -->
+    <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border-light)">
+      <!-- 头像：使用个人资料 icon -->
+      <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#E0E7FF,#C7D2FE);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(99,102,241,.15)">
+        <i class="ph-fill ph-user-circle" style="font-size:32px;color:#6366F1"></i>
+      </div>
+      <!-- 昵称（点击可编辑） -->
       <div style="flex:1">
-        <div class="family-name">晓梅</div>
-        <div class="family-role">小莉的妈妈 · 138****6789</div>
-      </div>
-      <span class="voiceprint-tag voiceprint-done"><i class="ph ph-waveform" style="font-size:12px"></i> 声纹已录</span>
-    </div>
-    <!-- 家庭成员声纹 -->
-    <div class="family-members-title">家庭成员声纹</div>
-    <div class="family-member-row">
-      <div class="family-member-avatar" style="background:linear-gradient(135deg,#60A5FA,#3B82F6)">爸</div>
-      <div class="family-member-info">
-        <div class="family-member-name">志远</div>
-        <div class="family-member-sub">小莉的爸爸</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-        <span onclick="event.preventDefault();alert('播放志远的声纹样本…')" style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-play" style="font-size:14px;color:#16A34A"></i></span>
-        <span onclick="event.preventDefault();alert('编辑志远的声纹')" style="width:28px;height:28px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-pencil-simple" style="font-size:14px;color:var(--text-sub)"></i></span>
-        <span onclick="event.preventDefault();alert('确认删除志远的声纹？')" style="width:28px;height:28px;border-radius:50%;background:rgba(239,68,68,.08);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-trash" style="font-size:14px;color:#EF4444"></i></span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div id="nicknameDisplay" style="font-size:16px;font-weight:700;color:var(--text-h)">晓梅</div>
+          <button onclick="openNicknameEdit()" style="width:22px;height:22px;border-radius:50%;background:var(--bg-muted);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+            <i class="ph ph-pencil-simple" style="font-size:11px;color:var(--text-sub)"></i>
+          </button>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">点击铅笔图标可修改昵称</div>
       </div>
     </div>
-    <div class="family-member-row">
-      <div class="family-member-avatar" style="background:linear-gradient(135deg,#FBBF24,#F59E0B)">莉</div>
-      <div class="family-member-info">
-        <div class="family-member-name">小莉</div>
-        <div class="family-member-sub">孩子 · 6岁</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-        <span onclick="event.preventDefault();alert('播放小莉的声纹样本…')" style="width:28px;height:28px;border-radius:50%;background:rgba(34,197,94,.1);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-play" style="font-size:14px;color:#16A34A"></i></span>
-        <span onclick="event.preventDefault();alert('编辑小莉的声纹')" style="width:28px;height:28px;border-radius:50%;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-pencil-simple" style="font-size:14px;color:var(--text-sub)"></i></span>
-        <span onclick="event.preventDefault();alert('确认删除小莉的声纹？')" style="width:28px;height:28px;border-radius:50%;background:rgba(239,68,68,.08);display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-trash" style="font-size:14px;color:#EF4444"></i></span>
-      </div>
-    </div>
-    <div class="family-member-row">
-      <div class="family-member-avatar" style="background:linear-gradient(135deg,#C4B5FD,#8B5CF6)">+</div>
-      <div class="family-member-info">
-        <div class="family-member-name" style="color:var(--text-sub)">添加家庭成员声纹</div>
-      </div>
-    </div>
-  </div>
-  </a>
 
-  <!-- ═══ 指令3：家庭管理中去掉设备管理（已在顶部展示） ═══ -->
-  <!-- 智能体 -->
-  <div class="section-label">智能体</div>
-  <div class="menu-list">
+    <!-- 第三方登录绑定 -->
+    <a href="linked-accounts.html" class="menu-item">
+      <div class="menu-icon" style="background:#F0F4FF">
+        <i class="ph ph-link" style="font-size:20px;color:#6366F1"></i>
+      </div>
+      <div class="menu-text">
+        <div class="menu-title">账号管理</div>
+        <div class="menu-sub">已绑定 2 个账户 · Google / Apple ID</div>
+      </div>
+      <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
+    </a>
+
+    <!-- 声纹识人 -->
+    <a href="family-member.html" class="menu-item">
+      <div class="menu-icon" style="background:#F0FDF4">
+        <i class="ph ph-waveform" style="font-size:20px;color:#16A34A"></i>
+      </div>
+      <div class="menu-text">
+        <div class="menu-title">声纹识人</div>
+        <div class="menu-sub">家庭成员声纹 · 已录 3 位</div>
+      </div>
+      <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
+    </a>
+
+    <!-- 智能体管理 -->
     <a href="agent-manage.html" class="menu-item">
-      <div class="menu-icon" style="background:#EDE9FE"><i class="ph ph-robot" style="font-size:20px;color:#8B5CF6"></i></div>
-      <div class="menu-text"><div class="menu-title">智能体管理</div><div class="menu-sub">已开启 3 个 · 预设 / 自建 / 兑换</div></div>
-      <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
-    </a>
-    <a href="redeem.html" class="menu-item">
-      <div class="menu-icon" style="background:#FFEDD5"><i class="ph ph-gift" style="font-size:20px;color:#F97316"></i></div>
-      <div class="menu-text"><div class="menu-title">智能体兑换</div><div class="menu-sub">输入兑换码激活新智能体</div></div>
+      <div class="menu-icon" style="background:#EDE9FE">
+        <i class="ph ph-robot" style="font-size:20px;color:#8B5CF6"></i>
+      </div>
+      <div class="menu-text">
+        <div class="menu-title">智能体管理</div>
+        <div class="menu-sub">已开启 3 个 · 智能体列表 / 新建 / 兑换</div>
+      </div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
   </div>
 
-  <!-- 安全与隐私 -->
-  <div class="section-label">安全与隐私</div>
-  <div class="menu-list">
+  <!-- 昵称编辑弹窗 -->
+  <div id="nicknameOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;display:none;align-items:flex-end;justify-content:center" onclick="if(event.target===this)closeNicknameEdit()">
+    <div style="background:white;border-radius:24px 24px 0 0;padding:20px 20px 40px;width:100%;max-width:480px;animation:slideUpP .25s ease">
+      <div style="font-size:16px;font-weight:800;color:var(--text-h);text-align:center;margin-bottom:16px">修改昵称</div>
+      <input type="text" id="nicknameInput" value="晓梅" maxlength="12" style="width:100%;padding:12px 14px;border:2px solid var(--c-primary);border-radius:var(--r-lg);font-size:16px;font-family:var(--font-cn);color:var(--text-h);outline:none;box-sizing:border-box;text-align:center">
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <button onclick="closeNicknameEdit()" style="flex:1;padding:13px;border-radius:var(--r-lg);border:1.5px solid var(--border-light);background:white;color:var(--text-body);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-cn)">取消</button>
+        <button onclick="saveNickname()" style="flex:2;padding:13px;border-radius:var(--r-lg);border:none;background:linear-gradient(135deg,var(--c-primary),#FB923C);color:white;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)">保存</button>
+      </div>
+    </div>
+  </div>
+  <style>@keyframes slideUpP{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
+  <script>
+  function openNicknameEdit(){
+    /* 将输入框的值同步为当前昵称 */
+    document.getElementById('nicknameInput').value = document.getElementById('nicknameDisplay').textContent;
+    document.getElementById('nicknameOverlay').style.display='flex';
+    setTimeout(function(){document.getElementById('nicknameInput').focus();},300);
+  }
+  function closeNicknameEdit(){ document.getElementById('nicknameOverlay').style.display='none'; }
+  function saveNickname(){
+    var v=document.getElementById('nicknameInput').value.trim();
+    if(!v){alert('昵称不能为空');return;}
+    /* 二次确认 */
+    if(!confirm('确认将昵称修改为「' + v + '」？')) return;
+    document.getElementById('nicknameDisplay').textContent = v;
+    closeNicknameEdit();
+  }
+  </script>
+
+  <!-- ═══ 第二个卡片：隐私安全（带标题） ═══ -->
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin:4px 0 8px;padding:0 2px">隐私安全</div>
+  <div class="profile-section">
+    <!-- 安全说明 -->
     <a href="safety-settings.html" class="menu-item">
-      <div class="menu-icon" style="background:#FEF2F2"><i class="ph ph-shield-check" style="font-size:20px;color:#EF4444"></i></div>
-      <div class="menu-text"><div class="menu-title">安全与隐私</div><div class="menu-sub">预警阈值 · 对话隐私 · 敏感词 · 数据留存</div></div>
+      <div class="menu-icon" style="background:#FEF2F2">
+        <i class="ph ph-shield-check" style="font-size:20px;color:#EF4444"></i>
+      </div>
+      <div class="menu-text">
+        <div class="menu-title">安全说明</div>
+        <div class="menu-sub">对话安全 · 情绪预警 · 合规声明</div>
+      </div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
+
+    <!-- 对话隐私 -->
+    <a href="privacy-settings.html" class="menu-item">
+      <div class="menu-icon" style="background:#EFF6FF">
+        <i class="ph ph-lock" style="font-size:20px;color:#3B82F6"></i>
+      </div>
+      <div class="menu-text">
+        <div class="menu-title">对话隐私</div>
+        <div class="menu-sub">数据加密 · 隐私保护 · 数据导出</div>
+      </div>
+      <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
+    </a>
+
+    <!-- 使用管控 -->
     <a href="usage-limit.html" class="menu-item">
-      <div class="menu-icon" style="background:#FFFBEB"><i class="ph ph-shield-warning" style="font-size:20px;color:#F59E0B"></i></div>
-      <div class="menu-text"><div class="menu-title">家长管控</div><div class="menu-sub">设备定位 · 使用时长控制</div></div>
+      <div class="menu-icon" style="background:#FFFBEB">
+        <i class="ph ph-shield-warning" style="font-size:20px;color:#F59E0B"></i>
+      </div>
+      <div class="menu-text">
+        <div class="menu-title">使用管控</div>
+        <div class="menu-sub">设备定位 · 使用时长 · 休息时间</div>
+      </div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
   </div>
 
-  <!-- 订阅卡片（移到系统设置上方） -->
+  <!-- ═══ 订阅卡片 ═══ -->
   <div class="subscribe-card" onclick="alert('进入订阅页面')">
     <div style="flex:1;position:relative;z-index:1">
       <div style="font-size:15px;font-weight:700;margin-bottom:4px">升级 Premium</div>
@@ -148,43 +190,54 @@
     <div style="font-family:var(--font-en);font-size:22px;font-weight:800;position:relative;z-index:1">$39.9<span style="font-size:11px;font-weight:400;opacity:.7">/月</span></div>
   </div>
 
-  <!-- 系统设置 -->
+  <!-- ═══ 系统设置 ═══ -->
   <div class="section-label">系统设置</div>
   <div class="menu-list">
+    <!-- 语言模式 -->
     <a href="language.html" class="menu-item">
       <div class="menu-icon" style="background:#F3EFFE"><i class="ph ph-translate" style="font-size:20px;color:#8B5CF6"></i></div>
-      <div class="menu-text"><div class="menu-title">语言模式</div><div class="menu-sub">简体中文</div></div>
+      <div class="menu-text"><div class="menu-title">APP语言设置</div><div class="menu-sub">简体中文</div></div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
-
+    <!-- 帮助中心 -->
     <a href="#" class="menu-item">
       <div class="menu-icon" style="background:#F1F5F9"><i class="ph ph-question" style="font-size:20px;color:#64748B"></i></div>
       <div class="menu-text"><div class="menu-title">帮助中心</div></div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
+    <!-- 使用反馈 -->
     <a href="#" class="menu-item">
       <div class="menu-icon" style="background:#F1F5F9"><i class="ph ph-chat-circle-text" style="font-size:20px;color:#64748B"></i></div>
       <div class="menu-text"><div class="menu-title">使用反馈</div></div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
-  </div>
-
-  <!-- 退出与版本 -->
-  <div class="menu-list" style="margin-top:12px">
-    <a href="#" class="menu-item" onclick="alert('确认退出登录？')">
-      <div class="menu-icon" style="background:#FEF2F2"><i class="ph ph-sign-out" style="font-size:20px;color:#EF4444"></i></div>
-      <div class="menu-text"><div class="menu-title" style="color:#EF4444">退出登录</div></div>
-    </a>
-    <a href="#" class="menu-item" onclick="alert('确认注销账号？此操作不可恢复。')">
-      <div class="menu-icon" style="background:#FEF2F2"><i class="ph ph-trash" style="font-size:20px;color:#EF4444"></i></div>
+    <!-- APP 版本：icon + 标题/版本号 + 检查更新（替代右侧箭头） -->
+    <div class="menu-item" style="cursor:default">
+      <div class="menu-icon" style="background:#F0FDF4"><i class="ph ph-app-store-logo" style="font-size:20px;color:#16A34A"></i></div>
+      <div class="menu-text"><div class="menu-title">APP 版本</div><div class="menu-sub" style="font-family:var(--font-en)">V1.0.0</div></div>
+      <span onclick="alert('当前已是最新版本 V1.0.0')" style="font-size:12px;font-weight:600;color:var(--c-primary);cursor:pointer;display:flex;align-items:center;gap:3px;flex-shrink:0">
+        <i class="ph ph-arrow-clockwise" style="font-size:13px"></i> 检查更新
+      </span>
+    </div>
+    <!-- 注销账号：标准 menu-item 样式，点击进入注销详情页 -->
+    <a href="deactivate.html" class="menu-item">
+      <div class="menu-icon" style="background:#FEF2F2"><i class="ph ph-user-minus" style="font-size:20px;color:#EF4444"></i></div>
       <div class="menu-text"><div class="menu-title" style="color:#EF4444">注销账号</div></div>
+      <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
   </div>
 
-  <div style="text-align:center;padding:20px 0 8px;font-size:11px;color:var(--text-muted)">luki v2.4.1 · 隐私政策 · 服务条款</div>
+  <!-- 退出登录：独立大按钮 -->
+  <button onclick="if(confirm('确认退出登录？'))alert('已退出登录。')" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border-radius:var(--r-xl);border:1.5px solid #FCA5A5;background:#FEF2F2;color:#DC2626;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:14px;font-family:var(--font-cn)">
+    <i class="ph ph-sign-out" style="font-size:18px"></i> 退出登录
+  </button>
+
+  <!-- 底部文案 -->
+  <div style="text-align:center;padding:20px 0 8px;font-size:12px;color:var(--text-muted);font-weight:500">iluki，孩子的第一个AI朋友</div>
+
 </div>
 
-<!-- 指令5：Tab Bar 与 Tab1 定稿一致 -->
+<!-- Tab Bar -->
 <nav class="tab-bar">
   <a href="index.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-sun-horizon" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">今日动态</span></a>
   <a href="growth.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-chart-line-up" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">成长趋势</span></a>

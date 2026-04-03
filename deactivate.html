@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>luki · 注销账号</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1/src/index.js"></script>
+<style>
+/* ── 顶部情感插图区域 ── */
+.da-hero{text-align:center;padding:32px 24px 20px}
+.da-icon-wrap{width:76px;height:76px;border-radius:50%;background:#FEF2F2;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 0 0 8px rgba(220,38,38,.06)}
+.da-title{font-size:20px;font-weight:800;color:var(--text-h);margin-bottom:10px}
+.da-subtitle{font-size:13px;color:var(--text-muted);line-height:1.8}
+
+/* ── 内容卡片 ── */
+.da-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:14px}
+.da-card-title{font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:2px}
+
+/* ── 删除项目列表 ── */
+.da-list-item{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--border-light);font-size:13px;color:var(--text-body);line-height:1.5}
+.da-list-item:last-child{border-bottom:none;padding-bottom:0}
+.da-list-item i{font-size:16px;color:#DC2626;flex-shrink:0;margin-top:1px}
+
+/* ── 温馨提示框 ── */
+.da-tip{background:#FFFBEB;border-radius:var(--r-xl);border:1px solid #FDE68A;padding:14px 16px;margin-bottom:24px;font-size:12px;color:#92400E;line-height:1.8;display:flex;gap:8px;align-items:flex-start}
+.da-tip i{font-size:16px;color:#D97706;flex-shrink:0;margin-top:1px}
+
+/* ── 确认注销按钮 ── */
+.da-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border-radius:var(--r-xl);border:none;background:#DC2626;color:white;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn);transition:.15s}
+.da-btn:active{transform:scale(.98);background:#B91C1C}
+.da-note{text-align:center;margin-top:10px;font-size:11px;color:var(--text-muted)}
+</style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<div class="detail-header">
+  <a href="profile.html" class="back-btn"><i class="ph ph-caret-left"></i></a>
+  <div class="detail-title">注销账号</div>
+  <div style="width:32px"></div>
+</div>
+
+<div class="page-content" style="padding-top:8px">
+
+  <!-- 情感插图区 -->
+  <div class="da-hero">
+    <div class="da-icon-wrap">
+      <i class="ph ph-smiley-sad" style="font-size:38px;color:#DC2626"></i>
+    </div>
+    <div class="da-title">很遗憾，您要离开了</div>
+    <div class="da-subtitle">
+      注销后，您的账号与所有关联数据将被<strong>永久删除</strong>，<br>
+      且<strong>无法以任何方式恢复</strong>，请在操作前仔细阅读。
+    </div>
+  </div>
+
+  <!-- 将被永久删除的内容 -->
+  <div class="da-card">
+    <div class="da-card-title" style="margin-bottom:6px">注销后将永久删除以下内容</div>
+    <div class="da-list-item">
+      <i class="ph ph-chat-dots"></i>
+      <span>与 luki 的全部<strong>对话记录</strong>，包括文字与语音内容</span>
+    </div>
+    <div class="da-list-item">
+      <i class="ph ph-chart-line-up"></i>
+      <span>孩子的<strong>成长趋势</strong>分析数据与情绪周报</span>
+    </div>
+    <div class="da-list-item">
+      <i class="ph ph-clock-countdown"></i>
+      <span>时光机中保存的所有<strong>成长回忆与珍贵片段</strong></span>
+    </div>
+    <div class="da-list-item">
+      <i class="ph ph-waveform"></i>
+      <span>家庭成员声纹档案及识人配置</span>
+    </div>
+    <div class="da-list-item">
+      <i class="ph ph-devices"></i>
+      <span>已绑定设备的关联关系与所有设置</span>
+    </div>
+    <div class="da-list-item">
+      <i class="ph ph-user"></i>
+      <span>账号信息、昵称、订阅记录及第三方登录绑定</span>
+    </div>
+  </div>
+
+  <!-- 温馨提示 -->
+  <div class="da-tip">
+    <i class="ph ph-lightbulb"></i>
+    <span>
+      如果只是想暂时休息，可以直接<strong>退出登录</strong>，数据会完整保留。<br>
+      如需保留数据副本，请提前前往 <strong>对话隐私 → 数据导出</strong> 进行备份。
+    </span>
+  </div>
+
+  <!-- 确认注销按钮 -->
+  <button class="da-btn" onclick="confirmDeactivate()">
+    <i class="ph ph-trash" style="font-size:18px"></i> 确认注销账号
+  </button>
+  <div class="da-note">注销操作不可撤销，请谨慎操作</div>
+
+</div>
+
+<script>
+/* 注销账号：两次确认，防止误操作 */
+function confirmDeactivate() {
+  /* 第一次确认 */
+  if (!confirm('确认要注销账号吗？\n\n注销后所有数据将被永久删除，且无法恢复。')) return;
+  /* 第二次确认：最终防护 */
+  if (!confirm('最后确认：您真的要注销账号吗？\n\n此操作不可撤销，数据一旦删除无法找回。')) return;
+  alert('账号已注销，感谢您曾经使用 luki，希望有缘再见。');
+  /* 实际场景跳转至登录/首页 */
+  window.location.href = 'index.html';
+}
+</script>
+
+</body>
+</html>
