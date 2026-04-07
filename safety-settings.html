@@ -36,28 +36,32 @@
 
 <div class="page-content" style="padding-top:8px">
 
-  <!-- 卡片1：儿童模式 -->
+  <!-- 卡片1：安全模式 -->
   <div class="sp-card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
       <div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--text-h)">
-        <i class="ph ph-shield-check" style="font-size:18px;color:#EF4444"></i> 儿童模式
+        <i class="ph ph-shield-check" style="font-size:18px;color:#EF4444"></i> 安全模式
       </div>
-      <div class="sp-toggle on" id="toggle-child" onclick="confirmToggle(this,'儿童模式')"></div>
+      <!-- 开关：固定开启，不可修改 -->
+      <div class="sp-toggle on" style="opacity:.5;cursor:not-allowed;pointer-events:none"></div>
     </div>
     <div class="sp-item-desc">开启后，自动屏蔽不适宜内容，例如暴力、色情、恐怖等敏感词汇和话题。</div>
+    <div class="sp-info-box" style="margin-top:8px"><i class="ph ph-lock-simple"></i>安全模式由系统强制开启，无法手动关闭</div>
   </div>
 
-  <!-- 卡片2：情绪预警 -->
+  <!-- 卡片2：情绪预警等级 -->
   <div class="sp-card">
     <div style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:6px">
-      <i class="ph ph-bell-ringing" style="font-size:18px;color:#F59E0B"></i> 情绪预警
+      <i class="ph ph-bell-ringing" style="font-size:18px;color:#F59E0B"></i> 情绪预警等级
     </div>
-    <div class="sp-item-desc" style="margin-bottom:10px">检测到潜在情绪风险时通知家长，灵敏度越高越容易触发。</div>
-    <div class="sp-select">
-      <button class="sp-select-btn" onclick="confirmSel(this,'情绪预警灵敏度','低')">低</button>
-      <button class="sp-select-btn active" onclick="confirmSel(this,'情绪预警灵敏度','中')">中</button>
-      <button class="sp-select-btn" onclick="confirmSel(this,'情绪预警灵敏度','高')">高</button>
+    <div class="sp-item-desc" style="margin-bottom:10px">检测到潜在情绪风险时通知家长，等级越高越容易触发预警。</div>
+    <!-- 等级按钮：固定中等，不可修改 -->
+    <div class="sp-select" style="pointer-events:none;opacity:.7">
+      <button class="sp-select-btn" style="cursor:not-allowed">低</button>
+      <button class="sp-select-btn active" style="cursor:not-allowed">中</button>
+      <button class="sp-select-btn" style="cursor:not-allowed">高</button>
     </div>
+    <div class="sp-info-box" style="margin-top:8px"><i class="ph ph-lock-simple"></i>预警等级由系统默认设为中等，暂不支持修改</div>
   </div>
 
   <!-- 卡片3：对话内容保护 -->
@@ -85,23 +89,5 @@
   </div>
 
 </div>
-<script>
-/* ── Toggle 二次确认 ── */
-function confirmToggle(el, label) {
-  var willBeOn = !el.classList.contains('on');
-  var action = willBeOn ? '开启' : '关闭';
-  if (!confirm('确认' + action + '「' + label + '」？')) return;
-  el.classList.toggle('on');
-}
-
-/* ── 灵敏度选择二次确认 ── */
-function confirmSel(btn, label, val) {
-  /* 如果已经是当前选中项，不再弹窗 */
-  if (btn.classList.contains('active')) return;
-  if (!confirm('确认将「' + label + '」修改为「' + val + '」？')) return;
-  btn.parentElement.querySelectorAll('.sp-select-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-}
-</script>
 </body>
 </html>
