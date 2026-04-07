@@ -54,6 +54,7 @@
   <!-- 时间段切换（可交互） -->
   <div class="seg">
     <button class="seg-btn active" id="tab7" onclick="switchTab('7day')">最近 7 天</button>
+    <button class="seg-btn" id="tab30" onclick="switchTab('30day')" style="position:relative">最近 30 天 <span style="display:inline-block;background:#1a1a1a;color:white;font-size:8px;font-weight:800;padding:1px 4px;border-radius:3px;vertical-align:super;margin-left:2px;letter-spacing:.5px;font-family:var(--font-en)">PRO</span></button>
     <button class="seg-btn" id="tabAll" onclick="switchTab('all')" style="position:relative">全部历史 <span style="display:inline-block;background:#1a1a1a;color:white;font-size:8px;font-weight:800;padding:1px 4px;border-radius:3px;vertical-align:super;margin-left:2px;letter-spacing:.5px;font-family:var(--font-en)">PRO</span></button>
   </div>
 
@@ -289,6 +290,10 @@ function switchTab(tab) {
   var allContent = document.getElementById('all-content');
   if(tab === '7day') {
     document.getElementById('tab7').classList.add('active');
+    mainContent.style.display = 'block';
+    allContent.style.display = 'none';
+  } else if(tab === '30day') {
+    document.getElementById('tab30').classList.add('active');
     mainContent.style.display = 'block';
     allContent.style.display = 'none';
   } else {
