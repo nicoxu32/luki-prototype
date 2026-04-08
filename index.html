@@ -298,65 +298,7 @@
   </a>
 </nav>
 
-<!-- ===== 全局 Paywall Bottom Sheet（从 index.html 触发） ===== -->
-<div id="paywallOverlay" onclick="if(event.target===this)closePaywall()" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;display:none;align-items:flex-end;justify-content:center">
-  <div style="background:white;border-radius:24px 24px 0 0;padding:24px 20px 44px;width:100%;max-width:480px;animation:slideUp .3s ease;max-height:90vh;overflow-y:auto">
-    <!-- 关闭按钮 -->
-    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-      <button onclick="closePaywall()" style="width:32px;height:32px;border-radius:50%;background:var(--bg-muted);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer">
-        <i class="ph ph-x" style="font-size:16px;color:var(--text-sub)"></i>
-      </button>
-    </div>
-    <!-- 标题 -->
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="font-size:20px;font-weight:800;color:var(--text-h);margin-bottom:6px">解锁 luki Premium</div>
-      <div style="font-size:13px;color:var(--text-muted)">永久珍藏孩子的童年时光</div>
-    </div>
-    <!-- 三大卖点 -->
-    <div style="background:var(--bg-muted);border-radius:var(--r-xl);padding:16px;margin-bottom:20px">
-      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px">
-        <span style="font-size:20px">✨</span>
-        <div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">深度情绪洞察</div><div style="font-size:12px;color:var(--text-muted)">解锁 30 天完整情绪报告，获取 AI 专属个性化育儿建议</div></div>
-      </div>
-      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px">
-        <span style="font-size:20px">📖</span>
-        <div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">全景时光回忆录</div><div style="font-size:12px;color:var(--text-muted)">突破 7 天限制，用全部历史珍贵瞬间编织最完整的童年绘本</div></div>
-      </div>
-      <div style="display:flex;align-items:flex-start;gap:12px">
-        <span style="font-size:20px">☁️</span>
-        <div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">永久记忆存储</div><div style="font-size:12px;color:var(--text-muted)">尊享 5GB 云端空间，永久保存孩子的每一次对话与笑声</div></div>
-      </div>
-    </div>
-    <!-- 年度方案高亮 -->
-    <div style="border:2px solid #F97316;border-radius:var(--r-xl);padding:16px;margin-bottom:14px;background:linear-gradient(135deg,#FFF7ED,#FFFBF5);position:relative">
-      <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#EF4444,#DC2626);color:white;font-size:11px;font-weight:700;padding:3px 14px;border-radius:var(--r-full);white-space:nowrap">🔥 最受欢迎 · 省 27%</div>
-      <div style="text-align:center">
-        <div style="font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:4px">年度订阅</div>
-        <div style="font-family:var(--font-en);font-size:32px;font-weight:800;color:#F97316;line-height:1">$348<span style="font-size:14px;font-weight:400;color:var(--text-muted)">/年</span></div>
-        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">折合 $29/月</div>
-      </div>
-    </div>
-    <!-- 订阅按钮 -->
-    <button onclick="location.href='subscribe.html'" style="width:100%;padding:16px;border-radius:var(--r-xl);border:none;background:linear-gradient(135deg,#F97316,#FB923C);color:white;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--font-cn);margin-bottom:8px">
-      立即订阅 · $348/年
-    </button>
-    <div style="text-align:center;font-size:11px;color:var(--text-muted)">试用期结束前 2 天发送提醒 · 随时可取消</div>
-  </div>
-</div>
-
 <style>@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
-
-<script>
-/* 打开/关闭全局 Paywall */
-function openPaywall() {
-  document.getElementById('paywallOverlay').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-function closePaywall() {
-  document.getElementById('paywallOverlay').style.display = 'none';
-  document.body.style.overflow = '';
-}
-</script>
 
 </body>
 </html>

@@ -54,8 +54,8 @@
   <!-- 时间段切换（可交互） -->
   <div class="seg">
     <button class="seg-btn active" id="tab7" onclick="switchTab('7day')">最近 7 天</button>
-    <button class="seg-btn" id="tab30" onclick="switchTab('30day')" style="position:relative">最近 30 天 <span style="display:inline-block;background:#1a1a1a;color:white;font-size:8px;font-weight:800;padding:1px 4px;border-radius:3px;vertical-align:super;margin-left:2px;letter-spacing:.5px;font-family:var(--font-en)">PRO</span></button>
-    <button class="seg-btn" id="tabAll" onclick="switchTab('all')" style="position:relative">全部历史 <span style="display:inline-block;background:#1a1a1a;color:white;font-size:8px;font-weight:800;padding:1px 4px;border-radius:3px;vertical-align:super;margin-left:2px;letter-spacing:.5px;font-family:var(--font-en)">PRO</span></button>
+    <button class="seg-btn" id="tab30" onclick="switchTab('30day')">最近 30 天</button>
+    <button class="seg-btn" id="tabAll" onclick="switchTab('all')">全部历史</button>
   </div>
 
   <!-- 全部历史：完整情绪数据报告（Premium 专属） -->
@@ -321,27 +321,15 @@
     </div>
   </div>
 
-  <!-- ⑥ AI 成长洞察与建议（Premium 锁定） -->
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">AI 成长洞察与建议</div>
-  <div onclick="openAIAdviceSheet()" style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px;cursor:pointer;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#6366F1,#4338CA);color:white;font-size:10px;font-weight:700;padding:4px 12px;border-radius:0 var(--r-xl) 0 12px">👑 Premium 专属</div>
-    <!-- 模糊预览 -->
-    <div style="filter:blur(5px);pointer-events:none;margin-top:8px">
-      <div style="height:13px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:92%"></div>
-      <div style="height:13px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:78%"></div>
-      <div style="height:13px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:85%"></div>
-      <div style="height:13px;background:var(--bg-muted);border-radius:4px;width:60%"></div>
-    </div>
-    <!-- 亮点摘要标签（可见） -->
-    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+  <!-- 成长洞察 -->
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">成长洞察</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px">
+    <div style="font-size:13px;color:var(--text-sub);line-height:1.7;margin-bottom:12px">小莉连续 6 个月的情绪数据显示，她的整体情绪健康度处于良好水平，并持续向好发展。</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
       <span style="font-size:11px;color:#6366F1;background:#EEF2FF;padding:4px 10px;border-radius:var(--r-full);font-weight:600">情绪触发规律</span>
       <span style="font-size:11px;color:#6366F1;background:#EEF2FF;padding:4px 10px;border-radius:var(--r-full);font-weight:600">应对策略建议</span>
       <span style="font-size:11px;color:#6366F1;background:#EEF2FF;padding:4px 10px;border-radius:var(--r-full);font-weight:600">亲子沟通方向</span>
       <span style="font-size:11px;color:#6366F1;background:#EEF2FF;padding:4px 10px;border-radius:var(--r-full);font-weight:600">下阶段成长目标</span>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px">
-      <i class="ph ph-lock-simple" style="font-size:14px;color:#6366F1"></i>
-      <span style="font-size:13px;font-weight:600;color:#6366F1">点击解锁 6 个月专属成长洞察</span>
     </div>
   </div>
 
@@ -483,31 +471,31 @@
   </div>
   <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
     <div class="bubble-wrap">
-      <a href="emotion-detail.html" class="bubble" style="width:82px;height:82px;background:var(--mood-happy-bg);text-decoration:none">
+      <div class="bubble" style="width:82px;height:82px;background:var(--mood-happy-bg)">
         <div class="bubble-emoji" style="font-size:28px">😄</div>
         <div class="bubble-label" style="color:#F57F17">开心</div>
         <div class="bubble-count">74次</div>
-      </a>
-      <a href="emotion-detail.html" class="bubble" style="width:64px;height:64px;background:var(--mood-curious-bg);text-decoration:none">
+      </div>
+      <div class="bubble" style="width:64px;height:64px;background:var(--mood-curious-bg)">
         <div class="bubble-emoji" style="font-size:22px">🔍</div>
         <div class="bubble-label" style="color:#0277BD">好奇</div>
         <div class="bubble-count">48次</div>
-      </a>
-      <a href="emotion-detail.html" class="bubble" style="width:56px;height:56px;background:var(--mood-calm-bg);text-decoration:none">
+      </div>
+      <div class="bubble" style="width:56px;height:56px;background:var(--mood-calm-bg)">
         <div class="bubble-emoji" style="font-size:20px">🌿</div>
         <div class="bubble-label" style="color:#2E7D32">平静</div>
         <div class="bubble-count">31次</div>
-      </a>
-      <a href="emotion-detail.html" class="bubble" style="width:46px;height:46px;background:var(--mood-anxious-bg);text-decoration:none">
+      </div>
+      <div class="bubble" style="width:46px;height:46px;background:var(--mood-anxious-bg)">
         <div class="bubble-emoji" style="font-size:18px">😰</div>
         <div class="bubble-label" style="color:#7B1FA2">焦虑</div>
         <div class="bubble-count">9次</div>
-      </a>
-      <a href="emotion-detail.html" class="bubble" style="width:40px;height:40px;background:var(--mood-sad-bg);text-decoration:none">
+      </div>
+      <div class="bubble" style="width:40px;height:40px;background:var(--mood-sad-bg)">
         <div class="bubble-emoji" style="font-size:16px">😢</div>
         <div class="bubble-label" style="color:#546E7A">沮丧</div>
         <div class="bubble-count">4次</div>
-      </a>
+      </div>
     </div>
     <div style="display:flex;justify-content:flex-end;margin-top:8px">
       <span style="font-size:10px;color:var(--text-muted)">气泡越大代表出现频次越高</span>
@@ -519,11 +507,11 @@
     <div style="font-size:16px;font-weight:700;color:var(--text-h)">兴趣与探索</div>
   </div>
   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">
-    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#F97316,#FB923C);font-size:15px;box-shadow:0 4px 12px rgba(249,115,22,.28)">🦕 恐龙 · 62次</a>
-    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#3B82F6,#60A5FA);font-size:14px">🎨 绘画 · 45次</a>
-    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA);font-size:13px">🌟 太空 · 28次</a>
-    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#06B6D4,#67E8F9);font-size:12px">🐱 小动物 · 19次</a>
-    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#22C55E,#4ADE80);font-size:12px">🌸 花朵 · 11次</a>
+    <div class="topic-bubble" style="background:linear-gradient(135deg,#F97316,#FB923C);font-size:15px;box-shadow:0 4px 12px rgba(249,115,22,.28);cursor:default">🦕 恐龙 · 62次</div>
+    <div class="topic-bubble" style="background:linear-gradient(135deg,#3B82F6,#60A5FA);font-size:14px;cursor:default">🎨 绘画 · 45次</div>
+    <div class="topic-bubble" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA);font-size:13px;cursor:default">🌟 太空 · 28次</div>
+    <div class="topic-bubble" style="background:linear-gradient(135deg,#06B6D4,#67E8F9);font-size:12px;cursor:default">🐱 小动物 · 19次</div>
+    <div class="topic-bubble" style="background:linear-gradient(135deg,#22C55E,#4ADE80);font-size:12px;cursor:default">🌸 花朵 · 11次</div>
   </div>
 
   <!-- 学习与成长（本月） -->
@@ -554,26 +542,11 @@
     </div>
   </div>
 
-  <!-- AI 个性化育儿建议 + 亲子小任务（合并，点击触发订阅） -->
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">AI 个性化育儿建议</div>
-  <div onclick="openAIAdviceSheet()" style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px;cursor:pointer;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#F59E0B,#D97706);color:white;font-size:10px;font-weight:700;padding:4px 12px;border-radius:0 var(--r-xl) 0 12px">👑 Premium 专属</div>
-    <div style="filter:blur(5px);pointer-events:none;margin-top:4px">
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:90%"></div>
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:75%"></div>
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;width:85%"></div>
-    </div>
-    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-light)">
-      <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
-        <i class="ph ph-star" style="font-size:13px;color:var(--c-primary)"></i>
-        <span style="font-size:12px;font-weight:600;color:var(--text-sub)">本月亲子小任务</span>
-      </div>
-      <div style="font-size:12px;color:var(--text-muted);line-height:1.5;filter:blur(3px);pointer-events:none">小莉本月绘画热情高涨，带她参加一次户外写生活动，记录属于你们的亲子时光吧！</div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px">
-      <i class="ph ph-lock-simple" style="font-size:14px;color:var(--c-primary)"></i>
-      <span style="font-size:13px;font-weight:600;color:var(--c-primary)">点击解锁专属建议与任务</span>
-    </div>
+  <!-- 本月亲子小任务 -->
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">本月亲子小任务</div>
+  <div class="task-card-v2" style="margin-bottom:14px">
+    <div class="task-content">🎨 带小莉参加一次户外写生活动，记录属于你们的亲子时光！</div>
+    <div class="task-record">去记录 →</div>
   </div>
 
   </div><!-- end content-30day -->
@@ -650,31 +623,31 @@
   </div>
   <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:14px">
     <div class="bubble-wrap">
-      <a href="emotion-detail.html" class="bubble" style="width:82px;height:82px;background:var(--mood-happy-bg);text-decoration:none">
+      <div class="bubble" style="width:82px;height:82px;background:var(--mood-happy-bg)">
         <div class="bubble-emoji" style="font-size:28px">😄</div>
         <div class="bubble-label" style="color:#F57F17">开心</div>
         <div class="bubble-count">18次</div>
-      </a>
-      <a href="emotion-detail.html" class="bubble" style="width:64px;height:64px;background:var(--mood-curious-bg);text-decoration:none">
+      </div>
+      <div class="bubble" style="width:64px;height:64px;background:var(--mood-curious-bg)">
         <div class="bubble-emoji" style="font-size:22px">🔍</div>
         <div class="bubble-label" style="color:#0277BD">好奇</div>
         <div class="bubble-count">12次</div>
-      </a>
-      <a href="emotion-detail.html" class="bubble" style="width:56px;height:56px;background:var(--mood-calm-bg);text-decoration:none">
+      </div>
+      <div class="bubble" style="width:56px;height:56px;background:var(--mood-calm-bg)">
         <div class="bubble-emoji" style="font-size:20px">🌿</div>
         <div class="bubble-label" style="color:#2E7D32">平静</div>
         <div class="bubble-count">8次</div>
-      </a>
-      <a href="emotion-detail.html" class="bubble" style="width:46px;height:46px;background:var(--mood-anxious-bg);text-decoration:none">
+      </div>
+      <div class="bubble" style="width:46px;height:46px;background:var(--mood-anxious-bg)">
         <div class="bubble-emoji" style="font-size:18px">😰</div>
         <div class="bubble-label" style="color:#7B1FA2">焦虑</div>
         <div class="bubble-count">3次</div>
-      </a>
-      <a href="emotion-detail.html" class="bubble" style="width:40px;height:40px;background:var(--mood-sad-bg);text-decoration:none">
+      </div>
+      <div class="bubble" style="width:40px;height:40px;background:var(--mood-sad-bg)">
         <div class="bubble-emoji" style="font-size:16px">😢</div>
         <div class="bubble-label" style="color:#546E7A">沮丧</div>
         <div class="bubble-count">1次</div>
-      </a>
+      </div>
     </div>
     <div style="display:flex;justify-content:flex-end;margin-top:8px">
       <span style="font-size:10px;color:var(--text-muted)">气泡越大代表出现频次越高</span>
@@ -686,11 +659,11 @@
     <div style="font-size:16px;font-weight:700;color:var(--text-h)">兴趣与探索</div>
   </div>
   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">
-    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#F97316,#FB923C);font-size:15px;box-shadow:0 4px 12px rgba(249,115,22,.28)">🦕 恐龙 · 15次</a>
-    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#3B82F6,#60A5FA);font-size:14px">🎨 绘画 · 11次</a>
-    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA);font-size:13px">🌟 太空 · 7次</a>
-    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#06B6D4,#67E8F9);font-size:12px">🐱 小动物 · 5次</a>
-    <a href="topic-detail.html" class="topic-bubble" style="background:linear-gradient(135deg,#22C55E,#4ADE80);font-size:12px">🌸 花朵 · 3次</a>
+    <div class="topic-bubble" style="background:linear-gradient(135deg,#F97316,#FB923C);font-size:15px;box-shadow:0 4px 12px rgba(249,115,22,.28);cursor:default">🦕 恐龙 · 15次</div>
+    <div class="topic-bubble" style="background:linear-gradient(135deg,#3B82F6,#60A5FA);font-size:14px;cursor:default">🎨 绘画 · 11次</div>
+    <div class="topic-bubble" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA);font-size:13px;cursor:default">🌟 太空 · 7次</div>
+    <div class="topic-bubble" style="background:linear-gradient(135deg,#06B6D4,#67E8F9);font-size:12px;cursor:default">🐱 小动物 · 5次</div>
+    <div class="topic-bubble" style="background:linear-gradient(135deg,#22C55E,#4ADE80);font-size:12px;cursor:default">🌸 花朵 · 3次</div>
   </div>
 
   <!-- 指令7：学习与成长（去掉"基于学习类智能体的统计"文案） -->
@@ -721,28 +694,11 @@
     </div>
   </div>
 
-  <!-- AI 个性化育儿建议 + 亲子小任务（合并，点击触发订阅） -->
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">AI 个性化育儿建议</div>
-  <div onclick="openAIAdviceSheet()" style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px;cursor:pointer;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#F59E0B,#D97706);color:white;font-size:10px;font-weight:700;padding:4px 12px;border-radius:0 var(--r-xl) 0 12px">👑 Premium 专属</div>
-    <!-- 建议内容模糊 -->
-    <div style="filter:blur(5px);pointer-events:none;margin-top:4px">
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:90%"></div>
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:75%"></div>
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;width:85%"></div>
-    </div>
-    <!-- 亲子小任务预览（合并，模糊） -->
-    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-light)">
-      <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
-        <i class="ph ph-star" style="font-size:13px;color:var(--c-primary)"></i>
-        <span style="font-size:12px;font-weight:600;color:var(--text-sub)">本周亲子小任务</span>
-      </div>
-      <div style="font-size:12px;color:var(--text-muted);line-height:1.5;filter:blur(3px);pointer-events:none">小莉本周对绘画兴趣大增，试着带她去户外画画，感受大自然的色彩吧！</div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px">
-      <i class="ph ph-lock-simple" style="font-size:14px;color:var(--c-primary)"></i>
-      <span style="font-size:13px;font-weight:600;color:var(--c-primary)">点击解锁专属建议与任务</span>
-    </div>
+  <!-- 近期亲子小任务 -->
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">近期亲子小任务</div>
+  <div class="task-card-v2" style="margin-bottom:14px">
+    <div class="task-content">🌿 带小莉去户外画画，感受大自然的色彩！</div>
+    <div class="task-record">去记录 →</div>
   </div>
 
 </div>
@@ -793,53 +749,7 @@ function switchTab(tab) {
 </nav>
 
 <!-- ===== AI 个性化育儿建议 Bottom Sheet ===== -->
-<div id="aiAdviceOverlay" onclick="if(event.target===this)closeAIAdviceSheet()" style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;display:none;align-items:flex-end;justify-content:center">
-  <div style="background:white;border-radius:24px 24px 0 0;padding:24px 20px 44px;width:100%;max-width:480px;animation:slideUpG .25s ease">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-      <div style="font-size:16px;font-weight:800;color:var(--text-h)">AI 个性化育儿建议</div>
-      <button onclick="closeAIAdviceSheet()" style="width:32px;height:32px;border-radius:50%;background:var(--bg-muted);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-x" style="font-size:16px;color:var(--text-sub)"></i></button>
-    </div>
-    <div style="background:linear-gradient(135deg,#FFF7ED,#FFFBF5);border-radius:var(--r-xl);padding:16px;margin-bottom:16px;border:1px solid #FED7AA">
-      <div style="font-size:28px;font-weight:800;color:#F97316;font-family:var(--font-en);line-height:1;margin-bottom:4px">85%</div>
-      <div style="font-size:13px;color:var(--text-sub);line-height:1.6">的 Premium 家长表示，AI 育儿建议帮助他们<strong>更好地理解了孩子的内心世界</strong>。</div>
-    </div>
-    <div style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:20px">解锁专属建议，获取基于小莉真实情绪数据生成的个性化育儿方向，做更懂孩子的父母。</div>
-    <button onclick="location.href='subscribe.html'" style="width:100%;padding:15px;border-radius:var(--r-xl);border:none;background:linear-gradient(135deg,#F97316,#FB923C);color:white;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)">解锁 AI 专属建议</button>
-  </div>
-</div>
-
-<!-- ===== 成长趋势 Paywall Bottom Sheet ===== -->
-<div id="growthPaywallOverlay" onclick="if(event.target===this)closeGrowthPaywall()" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1001;display:none;align-items:flex-end;justify-content:center">
-  <div style="background:white;border-radius:24px 24px 0 0;padding:24px 20px 44px;width:100%;max-width:480px;animation:slideUpG .3s ease;max-height:85vh;overflow-y:auto">
-    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-      <button onclick="closeGrowthPaywall()" style="width:32px;height:32px;border-radius:50%;background:var(--bg-muted);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-x" style="font-size:16px;color:var(--text-sub)"></i></button>
-    </div>
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="font-size:20px;font-weight:800;color:var(--text-h);margin-bottom:6px">解锁 luki Premium</div>
-      <div style="font-size:13px;color:var(--text-muted)">永久珍藏孩子的童年时光</div>
-    </div>
-    <div style="background:var(--bg-muted);border-radius:var(--r-xl);padding:16px;margin-bottom:20px">
-      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px"><span style="font-size:20px">✨</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">深度情绪洞察</div><div style="font-size:12px;color:var(--text-muted)">解锁 30 天完整情绪报告，获取 AI 专属个性化育儿建议</div></div></div>
-      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px"><span style="font-size:20px">📖</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">全景时光回忆录</div><div style="font-size:12px;color:var(--text-muted)">突破 7 天限制，用全部历史珍贵瞬间编织最完整的童年绘本</div></div></div>
-      <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">☁️</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">永久记忆存储</div><div style="font-size:12px;color:var(--text-muted)">尊享 5GB 云端空间，永久保存孩子的每一次对话与笑声</div></div></div>
-    </div>
-    <div style="border:2px solid #F97316;border-radius:var(--r-xl);padding:16px;margin-bottom:14px;background:linear-gradient(135deg,#FFF7ED,#FFFBF5);position:relative">
-      <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#EF4444,#DC2626);color:white;font-size:11px;font-weight:700;padding:3px 14px;border-radius:var(--r-full);white-space:nowrap">🔥 最受欢迎 · 省 27%</div>
-      <div style="text-align:center"><div style="font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:4px">年度订阅</div><div style="font-family:var(--font-en);font-size:32px;font-weight:800;color:#F97316;line-height:1">$348<span style="font-size:14px;font-weight:400;color:var(--text-muted)">/年</span></div><div style="font-size:12px;color:var(--text-muted);margin-top:4px">折合 $29/月</div></div>
-    </div>
-    <button onclick="location.href='subscribe.html'" style="width:100%;padding:16px;border-radius:var(--r-xl);border:none;background:linear-gradient(135deg,#F97316,#FB923C);color:white;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--font-cn);margin-bottom:8px">立即订阅 · $348/年</button>
-    <div style="text-align:center;font-size:11px;color:var(--text-muted)">试用期结束前 2 天发送提醒 · 随时可取消</div>
-  </div>
-</div>
-
 <style>@keyframes slideUpG{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
-
-<script>
-function openAIAdviceSheet(){ document.getElementById('aiAdviceOverlay').style.display='flex'; document.body.style.overflow='hidden'; }
-function closeAIAdviceSheet(){ document.getElementById('aiAdviceOverlay').style.display='none'; document.body.style.overflow=''; }
-function openGrowthPaywall(){ document.getElementById('growthPaywallOverlay').style.display='flex'; document.body.style.overflow='hidden'; }
-function closeGrowthPaywall(){ document.getElementById('growthPaywallOverlay').style.display='none'; document.body.style.overflow=''; }
-</script>
 
 </body>
 </html>

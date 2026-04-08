@@ -167,54 +167,12 @@
     </button>
   </div>
 
-  <!-- 月度回忆混剪 -->
-  <div class="memory-dark-card" onclick="location.href='subscribe.html'">
-    <span class="memory-dark-type monthly">🎬 月度回忆混剪</span>
-    <div class="memory-dark-title">2026年3月 · 小莉的成长之旅</div>
-    <div class="memory-dark-stats">32 段对话 · 8 次线下记录 · 15 个里程碑</div>
-    <div class="memory-dark-cover">音频混剪封面 · 358 × 100</div>
-    <div class="memory-dark-audio">
-      <button class="memory-dark-play" onclick="event.stopPropagation();this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:16px"></i></button>
-      <div class="memory-dark-wave"><div class="memory-dark-wave-fill" style="width:0%"></div></div>
-      <span class="memory-dark-dur">3:28</span>
-    </div>
-    <div class="memory-dark-premium">👑 Premium</div>
-  </div>
-
-  <!-- 闪光对话卡 -->
-  <div class="memory-dark-card" onclick="location.href='subscribe.html'">
-    <span class="memory-dark-type highlight">✨ 闪光对话</span>
-    <div class="memory-dark-title">"妈妈，我长大了想当画家！"</div>
-    <div class="memory-dark-desc">3月28日，小莉在和创意伙伴的对话中第一次表达了自己的梦想，语气中充满了期待和自信。</div>
-    <div class="memory-dark-cover">对话场景封面 · 358 × 100</div>
-    <div class="memory-dark-premium">👑 Premium</div>
-  </div>
-
-  <!-- 线下时光卡 -->
-  <div class="memory-dark-card" onclick="location.href='subscribe.html'">
-    <span class="memory-dark-type offline">🌳 线下时光</span>
-    <div class="memory-dark-title">周末公园野餐</div>
-    <div class="memory-dark-desc">3月23日，全家人一起去公园野餐，小莉在草地上画了一幅风景画。</div>
-    <div class="memory-dark-cover">照片封面 · 358 × 100</div>
-    <div class="memory-dark-chips">
-      <span class="memory-dark-chip">🎨 户外写生</span>
-      <span class="memory-dark-chip">🌸 春天</span>
-      <span class="memory-dark-chip">👨‍👩‍👧 全家</span>
-    </div>
-    <div class="memory-dark-premium">👑 Premium</div>
-  </div>
-
-  <!-- 留言信件卡 -->
-  <div class="memory-dark-card" onclick="location.href='subscribe.html'">
-    <span class="memory-dark-type letter">💌 留言信件</span>
-    <div class="memory-dark-title">小莉给妈妈的第一封信</div>
-    <div class="memory-dark-desc">"妈妈我爱你，你是世界上最好的妈妈！" —— 来自小莉的语音留言沉淀</div>
-    <div class="memory-dark-audio">
-      <button class="memory-dark-play" onclick="event.stopPropagation();this.querySelector('i').classList.toggle('ph-play-fill');this.querySelector('i').classList.toggle('ph-pause-fill')"><i class="ph ph-play-fill" style="font-size:16px"></i></button>
-      <div class="memory-dark-wave"><div class="memory-dark-wave-fill" style="width:0%"></div></div>
-      <span class="memory-dark-dur">0:45</span>
-    </div>
-    <div class="memory-dark-premium">👑 Premium</div>
+  <!-- 时光回忆录占位卡（第一期暂不展示内容列表） -->
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:28px 20px;text-align:center;margin-bottom:16px">
+    <div style="font-size:32px;margin-bottom:10px">📖</div>
+    <div style="font-size:14px;font-weight:700;color:var(--text-h);margin-bottom:6px">为小莉生成一本回忆录</div>
+    <div style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:16px">将对话、留言、线下时光汇聚成一本独一无二的成长绘本</div>
+    <button onclick="location.href='subscribe.html'" style="padding:12px 28px;border-radius:var(--r-xl);border:none;background:linear-gradient(135deg,#AB47BC,#7E57C2);color:white;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font-cn);box-shadow:0 4px 14px rgba(126,87,194,.3)">✨ 生成回忆录</button>
   </div>
 
 </div>
