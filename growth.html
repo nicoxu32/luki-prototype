@@ -112,6 +112,42 @@
     </div>
   </div>
 
+  <!-- ③ 长期情绪趋势曲线（6个月月均分） -->
+  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">长期情绪趋势</div>
+  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:14px">
+    <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">月均情绪指数 · 2025/10 — 2026/04</div>
+    <svg viewBox="0 0 320 100" preserveAspectRatio="none" style="width:100%;height:100px;display:block;overflow:visible">
+      <defs>
+        <linearGradient id="cgAll" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6366F1" stop-opacity=".2"/>
+          <stop offset="100%" stop-color="#6366F1" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <line x1="0" y1="15" x2="320" y2="15" stroke="#F0EEE9" stroke-width=".8"/>
+      <line x1="0" y1="45" x2="320" y2="45" stroke="#F0EEE9" stroke-width=".8"/>
+      <line x1="0" y1="75" x2="320" y2="75" stroke="#F0EEE9" stroke-width=".8"/>
+      <text x="0" y="13" font-size="8" fill="#C0BAB0" font-family="DM Sans">90</text>
+      <text x="0" y="43" font-size="8" fill="#C0BAB0" font-family="DM Sans">75</text>
+      <text x="0" y="73" font-size="8" fill="#C0BAB0" font-family="DM Sans">60</text>
+      <path d="M26,64 C60,60 80,52 106,50 C132,48 148,44 160,42 C172,40 188,44 213,36 C232,32 260,31 293,30 L293,100 L26,100 Z" fill="url(#cgAll)"/>
+      <polyline points="26,64 106,50 160,42 213,36 293,30" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="26"  cy="64" r="4" fill="#6366F1" stroke="white" stroke-width="2"/>
+      <circle cx="106" cy="50" r="4" fill="#6366F1" stroke="white" stroke-width="2"/>
+      <circle cx="160" cy="42" r="4" fill="#6366F1" stroke="white" stroke-width="2"/>
+      <circle cx="213" cy="36" r="4" fill="#6366F1" stroke="white" stroke-width="2"/>
+      <circle cx="293" cy="30" r="4.5" fill="#A855F7" stroke="white" stroke-width="2"/>
+      <text x="26"  y="58" font-size="9" fill="#6366F1" text-anchor="middle" font-family="DM Sans" font-weight="700">68</text>
+      <text x="293" y="24" font-size="9" fill="#A855F7" text-anchor="middle" font-family="DM Sans" font-weight="700">84</text>
+    </svg>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);font-family:var(--font-en);margin-top:6px;padding:0 2px">
+      <span>10月</span><span>11月</span><span>12月</span><span>1月</span><span>3月</span><span>4月</span>
+    </div>
+    <div style="margin-top:12px;background:#F5F3FF;border-radius:var(--r-lg);padding:10px 12px;display:flex;align-items:center;gap:10px">
+      <i class="ph ph-trend-up" style="font-size:18px;color:#6366F1;flex-shrink:0"></i>
+      <div style="font-size:12px;color:#4338CA;line-height:1.5">整体呈<strong>持续上升趋势</strong>，6 个月累计提升 <span style="font-family:var(--font-en);font-weight:800">+16</span> 分，情绪成熟度稳步增长。</div>
+    </div>
+  </div>
+
   <!-- ② 情绪基线分析 -->
   <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">情绪基线分析</div>
   <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px">
@@ -211,42 +247,6 @@
       </div>
     </div>
 
-  </div>
-
-  <!-- ③ 长期情绪趋势曲线（6个月月均分） -->
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">长期情绪趋势</div>
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:14px">
-    <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">月均情绪指数 · 2025/10 — 2026/04</div>
-    <svg viewBox="0 0 320 100" preserveAspectRatio="none" style="width:100%;height:100px;display:block;overflow:visible">
-      <defs>
-        <linearGradient id="cgAll" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#6366F1" stop-opacity=".2"/>
-          <stop offset="100%" stop-color="#6366F1" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <line x1="0" y1="15" x2="320" y2="15" stroke="#F0EEE9" stroke-width=".8"/>
-      <line x1="0" y1="45" x2="320" y2="45" stroke="#F0EEE9" stroke-width=".8"/>
-      <line x1="0" y1="75" x2="320" y2="75" stroke="#F0EEE9" stroke-width=".8"/>
-      <text x="0" y="13" font-size="8" fill="#C0BAB0" font-family="DM Sans">90</text>
-      <text x="0" y="43" font-size="8" fill="#C0BAB0" font-family="DM Sans">75</text>
-      <text x="0" y="73" font-size="8" fill="#C0BAB0" font-family="DM Sans">60</text>
-      <path d="M26,64 C60,60 80,52 106,50 C132,48 148,44 160,42 C172,40 188,44 213,36 C232,32 260,31 293,30 L293,100 L26,100 Z" fill="url(#cgAll)"/>
-      <polyline points="26,64 106,50 160,42 213,36 293,30" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-      <circle cx="26"  cy="64" r="4" fill="#6366F1" stroke="white" stroke-width="2"/>
-      <circle cx="106" cy="50" r="4" fill="#6366F1" stroke="white" stroke-width="2"/>
-      <circle cx="160" cy="42" r="4" fill="#6366F1" stroke="white" stroke-width="2"/>
-      <circle cx="213" cy="36" r="4" fill="#6366F1" stroke="white" stroke-width="2"/>
-      <circle cx="293" cy="30" r="4.5" fill="#A855F7" stroke="white" stroke-width="2"/>
-      <text x="26"  y="58" font-size="9" fill="#6366F1" text-anchor="middle" font-family="DM Sans" font-weight="700">68</text>
-      <text x="293" y="24" font-size="9" fill="#A855F7" text-anchor="middle" font-family="DM Sans" font-weight="700">84</text>
-    </svg>
-    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);font-family:var(--font-en);margin-top:6px;padding:0 2px">
-      <span>10月</span><span>11月</span><span>12月</span><span>1月</span><span>3月</span><span>4月</span>
-    </div>
-    <div style="margin-top:12px;background:#F5F3FF;border-radius:var(--r-lg);padding:10px 12px;display:flex;align-items:center;gap:10px">
-      <i class="ph ph-trend-up" style="font-size:18px;color:#6366F1;flex-shrink:0"></i>
-      <div style="font-size:12px;color:#4338CA;line-height:1.5">整体呈<strong>持续上升趋势</strong>，6 个月累计提升 <span style="font-family:var(--font-en);font-weight:800">+16</span> 分，情绪成熟度稳步增长。</div>
-    </div>
   </div>
 
   <!-- ⑤ 负面情绪触发场景 -->
