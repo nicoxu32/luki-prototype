@@ -18,21 +18,23 @@
 .mood-score{font-size:46px;font-weight:800;color:var(--c-primary);font-family:var(--font-en);line-height:1}
 .mood-desc{font-size:14px;color:var(--text-sub);font-weight:500}
 
-/* ── 关键词+预警合并卡片 ── */
+/* ── 话题总结+高危话题合并卡片 ── */
 .insight-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:14px}
 .keyword-section{margin-bottom:16px}
-.keyword-section-title{font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:10px}
-.keyword-tags{display:flex;flex-wrap:wrap;gap:8px;min-height:68px}
+.keyword-section-title{font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.keyword-tags{display:flex;flex-wrap:wrap;gap:8px}
 .keyword-tag{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--bg-muted);color:var(--text-body);transition:transform .15s}
 .keyword-tag:active{transform:scale(.95)}
+.topic-summary{font-size:13px;color:var(--text-sub);line-height:1.65;margin-top:10px;padding:10px 12px;background:#FFF7ED;border-radius:10px;border-left:3px solid var(--c-primary)}
 .divider{height:1px;background:var(--border-light);margin:0 0 14px}
 .alert-section{position:relative;padding-bottom:4px}
-.alert-top-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.alert-danger-tag{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:#EF4444;color:white}
+.alert-top-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.alert-danger-tag{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:var(--r-full);font-size:11px;font-weight:700;background:#FEE2E2;color:#DC2626;border:1px solid #FECACA}
 .alert-title-text{font-size:15px;font-weight:700;color:var(--text-h)}
-
-.alert-body{font-size:13px;color:var(--text-sub);line-height:1.6;margin-bottom:4px}
-.alert-listen{font-size:12px;font-weight:600;color:#EF4444;position:absolute;bottom:4px;right:0;display:inline-flex;align-items:center;gap:3px;cursor:pointer}
+.alert-body{font-size:13px;color:var(--text-sub);line-height:1.6;margin-bottom:10px}
+.alert-action-row{display:flex;justify-content:flex-end}
+.alert-action-btn{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:#FEE2E2;color:#DC2626;cursor:pointer;border:none;transition:opacity .15s}
+.alert-action-btn:active{opacity:.75}
 
 /* ── 情绪曲线 ── */
 .curve-section{margin-bottom:14px}
@@ -83,27 +85,36 @@
     <div style="text-align:right;font-size:11px;color:var(--text-muted);margin-top:10px">截止时间：2026年04月03日 17:45</div>
   </div>
 
-  <!-- ===== 指令2b：对话关键词 + 高危预警（合并卡片） ===== -->
+  <!-- ===== 今日话题总结 + 高危话题检测（合并卡片） ===== -->
   <div class="insight-card">
-    <!-- 上半：对话关键词 -->
+    <!-- 上半：今日话题总结 -->
     <div class="keyword-section">
-      <div class="keyword-section-title">对话关键词</div>
+      <div class="keyword-section-title">
+        <i class="ph ph-chat-circle-text" style="font-size:15px;color:var(--c-primary)"></i>
+        今日话题总结
+      </div>
       <div class="keyword-tags">
         <span class="keyword-tag">😊 #学校交了新朋友</span>
         <span class="keyword-tag">🎨 #画画课很开心</span>
         <span class="keyword-tag">🤔 #数学作业有点难</span>
         <span class="keyword-tag">🦕 #恐龙百科探索</span>
       </div>
+      <div class="topic-summary">今天晓梅主要聊了学校生活和兴趣探索，情绪整体积极。对恐龙话题表现出浓厚好奇心，数学作业带来了一些压力感。</div>
     </div>
     <div class="divider"></div>
-    <!-- 下半：高危情绪检测 -->
-    <div class="alert-section" onclick="location.href='capsule-detail.html'">
+    <!-- 下半：高危话题检测 -->
+    <div class="alert-section">
       <div class="alert-top-row">
-        <span class="alert-title-text">检测到高危情绪</span>
-        <span class="alert-danger-tag">#我想离家出走</span>
+        <span class="alert-title-text">检测到高危话题</span>
+        <span class="alert-danger-tag">⚠️ 需关注</span>
       </div>
-      <div class="alert-body">孩子在对话中多次提到"考试好害怕，想要离家出走"，建议今晚陪她聊聊考试的感受。</div>
-
+      <div class="alert-body">孩子在对话中提到"考试好害怕，想要离家出走"，建议今晚陪她聊聊考试压力的感受。</div>
+      <div class="alert-action-row">
+        <button class="alert-action-btn" onclick="location.href='capsule-detail.html'">
+          <i class="ph ph-play-circle" style="font-size:14px"></i>
+          查看原始对话
+        </button>
+      </div>
     </div>
   </div>
 
