@@ -500,39 +500,6 @@
     </div>
   </div>
 
-  <!-- 30 天情绪曲线 -->
-  <div style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px 20px;margin-bottom:14px">
-    <div style="font-size:15px;font-weight:700;color:var(--text-h);margin-bottom:2px">30 天情绪曲线</div>
-    <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px">每日综合心情指数趋势（3/9 — 4/7）</div>
-    <svg viewBox="0 0 340 110" preserveAspectRatio="none" style="width:100%;height:110px;display:block">
-      <defs>
-        <linearGradient id="cg30" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#F97316" stop-opacity=".18"/>
-          <stop offset="100%" stop-color="#F97316" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <!-- 网格线 -->
-      <line x1="0" y1="23" x2="340" y2="23" stroke="#F0EEE9" stroke-width=".5"/>
-      <line x1="0" y1="55" x2="340" y2="55" stroke="#F0EEE9" stroke-width=".5"/>
-      <line x1="0" y1="87" x2="340" y2="87" stroke="#F0EEE9" stroke-width=".5"/>
-      <!-- 曲线填充区域 -->
-      <path d="M0,43 L12,36 L23,33 L35,56 L47,45 L59,27 L70,32 L82,41 L94,37 L106,70 L117,54 L129,44 L141,25 L152,31 L164,35 L176,40 L188,32 L199,42 L211,23 L223,29 L235,34 L246,46 L258,36 L270,59 L281,48 L293,26 L305,30 L317,32 L328,41 L340,32 L340,110 L0,110 Z" fill="url(#cg30)"/>
-      <!-- 曲线 -->
-      <polyline points="0,43 12,36 23,33 35,56 47,45 59,27 70,32 82,41 94,37 106,70 117,54 129,44 141,25 152,31 164,35 176,40 188,32 199,42 211,23 223,29 235,34 246,46 258,36 270,59 281,48 293,26 305,30 317,32 328,41 340,32" fill="none" stroke="#F97316" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-      <!-- 低谷标注（3/18，分=42） -->
-      <circle cx="106" cy="70" r="4" fill="#EF4444" stroke="white" stroke-width="2"/>
-      <text x="106" y="85" font-size="8" fill="#EF4444" text-anchor="middle" font-family="DM Sans" font-weight="600">42</text>
-      <!-- 高峰标注（3/27，分=94） -->
-      <circle cx="211" cy="23" r="4" fill="#22C55E" stroke="white" stroke-width="2"/>
-      <text x="218" y="18" font-size="8" fill="#22C55E" text-anchor="start" font-family="DM Sans" font-weight="600">94</text>
-      <!-- 今日标注（4/7，分=85） -->
-      <circle cx="340" cy="32" r="3.5" fill="#F97316" stroke="white" stroke-width="2"/>
-    </svg>
-    <!-- X 轴日期标签 -->
-    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);font-family:var(--font-en);margin-top:4px;padding:0 2px">
-      <span>3/9</span><span>3/16</span><span>3/23</span><span>3/30</span><span>4/7</span>
-    </div>
-  </div>
 
   <!-- 情绪标签分布 -->
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
