@@ -55,11 +55,20 @@
   <div class="seg">
     <button class="seg-btn active" id="tab7" onclick="switchTab('7day')">最近 7 天</button>
     <button class="seg-btn" id="tab30" onclick="switchTab('30day')" style="position:relative">最近 30 天 <span style="display:inline-block;background:#1a1a1a;color:white;font-size:8px;font-weight:800;padding:1px 4px;border-radius:3px;vertical-align:super;margin-left:2px;letter-spacing:.5px;font-family:var(--font-en)">PRO</span></button>
-    <button class="seg-btn" id="tabAll" onclick="switchTab('all')" style="position:relative">全部历史</button>
+    <button class="seg-btn" id="tabAll" onclick="switchTab('all')" style="position:relative">全部历史 <span style="display:inline-block;background:#1a1a1a;color:white;font-size:8px;font-weight:800;padding:1px 4px;border-radius:3px;vertical-align:super;margin-left:2px;letter-spacing:.5px;font-family:var(--font-en)">PRO</span></button>
   </div>
 
-  <!-- 全部历史：完整情绪数据报告（Premium 专属） -->
+  <!-- 全部历史：完整情绪数据报告（PRO） -->
   <div id="all-content" style="display:none">
+
+  <!-- 演示切换 -->
+  <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:10px">
+    <span style="font-size:11px;color:var(--text-muted)">演示：</span>
+    <button onclick="togglePro('all')" id="toggle-all" style="display:inline-flex;align-items:center;gap:4px;background:#EDE9FE;color:#7C3AED;border:none;border-radius:var(--r-full);padding:5px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-cn)"><i class="ph ph-crown-simple" style="font-size:11px"></i> 切换为已订阅</button>
+  </div>
+  <!-- PRO锁定区（默认截断） -->
+  <div style="position:relative">
+  <div id="inner-all" style="max-height:480px;overflow:hidden;position:relative">
 
   <!-- ① 情绪健康画像总览 -->
   <div style="background:linear-gradient(135deg,#1E1B4B,#312E81,#4338CA);border-radius:var(--r-xl);padding:20px 18px 18px;color:white;margin-bottom:14px;position:relative;overflow:hidden">
@@ -279,32 +288,44 @@
     </div>
   </div>
 
-  <!-- ⑥ AI 成长洞察与建议（Premium 锁定） -->
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">AI 成长洞察与建议</div>
-  <div onclick="openAIAdviceSheet()" style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px;cursor:pointer;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#6366F1,#4338CA);color:white;font-size:10px;font-weight:700;padding:4px 12px;border-radius:0 var(--r-xl) 0 12px">👑 Premium 专属</div>
-    <div style="filter:blur(5px);pointer-events:none;margin-top:8px">
-      <div style="height:13px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:92%"></div>
-      <div style="height:13px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:78%"></div>
-      <div style="height:13px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:85%"></div>
-      <div style="height:13px;background:var(--bg-muted);border-radius:4px;width:60%"></div>
-    </div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
-      <span style="font-size:11px;color:#6366F1;background:#EEF2FF;padding:4px 10px;border-radius:var(--r-full);font-weight:600">情绪触发规律</span>
-      <span style="font-size:11px;color:#6366F1;background:#EEF2FF;padding:4px 10px;border-radius:var(--r-full);font-weight:600">应对策略建议</span>
-      <span style="font-size:11px;color:#6366F1;background:#EEF2FF;padding:4px 10px;border-radius:var(--r-full);font-weight:600">亲子沟通方向</span>
-      <span style="font-size:11px;color:#6366F1;background:#EEF2FF;padding:4px 10px;border-radius:var(--r-full);font-weight:600">下阶段成长目标</span>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px">
-      <i class="ph ph-lock-simple" style="font-size:14px;color:#6366F1"></i>
-      <span style="font-size:13px;font-weight:600;color:#6366F1">点击解锁 6 个月专属成长洞察</span>
+  <!-- 渐变蒙版（未订阅时遮盖内容） -->
+  <div id="mask-all" style="position:absolute;bottom:0;left:0;right:0;height:220px;background:linear-gradient(to bottom,rgba(248,247,245,0) 0%,#F8F7F5 100%);pointer-events:none"></div>
+  </div><!-- end inner-all -->
+
+  <!-- 订阅入口卡（未订阅时可见） -->
+  <div id="gate-all">
+    <div onclick="location.href='subscribe.html'" style="background:linear-gradient(145deg,#7C3AED,#9333EA,#A855F7);border-radius:var(--r-xl);padding:18px 18px 16px;color:white;margin-bottom:14px;position:relative;overflow:hidden;cursor:pointer;box-shadow:0 6px 24px rgba(124,58,237,.3)">
+      <div style="position:absolute;right:-24px;top:-24px;width:90px;height:90px;background:rgba(255,255,255,.1);border-radius:50%;pointer-events:none"></div>
+      <div style="position:absolute;left:-16px;bottom:-20px;width:70px;height:70px;background:rgba(255,255,255,.06);border-radius:50%;pointer-events:none"></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;position:relative;z-index:1">
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:16px">👑</div>
+        <span style="font-size:16px;font-weight:800">解锁完整历史报告</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;position:relative;z-index:1">
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;opacity:.95"><i class="ph ph-check-circle" style="font-size:15px;flex-shrink:0"></i><span>解锁最近 30 天完整数据报告</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;opacity:.95"><i class="ph ph-check-circle" style="font-size:15px;flex-shrink:0"></i><span>解锁全部历史数据报告</span></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1">
+        <div><div style="font-family:var(--font-en);font-size:26px;font-weight:800;line-height:1">$29<span style="font-size:13px;font-weight:400;opacity:.75">/月</span></div><div style="font-size:10px;opacity:.65;margin-top:1px">按年结算 $348 · 省 27%</div></div>
+        <div style="background:white;color:#7C3AED;font-size:13px;font-weight:700;padding:10px 20px;border-radius:var(--r-full)">立即升级</div>
+      </div>
     </div>
   </div>
+  </div><!-- end pro wrap -->
 
   </div><!-- end all-content -->
 
   <!-- ══ 最近 30 天内容区 ══ -->
   <div id="content-30day" style="display:none">
+
+  <!-- 演示切换 -->
+  <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:10px">
+    <span style="font-size:11px;color:var(--text-muted)">演示：</span>
+    <button onclick="togglePro('30day')" id="toggle-30day" style="display:inline-flex;align-items:center;gap:4px;background:#EDE9FE;color:#7C3AED;border:none;border-radius:var(--r-full);padding:5px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font-cn)"><i class="ph ph-crown-simple" style="font-size:11px"></i> 切换为已订阅</button>
+  </div>
+  <!-- PRO锁定区（默认截断） -->
+  <div style="position:relative">
+  <div id="inner-30day" style="max-height:480px;overflow:hidden;position:relative">
 
   <!-- 综合心情指数（对比上个 30 天） -->
   <div class="growth-mood-card">
@@ -510,27 +531,30 @@
     </div>
   </div>
 
-  <!-- AI 个性化育儿建议 + 亲子小任务（合并，点击触发订阅） -->
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">AI 个性化育儿建议</div>
-  <div onclick="openAIAdviceSheet()" style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px;cursor:pointer;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#F59E0B,#D97706);color:white;font-size:10px;font-weight:700;padding:4px 12px;border-radius:0 var(--r-xl) 0 12px">👑 Premium 专属</div>
-    <div style="filter:blur(5px);pointer-events:none;margin-top:4px">
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:90%"></div>
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:75%"></div>
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;width:85%"></div>
-    </div>
-    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-light)">
-      <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
-        <i class="ph ph-star" style="font-size:13px;color:var(--c-primary)"></i>
-        <span style="font-size:12px;font-weight:600;color:var(--text-sub)">本月亲子小任务</span>
+  <!-- 渐变蒙版（未订阅时遮盖内容） -->
+  <div id="mask-30day" style="position:absolute;bottom:0;left:0;right:0;height:220px;background:linear-gradient(to bottom,rgba(248,247,245,0) 0%,#F8F7F5 100%);pointer-events:none"></div>
+  </div><!-- end inner-30day -->
+
+  <!-- 订阅入口卡（未订阅时可见） -->
+  <div id="gate-30day">
+    <div onclick="location.href='subscribe.html'" style="background:linear-gradient(145deg,#7C3AED,#9333EA,#A855F7);border-radius:var(--r-xl);padding:18px 18px 16px;color:white;margin-bottom:14px;position:relative;overflow:hidden;cursor:pointer;box-shadow:0 6px 24px rgba(124,58,237,.3)">
+      <div style="position:absolute;right:-24px;top:-24px;width:90px;height:90px;background:rgba(255,255,255,.1);border-radius:50%;pointer-events:none"></div>
+      <div style="position:absolute;left:-16px;bottom:-20px;width:70px;height:70px;background:rgba(255,255,255,.06);border-radius:50%;pointer-events:none"></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;position:relative;z-index:1">
+        <div style="width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:16px">👑</div>
+        <span style="font-size:16px;font-weight:800">解锁完整 30 天报告</span>
       </div>
-      <div style="font-size:12px;color:var(--text-muted);line-height:1.5;filter:blur(3px);pointer-events:none">小莉本月绘画热情高涨，带她参加一次户外写生活动，记录属于你们的亲子时光吧！</div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px">
-      <i class="ph ph-lock-simple" style="font-size:14px;color:var(--c-primary)"></i>
-      <span style="font-size:13px;font-weight:600;color:var(--c-primary)">点击解锁专属建议与任务</span>
+      <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px;position:relative;z-index:1">
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;opacity:.95"><i class="ph ph-check-circle" style="font-size:15px;flex-shrink:0"></i><span>解锁最近 30 天完整数据报告</span></div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:13px;opacity:.95"><i class="ph ph-check-circle" style="font-size:15px;flex-shrink:0"></i><span>解锁全部历史数据报告</span></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1">
+        <div><div style="font-family:var(--font-en);font-size:26px;font-weight:800;line-height:1">$29<span style="font-size:13px;font-weight:400;opacity:.75">/月</span></div><div style="font-size:10px;opacity:.65;margin-top:1px">按年结算 $348 · 省 27%</div></div>
+        <div style="background:white;color:#7C3AED;font-size:13px;font-weight:700;padding:10px 20px;border-radius:var(--r-full)">立即升级</div>
+      </div>
     </div>
   </div>
+  </div><!-- end pro wrap -->
 
   </div><!-- end content-30day -->
 
@@ -677,29 +701,6 @@
     </div>
   </div>
 
-  <!-- AI 个性化育儿建议 + 亲子小任务（合并，点击触发订阅） -->
-  <div style="font-size:16px;font-weight:700;color:var(--text-h);margin-bottom:10px">AI 个性化育儿建议</div>
-  <div onclick="openAIAdviceSheet()" style="background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:18px;margin-bottom:14px;cursor:pointer;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#F59E0B,#D97706);color:white;font-size:10px;font-weight:700;padding:4px 12px;border-radius:0 var(--r-xl) 0 12px">👑 Premium 专属</div>
-    <!-- 建议内容模糊 -->
-    <div style="filter:blur(5px);pointer-events:none;margin-top:4px">
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:90%"></div>
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;margin-bottom:8px;width:75%"></div>
-      <div style="height:14px;background:var(--bg-muted);border-radius:4px;width:85%"></div>
-    </div>
-    <!-- 亲子小任务预览（合并，模糊） -->
-    <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-light)">
-      <div style="display:flex;align-items:center;gap:5px;margin-bottom:6px">
-        <i class="ph ph-star" style="font-size:13px;color:var(--c-primary)"></i>
-        <span style="font-size:12px;font-weight:600;color:var(--text-sub)">本周亲子小任务</span>
-      </div>
-      <div style="font-size:12px;color:var(--text-muted);line-height:1.5;filter:blur(3px);pointer-events:none">小莉本周对绘画兴趣大增，试着带她去户外画画，感受大自然的色彩吧！</div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px">
-      <i class="ph ph-lock-simple" style="font-size:14px;color:var(--c-primary)"></i>
-      <span style="font-size:13px;font-weight:600;color:var(--c-primary)">点击解锁专属建议与任务</span>
-    </div>
-  </div>
 
 </div>
 </div>
@@ -744,53 +745,36 @@ function switchTab(tab) {
   </a>
 </nav>
 
-<!-- ===== AI 个性化育儿建议 Bottom Sheet ===== -->
-<div id="aiAdviceOverlay" onclick="if(event.target===this)closeAIAdviceSheet()" style="position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;display:none;align-items:flex-end;justify-content:center">
-  <div style="background:white;border-radius:24px 24px 0 0;padding:24px 20px 44px;width:100%;max-width:480px;animation:slideUpG .25s ease">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-      <div style="font-size:16px;font-weight:800;color:var(--text-h)">AI 个性化育儿建议</div>
-      <button onclick="closeAIAdviceSheet()" style="width:32px;height:32px;border-radius:50%;background:var(--bg-muted);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-x" style="font-size:16px;color:var(--text-sub)"></i></button>
-    </div>
-    <div style="background:linear-gradient(135deg,#FFF7ED,#FFFBF5);border-radius:var(--r-xl);padding:16px;margin-bottom:16px;border:1px solid #FED7AA">
-      <div style="font-size:28px;font-weight:800;color:#F97316;font-family:var(--font-en);line-height:1;margin-bottom:4px">85%</div>
-      <div style="font-size:13px;color:var(--text-sub);line-height:1.6">的 Premium 家长表示，AI 育儿建议帮助他们<strong>更好地理解了孩子的内心世界</strong>。</div>
-    </div>
-    <div style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:20px">解锁专属建议，获取基于小莉真实情绪数据生成的个性化育儿方向，做更懂孩子的父母。</div>
-    <button onclick="location.href='subscribe.html'" style="width:100%;padding:15px;border-radius:var(--r-xl);border:none;background:linear-gradient(135deg,#F97316,#FB923C);color:white;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)">解锁 AI 专属建议</button>
-  </div>
-</div>
-
-<!-- ===== 成长趋势 Paywall Bottom Sheet ===== -->
-<div id="growthPaywallOverlay" onclick="if(event.target===this)closeGrowthPaywall()" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1001;display:none;align-items:flex-end;justify-content:center">
-  <div style="background:white;border-radius:24px 24px 0 0;padding:24px 20px 44px;width:100%;max-width:480px;animation:slideUpG .3s ease;max-height:85vh;overflow-y:auto">
-    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
-      <button onclick="closeGrowthPaywall()" style="width:32px;height:32px;border-radius:50%;background:var(--bg-muted);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer"><i class="ph ph-x" style="font-size:16px;color:var(--text-sub)"></i></button>
-    </div>
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="font-size:20px;font-weight:800;color:var(--text-h);margin-bottom:6px">解锁 luki Premium</div>
-      <div style="font-size:13px;color:var(--text-muted)">永久珍藏孩子的童年时光</div>
-    </div>
-    <div style="background:var(--bg-muted);border-radius:var(--r-xl);padding:16px;margin-bottom:20px">
-      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px"><span style="font-size:20px">✨</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">深度情绪洞察</div><div style="font-size:12px;color:var(--text-muted)">解锁 30 天完整情绪报告，获取 AI 专属个性化育儿建议</div></div></div>
-      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px"><span style="font-size:20px">📖</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">全景时光回忆录</div><div style="font-size:12px;color:var(--text-muted)">突破 7 天限制，用全部历史珍贵瞬间编织最完整的童年绘本</div></div></div>
-      <div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:20px">☁️</span><div><div style="font-size:13px;font-weight:700;color:var(--text-h);margin-bottom:2px">永久记忆存储</div><div style="font-size:12px;color:var(--text-muted)">尊享 5GB 云端空间，永久保存孩子的每一次对话与笑声</div></div></div>
-    </div>
-    <div style="border:2px solid #F97316;border-radius:var(--r-xl);padding:16px;margin-bottom:14px;background:linear-gradient(135deg,#FFF7ED,#FFFBF5);position:relative">
-      <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#EF4444,#DC2626);color:white;font-size:11px;font-weight:700;padding:3px 14px;border-radius:var(--r-full);white-space:nowrap">🔥 最受欢迎 · 省 27%</div>
-      <div style="text-align:center"><div style="font-size:13px;font-weight:600;color:var(--text-sub);margin-bottom:4px">年度订阅</div><div style="font-family:var(--font-en);font-size:32px;font-weight:800;color:#F97316;line-height:1">$348<span style="font-size:14px;font-weight:400;color:var(--text-muted)">/年</span></div><div style="font-size:12px;color:var(--text-muted);margin-top:4px">折合 $29/月</div></div>
-    </div>
-    <button onclick="location.href='subscribe.html'" style="width:100%;padding:16px;border-radius:var(--r-xl);border:none;background:linear-gradient(135deg,#F97316,#FB923C);color:white;font-size:16px;font-weight:700;cursor:pointer;font-family:var(--font-cn);margin-bottom:8px">立即订阅 · $348/年</button>
-    <div style="text-align:center;font-size:11px;color:var(--text-muted)">试用期结束前 2 天发送提醒 · 随时可取消</div>
-  </div>
-</div>
-
 <style>@keyframes slideUpG{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
 
 <script>
-function openAIAdviceSheet(){ document.getElementById('aiAdviceOverlay').style.display='flex'; document.body.style.overflow='hidden'; }
-function closeAIAdviceSheet(){ document.getElementById('aiAdviceOverlay').style.display='none'; document.body.style.overflow=''; }
-function openGrowthPaywall(){ document.getElementById('growthPaywallOverlay').style.display='flex'; document.body.style.overflow='hidden'; }
-function closeGrowthPaywall(){ document.getElementById('growthPaywallOverlay').style.display='none'; document.body.style.overflow=''; }
+/* PRO 演示切换：控制蒙版+订阅卡的显隐 */
+var proState = { '30day': false, 'all': false };
+function togglePro(tab) {
+  proState[tab] = !proState[tab];
+  var unlocked = proState[tab];
+  var inner = document.getElementById('inner-' + tab);
+  var mask  = document.getElementById('mask-' + tab);
+  var gate  = document.getElementById('gate-' + tab);
+  var btn   = document.getElementById('toggle-' + tab);
+  if (unlocked) {
+    inner.style.maxHeight = 'none';
+    inner.style.overflow  = 'visible';
+    mask.style.display    = 'none';
+    gate.style.display    = 'none';
+    btn.innerHTML         = '<i class="ph ph-lock-open" style="font-size:11px"></i> 切换为未订阅';
+    btn.style.background  = '#DCFCE7';
+    btn.style.color       = '#16A34A';
+  } else {
+    inner.style.maxHeight = '480px';
+    inner.style.overflow  = 'hidden';
+    mask.style.display    = 'block';
+    gate.style.display    = 'block';
+    btn.innerHTML         = '<i class="ph ph-crown-simple" style="font-size:11px"></i> 切换为已订阅';
+    btn.style.background  = '#EDE9FE';
+    btn.style.color       = '#7C3AED';
+  }
+}
 </script>
 
 </body>
