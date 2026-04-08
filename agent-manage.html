@@ -10,20 +10,19 @@
 /* ── 智能体卡片 ── */
 .agent-card{background:var(--bg-card);border-radius:var(--r-xl);box-shadow:var(--shadow-card);border:1px solid var(--border-light);padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px}
 .agent-icon{width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
-.agent-toggle{width:44px;height:24px;border-radius:12px;position:relative;flex-shrink:0;cursor:pointer;transition:.2s}
-.agent-toggle.on{background:#16A34A}
-.agent-toggle.off{background:#E5E7EB}
-.agent-toggle::after{content:'';position:absolute;top:2px;width:20px;height:20px;border-radius:50%;background:white;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:.2s}
-.agent-toggle.on::after{right:2px}
-.agent-toggle.off::after{left:2px}
-.agent-card.inactive{opacity:.55}
 
-/* ── 底部固定按钮 ── */
-.fixed-bottom{position:fixed;bottom:0;left:0;right:0;display:flex;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-top:1px solid var(--border-light)}
-.btn-new{flex:1;padding:13px;border-radius:var(--r-xl);border:1.5px solid var(--c-primary);background:white;color:var(--c-primary);font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font-cn);display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
-.btn-new:active{background:var(--bg-muted);transform:scale(.97)}
-.btn-redeem{flex:1;padding:13px;border-radius:var(--r-xl);border:none;background:linear-gradient(135deg,var(--c-primary),#FB923C);color:white;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--font-cn);display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 4px 12px rgba(249,115,22,.25);transition:.15s}
-.btn-redeem:active{transform:scale(.97)}
+/* ── 自建智能体操作按钮 ── */
+.agent-action-btn{width:32px;height:32px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:.15s}
+.agent-action-btn:active{transform:scale(.9)}
+.btn-edit{background:#EEF2FF;color:#6366F1}
+.btn-delete{background:#FEF2F2;color:#EF4444}
+
+/* ── 新建入口卡片 ── */
+.add-card{background:var(--bg-card);border-radius:var(--r-xl);border:2px dashed var(--border);padding:16px 18px;margin-bottom:10px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:.15s}
+.add-card:active{background:var(--bg-muted);transform:scale(.98)}
+
+/* ── 已达上限提示卡 ── */
+.limit-card{background:#FFFBEB;border-radius:var(--r-xl);border:1px solid #FDE68A;padding:14px 18px;margin-bottom:10px;display:flex;align-items:center;gap:10px;font-size:13px;color:#92400E}
 
 /* ── 底部弹窗 ── */
 .sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;display:none;align-items:flex-end;justify-content:center}
@@ -44,6 +43,7 @@
 .sheet-btn-row{display:flex;gap:10px;margin-top:16px}
 .sheet-cancel{flex:1;padding:13px;border-radius:var(--r-lg);border:1.5px solid var(--border-light);background:white;color:var(--text-body);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-cn)}
 .sheet-confirm{flex:2;padding:13px;border-radius:var(--r-lg);border:none;background:linear-gradient(135deg,var(--c-primary),#FB923C);color:white;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)}
+.sheet-delete{flex:2;padding:13px;border-radius:var(--r-lg);border:none;background:#EF4444;color:white;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)}
 </style>
 </head>
 <body>
@@ -57,10 +57,10 @@
   <div style="width:36px"></div>
 </div>
 
-<!-- 页面内容（底部留出固定按钮高度） -->
-<div class="page-content" style="padding-top:0;padding-bottom:80px">
+<div class="page-content" style="padding-top:0;padding-bottom:32px">
 
-  <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin:0 0 10px;padding:0 2px;letter-spacing:.04em">已开启的智能体</div>
+  <!-- ═══ 系统智能体 ═══ -->
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin:0 0 10px;padding:0 2px;letter-spacing:.04em">系统智能体</div>
 
   <!-- luki 伙伴 -->
   <div class="agent-card">
@@ -69,7 +69,6 @@
       <div style="font-size:15px;font-weight:700;color:var(--text-h)">luki 伙伴</div>
       <div style="font-size:12px;color:var(--text-muted);margin-top:2px">默认陪伴智能体 · 情感支持</div>
     </div>
-    <div class="agent-toggle on" onclick="toggleAgent(this)"></div>
   </div>
 
   <!-- 英语小教练 -->
@@ -79,7 +78,6 @@
       <div style="font-size:15px;font-weight:700;color:var(--text-h)">英语小教练</div>
       <div style="font-size:12px;color:var(--text-muted);margin-top:2px">学习类智能体 · 英语启蒙</div>
     </div>
-    <div class="agent-toggle on" onclick="toggleAgent(this)"></div>
   </div>
 
   <!-- 创意伙伴 -->
@@ -89,41 +87,65 @@
       <div style="font-size:15px;font-weight:700;color:var(--text-h)">创意伙伴</div>
       <div style="font-size:12px;color:var(--text-muted);margin-top:2px">创意类智能体 · 画画 / 故事</div>
     </div>
-    <div class="agent-toggle on" onclick="toggleAgent(this)"></div>
   </div>
 
-  <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin:16px 0 10px;padding:0 2px;letter-spacing:.04em">更多智能体</div>
-
   <!-- 睡前故事 -->
-  <div class="agent-card inactive" id="card-sleep">
+  <div class="agent-card">
     <div class="agent-icon" style="background:linear-gradient(135deg,#FCA5A5,#EF4444)">🌙</div>
     <div style="flex:1">
       <div style="font-size:15px;font-weight:700;color:var(--text-h)">睡前故事</div>
-      <div style="font-size:12px;color:var(--text-muted);margin-top:2px">助眠类智能体 · 未开启</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:2px">助眠类智能体</div>
     </div>
-    <div class="agent-toggle off" onclick="toggleAgent(this)"></div>
   </div>
 
   <!-- 数学小达人 -->
-  <div class="agent-card inactive" id="card-math">
+  <div class="agent-card">
     <div class="agent-icon" style="background:linear-gradient(135deg,#6EE7B7,#10B981)">🔢</div>
     <div style="flex:1">
       <div style="font-size:15px;font-weight:700;color:var(--text-h)">数学小达人</div>
-      <div style="font-size:12px;color:var(--text-muted);margin-top:2px">学习类智能体 · 未开启</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:2px">学习类智能体 · 数学启蒙</div>
     </div>
-    <div class="agent-toggle off" onclick="toggleAgent(this)"></div>
   </div>
 
-</div>
+  <!-- ═══ 自建智能体 ═══ -->
+  <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin:20px 0 10px;padding:0 2px;letter-spacing:.04em">自建智能体</div>
 
-<!-- 底部固定按钮 -->
-<div class="fixed-bottom">
-  <button class="btn-new" onclick="openSheet('newSheet')">
-    <i class="ph ph-plus-circle" style="font-size:18px"></i> 新建智能体
-  </button>
-  <button class="btn-redeem" onclick="openSheet('redeemSheet')">
-    <i class="ph ph-gift" style="font-size:18px"></i> 兑换智能体
-  </button>
+  <!-- 自建智能体卡片（初始隐藏，创建后显示） -->
+  <div id="customAgentCard" style="display:none">
+    <div class="agent-card">
+      <div class="agent-icon" id="customIcon" style="background:linear-gradient(135deg,#FDE68A,#F59E0B)">🌟</div>
+      <div style="flex:1">
+        <div style="font-size:15px;font-weight:700;color:var(--text-h)" id="customName">我的智能体</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px" id="customType">自定义智能体</div>
+      </div>
+      <!-- 编辑按钮 -->
+      <button class="agent-action-btn btn-edit" onclick="openEdit()" style="margin-right:6px">
+        <i class="ph ph-pencil-simple" style="font-size:15px"></i>
+      </button>
+      <!-- 删除按钮 -->
+      <button class="agent-action-btn btn-delete" onclick="openDelete()">
+        <i class="ph ph-trash" style="font-size:15px"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- 已达上限提示（创建后显示，替代新建入口） -->
+  <div id="limitHint" style="display:none" class="limit-card">
+    <i class="ph ph-info" style="font-size:18px;color:#D97706;flex-shrink:0"></i>
+    <span>最多只能创建 1 个自建智能体，如需更换请先删除当前智能体。</span>
+  </div>
+
+  <!-- 新建智能体入口（未创建时显示） -->
+  <div id="addCard" class="add-card" onclick="openNew()">
+    <div style="width:50px;height:50px;border-radius:16px;background:var(--bg-muted);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <i class="ph ph-plus" style="font-size:22px;color:var(--text-muted)"></i>
+    </div>
+    <div>
+      <div style="font-size:15px;font-weight:600;color:var(--text-sub)">新建智能体</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:2px">自定义专属角色 · 最多 1 个</div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ═══ 新建智能体弹窗 ═══ -->
@@ -131,32 +153,32 @@
   <div class="sheet">
     <div class="sheet-title">新建智能体</div>
 
-    <div class="form-label" style="margin-bottom:6px">选择角色头像</div>
-    <div class="emoji-picker" style="margin-bottom:16px">
-      <div class="emoji-opt selected" onclick="selectEmoji(this)">🌟</div>
-      <div class="emoji-opt" onclick="selectEmoji(this)">🦊</div>
-      <div class="emoji-opt" onclick="selectEmoji(this)">🐼</div>
-      <div class="emoji-opt" onclick="selectEmoji(this)">🦄</div>
-      <div class="emoji-opt" onclick="selectEmoji(this)">🐉</div>
-      <div class="emoji-opt" onclick="selectEmoji(this)">🚀</div>
-      <div class="emoji-opt" onclick="selectEmoji(this)">🎵</div>
-      <div class="emoji-opt" onclick="selectEmoji(this)">🌈</div>
+    <div class="form-label">选择角色头像</div>
+    <div class="emoji-picker" style="margin-bottom:16px" id="newEmojiPicker">
+      <div class="emoji-opt selected" onclick="selectEmoji(this,'new')">🌟</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'new')">🦊</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'new')">🐼</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'new')">🦄</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'new')">🐉</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'new')">🚀</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'new')">🎵</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'new')">🌈</div>
     </div>
 
-    <div class="form-label" style="margin-bottom:6px">智能体名称</div>
+    <div class="form-label">智能体名称</div>
     <input type="text" class="form-input" id="newName" placeholder="给你的智能体起个名字" maxlength="12" style="margin-bottom:14px">
 
-    <div class="form-label" style="margin-bottom:6px">智能体类型</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px" id="typeRow">
-      <button class="sp-select-btn active" onclick="selectType(this)">陪伴</button>
-      <button class="sp-select-btn" onclick="selectType(this)">学习</button>
-      <button class="sp-select-btn" onclick="selectType(this)">创意</button>
-      <button class="sp-select-btn" onclick="selectType(this)">助眠</button>
-      <button class="sp-select-btn" onclick="selectType(this)">其他</button>
+    <div class="form-label">智能体类型</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px" id="newTypeRow">
+      <button class="sp-select-btn active" onclick="selectType(this,'new')">陪伴</button>
+      <button class="sp-select-btn" onclick="selectType(this,'new')">学习</button>
+      <button class="sp-select-btn" onclick="selectType(this,'new')">创意</button>
+      <button class="sp-select-btn" onclick="selectType(this,'new')">助眠</button>
+      <button class="sp-select-btn" onclick="selectType(this,'new')">其他</button>
     </div>
 
-    <div class="form-label" style="margin-bottom:6px">角色设定 <span style="font-weight:400;color:var(--text-muted)">(可选)</span></div>
-    <textarea class="form-textarea" id="newPrompt" placeholder="描述这个智能体的性格、说话方式、擅长的话题…" style="margin-bottom:0"></textarea>
+    <div class="form-label">角色设定 <span style="font-weight:400;color:var(--text-muted)">(可选)</span></div>
+    <textarea class="form-textarea" id="newPrompt" placeholder="描述这个智能体的性格、说话方式、擅长的话题…"></textarea>
 
     <div class="sheet-btn-row">
       <button class="sheet-cancel" onclick="closeSheet('newSheet')">取消</button>
@@ -165,66 +187,173 @@
   </div>
 </div>
 
-<!-- ═══ 兑换智能体弹窗 ═══ -->
-<div class="sheet-overlay" id="redeemSheet" onclick="handleOverlay(event,'redeemSheet')">
+<!-- ═══ 编辑智能体弹窗 ═══ -->
+<div class="sheet-overlay" id="editSheet" onclick="handleOverlay(event,'editSheet')">
   <div class="sheet">
-    <div style="text-align:center;margin-bottom:20px">
-      <div style="width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,#FFEDD5,#FED7AA);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px">🎁</div>
-      <div class="sheet-title" style="margin-bottom:4px">兑换智能体</div>
-      <div style="font-size:13px;color:var(--text-sub)">输入兑换码激活新的智能体角色</div>
+    <div class="sheet-title">编辑智能体</div>
+
+    <div class="form-label">选择角色头像</div>
+    <div class="emoji-picker" style="margin-bottom:16px" id="editEmojiPicker">
+      <div class="emoji-opt" onclick="selectEmoji(this,'edit')">🌟</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'edit')">🦊</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'edit')">🐼</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'edit')">🦄</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'edit')">🐉</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'edit')">🚀</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'edit')">🎵</div>
+      <div class="emoji-opt" onclick="selectEmoji(this,'edit')">🌈</div>
     </div>
 
-    <input type="text" id="redeemCode" placeholder="请输入兑换码" style="width:100%;padding:14px 16px;border:2px solid var(--border-light);border-radius:var(--r-lg);font-size:16px;text-align:center;letter-spacing:4px;font-family:var(--font-en);font-weight:700;box-sizing:border-box;outline:none;transition:.2s" onfocus="this.style.borderColor='var(--c-primary)'" onblur="this.style.borderColor='var(--border-light)'">
+    <div class="form-label">智能体名称</div>
+    <input type="text" class="form-input" id="editName" placeholder="智能体名称" maxlength="12" style="margin-bottom:14px">
 
-    <div style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:8px;margin-bottom:4px">每个兑换码仅可使用一次</div>
+    <div class="form-label">智能体类型</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px" id="editTypeRow">
+      <button class="sp-select-btn active" onclick="selectType(this,'edit')">陪伴</button>
+      <button class="sp-select-btn" onclick="selectType(this,'edit')">学习</button>
+      <button class="sp-select-btn" onclick="selectType(this,'edit')">创意</button>
+      <button class="sp-select-btn" onclick="selectType(this,'edit')">助眠</button>
+      <button class="sp-select-btn" onclick="selectType(this,'edit')">其他</button>
+    </div>
+
+    <div class="form-label">角色设定 <span style="font-weight:400;color:var(--text-muted)">(可选)</span></div>
+    <textarea class="form-textarea" id="editPrompt" placeholder="描述这个智能体的性格、说话方式、擅长的话题…"></textarea>
 
     <div class="sheet-btn-row">
-      <button class="sheet-cancel" onclick="closeSheet('redeemSheet')">取消</button>
-      <button class="sheet-confirm" onclick="confirmRedeem()">立即兑换</button>
+      <button class="sheet-cancel" onclick="closeSheet('editSheet')">取消</button>
+      <button class="sheet-confirm" onclick="confirmEdit()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 删除确认弹窗 ═══ -->
+<div class="sheet-overlay" id="deleteSheet" onclick="handleOverlay(event,'deleteSheet')">
+  <div class="sheet">
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="width:60px;height:60px;border-radius:50%;background:#FEF2F2;display:inline-flex;align-items:center;justify-content:center">
+        <i class="ph ph-trash" style="font-size:28px;color:#EF4444"></i>
+      </div>
+    </div>
+    <div style="font-size:17px;font-weight:800;color:#DC2626;text-align:center;margin-bottom:8px">删除智能体？</div>
+    <div style="font-size:13px;color:var(--text-sub);text-align:center;margin-bottom:20px;line-height:1.6">删除后该智能体将无法使用，<br>你可以重新创建一个新的智能体。</div>
+    <div class="sheet-btn-row">
+      <button class="sheet-cancel" onclick="closeSheet('deleteSheet')">取消</button>
+      <button class="sheet-delete" onclick="confirmDelete()">确认删除</button>
     </div>
   </div>
 </div>
 
 <script>
-/* ── 开关切换 ── */
-function toggleAgent(toggle) {
-  var isOn = toggle.classList.contains('on');
-  toggle.classList.toggle('on', !isOn);
-  toggle.classList.toggle('off', isOn);
-  toggle.closest('.agent-card').classList.toggle('inactive', isOn);
-}
+/* ── 当前自建智能体数据 ── */
+var customAgent = null; /* null = 未创建 */
 
 /* ── 弹窗开关 ── */
-function openSheet(id) { document.getElementById(id).classList.add('show'); }
-function closeSheet(id) { document.getElementById(id).classList.remove('show'); }
-function handleOverlay(e, id) { if (e.target === document.getElementById(id)) closeSheet(id); }
+function openSheet(id){ document.getElementById(id).classList.add('show'); document.body.style.overflow='hidden'; }
+function closeSheet(id){ document.getElementById(id).classList.remove('show'); document.body.style.overflow=''; }
+function handleOverlay(e,id){ if(e.target===document.getElementById(id)) closeSheet(id); }
 
-/* ── Emoji 单选 ── */
-function selectEmoji(el) {
-  document.querySelectorAll('.emoji-opt').forEach(function(e){ e.classList.remove('selected'); });
+/* ── 打开新建弹窗 ── */
+function openNew(){
+  /* 重置表单 */
+  document.getElementById('newName').value='';
+  document.getElementById('newPrompt').value='';
+  document.querySelectorAll('#newEmojiPicker .emoji-opt').forEach(function(e,i){ e.classList.toggle('selected',i===0); });
+  document.querySelectorAll('#newTypeRow .sp-select-btn').forEach(function(b,i){ b.classList.toggle('active',i===0); });
+  openSheet('newSheet');
+}
+
+/* ── 打开编辑弹窗（填入当前数据） ── */
+function openEdit(){
+  if(!customAgent) return;
+  document.getElementById('editName').value = customAgent.name;
+  document.getElementById('editPrompt').value = customAgent.prompt || '';
+  /* 同步 emoji */
+  document.querySelectorAll('#editEmojiPicker .emoji-opt').forEach(function(e){
+    e.classList.toggle('selected', e.textContent === customAgent.emoji);
+  });
+  /* 同步类型 */
+  document.querySelectorAll('#editTypeRow .sp-select-btn').forEach(function(b){
+    b.classList.toggle('active', b.textContent === customAgent.type);
+  });
+  openSheet('editSheet');
+}
+
+/* ── 打开删除确认弹窗 ── */
+function openDelete(){ openSheet('deleteSheet'); }
+
+/* ── Emoji 单选（区分新建/编辑） ── */
+function selectEmoji(el, scope){
+  var pickerId = scope==='new' ? 'newEmojiPicker' : 'editEmojiPicker';
+  document.querySelectorAll('#'+pickerId+' .emoji-opt').forEach(function(e){ e.classList.remove('selected'); });
   el.classList.add('selected');
 }
 
-/* ── 类型单选 ── */
-function selectType(btn) {
-  document.querySelectorAll('#typeRow .sp-select-btn').forEach(function(b){ b.classList.remove('active'); });
+/* ── 类型单选（区分新建/编辑） ── */
+function selectType(btn, scope){
+  var rowId = scope==='new' ? 'newTypeRow' : 'editTypeRow';
+  document.querySelectorAll('#'+rowId+' .sp-select-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
 }
 
-/* ── 确认新建 ── */
-function confirmNew() {
-  var name = document.getElementById('newName').value.trim();
-  if (!name) { alert('请为智能体起个名字'); return; }
-  closeSheet('newSheet');
-  alert('「' + name + '」创建成功！\n可在列表中开启使用。');
+/* ── 获取当前选中 emoji ── */
+function getSelectedEmoji(pickerId){
+  var sel = document.querySelector('#'+pickerId+' .emoji-opt.selected');
+  return sel ? sel.textContent : '🌟';
 }
 
-/* ── 确认兑换 ── */
-function confirmRedeem() {
-  var code = document.getElementById('redeemCode').value.trim();
-  if (!code) { alert('请输入兑换码'); return; }
-  closeSheet('redeemSheet');
-  alert('兑换码验证中…\n智能体将在验证成功后出现在列表中。');
+/* ── 获取当前选中类型 ── */
+function getSelectedType(rowId){
+  var sel = document.querySelector('#'+rowId+' .sp-select-btn.active');
+  return sel ? sel.textContent : '陪伴';
+}
+
+/* ── 刷新卡片显示 ── */
+function renderCustomCard(){
+  if(customAgent){
+    document.getElementById('customIcon').textContent   = customAgent.emoji;
+    document.getElementById('customName').textContent   = customAgent.name;
+    document.getElementById('customType').textContent   = customAgent.type + '类 · 自建智能体';
+    document.getElementById('customAgentCard').style.display = 'block';
+    document.getElementById('addCard').style.display   = 'none';
+    document.getElementById('limitHint').style.display = 'flex';
+  } else {
+    document.getElementById('customAgentCard').style.display = 'none';
+    document.getElementById('addCard').style.display   = 'flex';
+    document.getElementById('limitHint').style.display = 'none';
+  }
+}
+
+/* ── 确认新建 ── */
+function confirmNew(){
+  var name = document.getElementById('newName').value.trim();
+  if(!name){ alert('请为智能体起个名字'); return; }
+  customAgent = {
+    emoji : getSelectedEmoji('newEmojiPicker'),
+    name  : name,
+    type  : getSelectedType('newTypeRow'),
+    prompt: document.getElementById('newPrompt').value.trim()
+  };
+  closeSheet('newSheet');
+  renderCustomCard();
+}
+
+/* ── 确认编辑 ── */
+function confirmEdit(){
+  var name = document.getElementById('editName').value.trim();
+  if(!name){ alert('请输入智能体名称'); return; }
+  customAgent.emoji  = getSelectedEmoji('editEmojiPicker');
+  customAgent.name   = name;
+  customAgent.type   = getSelectedType('editTypeRow');
+  customAgent.prompt = document.getElementById('editPrompt').value.trim();
+  closeSheet('editSheet');
+  renderCustomCard();
+}
+
+/* ── 确认删除 ── */
+function confirmDelete(){
+  customAgent = null;
+  closeSheet('deleteSheet');
+  renderCustomCard();
 }
 </script>
 

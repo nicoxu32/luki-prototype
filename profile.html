@@ -56,32 +56,23 @@
   <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin:4px 0 8px;padding:0 2px">我的账户</div>
   <div class="profile-section">
 
-    <!-- 我的资料 · 横向一行 -->
-    <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border-light)">
-      <!-- 头像：使用个人资料 icon -->
-      <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#E0E7FF,#C7D2FE);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(99,102,241,.15)">
-        <i class="ph-fill ph-user-circle" style="font-size:32px;color:#6366F1"></i>
+    <!-- 昵称 -->
+    <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border-light)" onclick="openNicknameEdit()" style="cursor:pointer">
+      <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#E0E7FF,#C7D2FE);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="ph-fill ph-user-circle" style="font-size:20px;color:#6366F1"></i>
       </div>
-      <!-- 昵称（点击可编辑） -->
-      <div style="flex:1">
-        <div style="display:flex;align-items:center;gap:6px">
-          <div id="nicknameDisplay" style="font-size:16px;font-weight:700;color:var(--text-h)">晓梅</div>
-          <button onclick="openNicknameEdit()" style="width:22px;height:22px;border-radius:50%;background:var(--bg-muted);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
-            <i class="ph ph-pencil-simple" style="font-size:11px;color:var(--text-sub)"></i>
-          </button>
-        </div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:2px">点击铅笔图标可修改昵称</div>
-      </div>
+      <div class="menu-text"><div class="menu-title">昵称</div></div>
+      <span style="font-size:13px;color:var(--text-muted);margin-right:4px;flex-shrink:0" id="nicknameDisplay">晓梅</span>
+      <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted);flex-shrink:0"></i>
     </div>
 
-    <!-- 第三方登录绑定 -->
+    <!-- 账号管理 -->
     <a href="linked-accounts.html" class="menu-item">
       <div class="menu-icon" style="background:#F0F4FF">
         <i class="ph ph-link" style="font-size:20px;color:#6366F1"></i>
       </div>
       <div class="menu-text">
         <div class="menu-title">账号管理</div>
-        <div class="menu-sub">已绑定 2 个账户 · Google / Apple ID</div>
       </div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
@@ -93,7 +84,6 @@
       </div>
       <div class="menu-text">
         <div class="menu-title">声纹识人</div>
-        <div class="menu-sub">家庭成员声纹 · 已录 3 位</div>
       </div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
@@ -105,7 +95,6 @@
       </div>
       <div class="menu-text">
         <div class="menu-title">智能体管理</div>
-        <div class="menu-sub">已开启 3 个 · 智能体列表 / 新建 / 兑换</div>
       </div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
@@ -144,26 +133,24 @@
   <!-- ═══ 第二个卡片：隐私安全（带标题） ═══ -->
   <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;margin:4px 0 8px;padding:0 2px">隐私安全</div>
   <div class="profile-section">
-    <!-- 安全说明 -->
+    <!-- 安全合规 -->
     <a href="safety-settings.html" class="menu-item">
       <div class="menu-icon" style="background:#FEF2F2">
         <i class="ph ph-shield-check" style="font-size:20px;color:#EF4444"></i>
       </div>
       <div class="menu-text">
-        <div class="menu-title">安全说明</div>
-        <div class="menu-sub">对话安全 · 情绪预警 · 合规声明</div>
+        <div class="menu-title">安全合规</div>
       </div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
 
-    <!-- 对话隐私 -->
+    <!-- 隐私保护 -->
     <a href="privacy-settings.html" class="menu-item">
       <div class="menu-icon" style="background:#EFF6FF">
         <i class="ph ph-lock" style="font-size:20px;color:#3B82F6"></i>
       </div>
       <div class="menu-text">
-        <div class="menu-title">对话隐私</div>
-        <div class="menu-sub">数据加密 · 隐私保护 · 数据导出</div>
+        <div class="menu-title">隐私保护</div>
       </div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
@@ -194,33 +181,40 @@
       </div>
     </div>
 
-    <!-- 三大权益 -->
-    <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;position:relative;z-index:1">
-      <div style="display:flex;align-items:center;gap:7px;font-size:12px;opacity:.9">
-        <i class="ph ph-check-circle" style="font-size:14px;flex-shrink:0"></i>
-        <span>30天完整情绪报告 + AI个性化育儿建议</span>
+    <!-- 权益列表 + 价格左右并排 -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;position:relative;z-index:1">
+      <!-- 左：权益列表 -->
+      <div style="display:flex;flex-direction:column;gap:5px;flex:1">
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;opacity:.9">
+          <i class="ph ph-check-circle" style="font-size:14px;flex-shrink:0"></i>
+          <span>最近 30 天情绪报告</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;opacity:.9">
+          <i class="ph ph-check-circle" style="font-size:14px;flex-shrink:0"></i>
+          <span>全部历史数据报告</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;opacity:.9">
+          <i class="ph ph-check-circle" style="font-size:14px;flex-shrink:0"></i>
+          <span>AI 个性化育儿建议</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;opacity:.55">
+          <i class="ph ph-dots-three-circle" style="font-size:14px;flex-shrink:0"></i>
+          <span>其他权益敬请期待</span>
+        </div>
       </div>
-      <div style="display:flex;align-items:center;gap:7px;font-size:12px;opacity:.9">
-        <i class="ph ph-check-circle" style="font-size:14px;flex-shrink:0"></i>
-        <span>全历史素材生成时光回忆录</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:7px;font-size:12px;opacity:.9">
-        <i class="ph ph-check-circle" style="font-size:14px;flex-shrink:0"></i>
-        <span>5GB 云端空间 · 永久存储对话与录音</span>
+      <!-- 右：价格 -->
+      <div style="text-align:right;flex-shrink:0">
+        <div style="display:flex;align-items:baseline;gap:2px;justify-content:flex-end">
+          <span style="font-family:var(--font-en);font-size:26px;font-weight:800;line-height:1">$29</span>
+          <span style="font-size:12px;font-weight:400;opacity:.75">/月</span>
+        </div>
+        <div style="font-size:10px;opacity:.6;margin-top:2px;white-space:nowrap">按年 $348 · 省27%</div>
       </div>
     </div>
 
-    <!-- 底行：价格 + 按钮 -->
-    <div style="display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1">
-      <div>
-        <div style="font-family:var(--font-en);font-size:26px;font-weight:800;line-height:1">
-          $29<span style="font-size:13px;font-weight:400;opacity:.75">/月</span>
-        </div>
-        <div style="font-size:10px;opacity:.65;margin-top:1px">按年结算 $348 · 省 27%</div>
-      </div>
-      <div style="background:white;color:#7C3AED;font-size:13px;font-weight:700;padding:10px 20px;border-radius:var(--r-full);box-shadow:0 2px 10px rgba(0,0,0,.12)">
-        立即升级
-      </div>
+    <!-- 订阅按钮 -->
+    <div style="background:white;color:#7C3AED;font-size:14px;font-weight:700;padding:12px;border-radius:var(--r-xl);box-shadow:0 2px 10px rgba(0,0,0,.12);text-align:center;cursor:pointer;position:relative;z-index:1">
+      立即升级 Premium
     </div>
   </div>
 
@@ -293,7 +287,8 @@
     <!-- 语言模式 -->
     <a href="language.html" class="menu-item">
       <div class="menu-icon" style="background:#F3EFFE"><i class="ph ph-translate" style="font-size:20px;color:#8B5CF6"></i></div>
-      <div class="menu-text"><div class="menu-title">APP语言设置</div><div class="menu-sub">简体中文</div></div>
+      <div class="menu-text"><div class="menu-title">APP语言设置</div></div>
+      <span style="font-size:13px;color:var(--text-muted);margin-right:4px;flex-shrink:0">简体中文</span>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
     <!-- 帮助中心 -->
@@ -308,10 +303,11 @@
       <div class="menu-text"><div class="menu-title">使用反馈</div></div>
       <i class="ph ph-caret-right" style="font-size:16px;color:var(--text-muted)"></i>
     </a>
-    <!-- APP 版本：icon + 标题/版本号 + 检查更新（替代右侧箭头） -->
+    <!-- APP 版本 -->
     <div class="menu-item" style="cursor:default">
       <div class="menu-icon" style="background:#F0FDF4"><i class="ph ph-app-store-logo" style="font-size:20px;color:#16A34A"></i></div>
-      <div class="menu-text"><div class="menu-title">APP 版本</div><div class="menu-sub" style="font-family:var(--font-en)">V1.0.0</div></div>
+      <div class="menu-text"><div class="menu-title">APP 版本</div></div>
+      <span style="font-size:13px;color:var(--text-muted);margin-right:4px;flex-shrink:0;font-family:var(--font-en)">V1.0.0</span>
       <span onclick="alert('当前已是最新版本 V1.0.0')" style="font-size:12px;font-weight:600;color:var(--c-primary);cursor:pointer;display:flex;align-items:center;gap:3px;flex-shrink:0">
         <i class="ph ph-arrow-clockwise" style="font-size:13px"></i> 检查更新
       </span>
@@ -338,7 +334,6 @@
 <nav class="tab-bar">
   <a href="index.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-sun-horizon" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">今日动态</span></a>
   <a href="growth.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-chart-line-up" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">成长趋势</span></a>
-  <a href="moments.html" class="tab-item"><div class="tab-icon-wrap"><i class="ph ph-clock-countdown" style="font-size:22px;color:var(--text-muted)"></i></div><span class="tab-label">时光机</span></a>
   <a href="profile.html" class="tab-item active"><div class="tab-icon-wrap"><i class="ph-fill ph-user-circle" style="font-size:22px;color:var(--c-primary)"></i></div><span class="tab-label" style="color:var(--c-primary)">我的</span></a>
 </nav>
 

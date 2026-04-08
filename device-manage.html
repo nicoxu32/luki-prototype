@@ -123,66 +123,6 @@
     </button>
   </div>
 
-  <!-- ═══ 设备2：离线 ═══ -->
-  <div class="dev-card">
-
-    <!-- 居中大图 + 名称 + 状态（无编辑 icon） -->
-    <div class="dev-hero" style="background:linear-gradient(180deg,#F8FAFC,transparent)">
-      <img src="luki-device.webp" alt="luki" class="dev-hero-img" style="filter:grayscale(.5);opacity:.85">
-      <div class="dev-hero-name" id="devName2" style="color:var(--text-sub)">luki 粉粉</div>
-      <div class="dev-status-row">
-        <span class="dev-offline"><span class="dev-dot" style="background:#94A3B8"></span> 离线</span>
-        <span style="font-size:11px;color:var(--text-muted)">上次在线 2 天前</span>
-        <span onclick="switchDevice('luki 粉粉')" style="font-size:11px;font-weight:600;color:var(--c-primary);cursor:pointer;margin-left:4px">切换为此设备</span>
-      </div>
-    </div>
-
-    <!-- 同时只有一台在线提示 -->
-    <div style="margin:12px 20px 0;background:#FFFBEB;border-radius:var(--r-md);padding:9px 12px;font-size:12px;color:#92400E;display:flex;align-items:center;gap:6px">
-      <i class="ph ph-info" style="font-size:14px;flex-shrink:0;color:#D97706"></i>
-      同时仅支持一台设备在线，切换使用时另一台将自动断开。
-    </div>
-
-    <!-- 设备信息 -->
-    <div class="dev-info-body" style="margin-top:4px">
-      <div class="dev-info-row">
-        <span class="dev-info-label">设备名称</span>
-        <span class="dev-info-val">
-          <span id="infoNameText2">luki 粉粉</span>
-          <button class="dev-edit-btn" onclick="startEdit(2)" title="修改设备名称">
-            <i class="ph ph-pencil-simple" style="font-size:10px;color:var(--text-sub)"></i>
-          </button>
-          <span id="infoNameEdit2" style="display:none" class="dev-name-edit-wrap">
-            <input class="dev-name-input" id="nameInput2" maxlength="16" value="luki 粉粉">
-            <button class="dev-name-save" onclick="saveEdit(2)">保存</button>
-          </span>
-        </span>
-      </div>
-      <div class="dev-info-row">
-        <span class="dev-info-label">序列号</span>
-        <span class="dev-info-val" style="font-family:var(--font-en)">LK-2025-1102</span>
-      </div>
-      <div class="dev-info-row">
-        <span class="dev-info-label">Wi-Fi</span>
-        <span class="dev-info-val">Grandma_Home</span>
-      </div>
-      <!-- 固件版本与检查更新合并在最后一行 -->
-      <div class="dev-info-row">
-        <span class="dev-info-label">固件版本</span>
-        <span class="dev-info-val" style="gap:10px">
-          <span style="font-family:var(--font-en);color:var(--text-muted);font-weight:400">v3.1.4</span>
-          <span onclick="alert('检测到新版本 v3.2.1，设备上线后可更新。')" style="font-size:12px;font-weight:600;color:var(--c-primary);cursor:pointer;display:flex;align-items:center;gap:3px">
-            <i class="ph ph-arrow-clockwise" style="font-size:13px"></i> 检查更新
-          </span>
-        </span>
-      </div>
-    </div>
-
-    <!-- 操作按钮区：只保留解绑，切换入口已在状态行 -->
-    <button class="dev-unbind-btn" onclick="showUnbind('luki 粉粉', 2)">
-      <i class="ph ph-link-break" style="font-size:16px"></i> 解绑此设备
-    </button>
-  </div>
 
 </div>
 

@@ -46,17 +46,31 @@
 
 <div class="page-content" style="padding-top:8px">
 
+  <!-- ═══ 手机号卡片 ═══ -->
+  <div class="la-card">
+    <div class="la-card-title">
+      <i class="ph ph-device-mobile" style="font-size:18px;color:var(--c-primary)"></i>
+      手机号
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="flex:1">
+        <div style="font-size:15px;font-weight:600;color:var(--text-h)" id="phoneDisplay">+86 138****8888</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px">用于登录和接收验证码</div>
+      </div>
+      <button onclick="openPhoneEdit()" style="padding:7px 16px;border-radius:var(--r-full);border:1.5px solid var(--c-primary);background:white;color:var(--c-primary);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-cn);flex-shrink:0;transition:.15s">修改</button>
+    </div>
+  </div>
+
   <!-- ═══ 已绑定账户卡片 ═══ -->
   <div class="la-card">
     <div class="la-card-title">
       <i class="ph-fill ph-check-circle" style="font-size:18px;color:#16A34A"></i>
-      已绑定账户 <span style="font-size:13px;font-weight:500;color:var(--text-muted)">（2 个）</span>
+      已绑定账户 <span style="font-size:13px;font-weight:500;color:var(--text-muted)">（1 个）</span>
     </div>
 
-    <!-- Google -->
+    <!-- Google（已绑定） -->
     <div class="la-item" id="row-google">
       <div class="la-logo" style="background:#FEF3F2">
-        <!-- Google 彩色 G 图标 -->
         <svg width="22" height="22" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.2l6.8-6.8C35.7 2.4 30.2 0 24 0 14.7 0 6.7 5.4 2.7 13.3l7.9 6.1C12.5 13.2 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.6 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8C43.8 37.5 46.6 31.4 46.6 24.5z"/><path fill="#FBBC05" d="M10.6 28.6A14.8 14.8 0 0 1 9.5 24c0-1.6.3-3.1.7-4.6L2.7 13.3A23.9 23.9 0 0 0 0 24c0 3.8.9 7.4 2.7 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.5-5.8c-2 1.4-4.6 2.2-7.7 2.2-6.2 0-11.5-4.2-13.4-9.9l-7.9 6.1C6.7 42.6 14.7 48 24 48z"/></svg>
       </div>
       <div class="la-info">
@@ -65,51 +79,21 @@
       </div>
       <button class="la-unbind-btn" onclick="unbindAccount('Google', 'row-google')">解绑</button>
     </div>
-
-    <!-- Apple ID -->
-    <div class="la-item" id="row-apple">
-      <div class="la-logo" style="background:#F8F8F8">
-        <i class="ph ph-apple-logo" style="font-size:22px;color:#1D1D1F"></i>
-      </div>
-      <div class="la-info">
-        <div class="la-name">Apple ID</div>
-        <div class="la-account">x***i@icloud.com</div>
-      </div>
-      <button class="la-unbind-btn" onclick="unbindAccount('Apple ID', 'row-apple')">解绑</button>
-    </div>
   </div>
 
-  <!-- ═══ 添加绑定卡片 ═══ -->
+  <!-- ═══ 添加第三方账号卡片 ═══ -->
   <div class="la-card">
     <div class="la-card-title">
       <i class="ph ph-plus-circle" style="font-size:18px;color:#6366F1"></i>
-      添加第三方登录
+      添加第三方账号
     </div>
 
-    <!-- 微信（未绑定） -->
-    <div class="la-add-item" onclick="bindAccount('微信')">
-      <div class="la-add-logo">
-        <i class="ph ph-chats" style="font-size:20px;color:#07C160"></i>
+    <!-- Apple ID -->
+    <div class="la-add-item" style="border-bottom:none;padding-bottom:0" onclick="bindAccount('Apple ID')">
+      <div class="la-add-logo" style="background:#F8F8F8">
+        <i class="ph ph-apple-logo" style="font-size:20px;color:#1D1D1F"></i>
       </div>
-      <div class="la-add-label">微信</div>
-      <i class="ph ph-caret-right la-add-arrow"></i>
-    </div>
-
-    <!-- Facebook -->
-    <div class="la-add-item" onclick="bindAccount('Facebook')">
-      <div class="la-add-logo">
-        <i class="ph ph-facebook-logo" style="font-size:20px;color:#1877F2"></i>
-      </div>
-      <div class="la-add-label">Facebook</div>
-      <i class="ph ph-caret-right la-add-arrow"></i>
-    </div>
-
-    <!-- Twitter / X -->
-    <div class="la-add-item" onclick="bindAccount('X (Twitter)')">
-      <div class="la-add-logo">
-        <i class="ph ph-x-logo" style="font-size:20px;color:#000"></i>
-      </div>
-      <div class="la-add-label">X (Twitter)</div>
+      <div class="la-add-label">Apple ID</div>
       <i class="ph ph-caret-right la-add-arrow"></i>
     </div>
   </div>
@@ -120,6 +104,24 @@
     绑定第三方登录后，可通过对应账户快速登录 luki。解绑操作不会删除您的 luki 账户数据。请至少保留一种登录方式。
   </div>
 
+</div>
+
+<!-- ═══ 修改手机号弹窗 ═══ -->
+<div id="phoneOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;display:none;align-items:flex-end;justify-content:center" onclick="if(event.target===this)closePhoneEdit()">
+  <div style="background:white;border-radius:24px 24px 0 0;padding:24px 20px 40px;width:100%;max-width:480px;animation:slideUpLA .25s ease">
+    <div style="font-size:16px;font-weight:800;color:var(--text-h);text-align:center;margin-bottom:20px">修改手机号</div>
+    <div style="font-size:12px;font-weight:700;color:var(--text-sub);margin-bottom:6px">新手机号</div>
+    <input type="tel" id="phoneInput" placeholder="+86 请输入手机号" style="width:100%;padding:12px 14px;border:1.5px solid var(--border-light);border-radius:var(--r-lg);font-size:15px;font-family:var(--font-cn);color:var(--text-h);outline:none;box-sizing:border-box;transition:.2s;margin-bottom:12px" onfocus="this.style.borderColor='var(--c-primary)'" onblur="this.style.borderColor='var(--border-light)'">
+    <div style="font-size:12px;font-weight:700;color:var(--text-sub);margin-bottom:6px">验证码</div>
+    <div style="display:flex;gap:8px;margin-bottom:20px">
+      <input type="text" id="codeInput" placeholder="请输入验证码" maxlength="6" style="flex:1;padding:12px 14px;border:1.5px solid var(--border-light);border-radius:var(--r-lg);font-size:15px;font-family:var(--font-en);color:var(--text-h);outline:none;box-sizing:border-box;transition:.2s;letter-spacing:4px" onfocus="this.style.borderColor='var(--c-primary)'" onblur="this.style.borderColor='var(--border-light)'">
+      <button id="sendCodeBtn" onclick="sendCode()" style="padding:0 16px;border-radius:var(--r-lg);border:1.5px solid var(--c-primary);background:white;color:var(--c-primary);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-cn);flex-shrink:0;white-space:nowrap">获取验证码</button>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button onclick="closePhoneEdit()" style="flex:1;padding:13px;border-radius:var(--r-lg);border:1.5px solid var(--border-light);background:white;color:var(--text-body);font-size:15px;font-weight:600;cursor:pointer;font-family:var(--font-cn)">取消</button>
+      <button onclick="confirmPhoneEdit()" style="flex:2;padding:13px;border-radius:var(--r-lg);border:none;background:linear-gradient(135deg,var(--c-primary),#FB923C);color:white;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font-cn)">确认修改</button>
+    </div>
+  </div>
 </div>
 
 <!-- ═══ 解绑确认弹窗 ═══ -->
@@ -158,6 +160,54 @@
 </div>
 
 <script>
+/* ── 修改手机号 ── */
+var _codeTimer = null;
+
+function openPhoneEdit(){
+  document.getElementById('phoneInput').value = '';
+  document.getElementById('codeInput').value = '';
+  resetSendBtn();
+  document.getElementById('phoneOverlay').style.display = 'flex';
+}
+function closePhoneEdit(){
+  document.getElementById('phoneOverlay').style.display = 'none';
+  clearInterval(_codeTimer);
+  resetSendBtn();
+}
+function resetSendBtn(){
+  clearInterval(_codeTimer);
+  var btn = document.getElementById('sendCodeBtn');
+  btn.textContent = '获取验证码';
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.style.cursor = 'pointer';
+}
+function sendCode(){
+  var phone = document.getElementById('phoneInput').value.trim();
+  if(!phone){ alert('请先输入手机号'); return; }
+  var btn = document.getElementById('sendCodeBtn');
+  var secs = 60;
+  btn.disabled = true;
+  btn.style.opacity = '.5';
+  btn.style.cursor = 'default';
+  btn.textContent = secs + 's 后重发';
+  _codeTimer = setInterval(function(){
+    secs--;
+    if(secs <= 0){ resetSendBtn(); } else { btn.textContent = secs + 's 后重发'; }
+  }, 1000);
+}
+function confirmPhoneEdit(){
+  var phone = document.getElementById('phoneInput').value.trim();
+  var code  = document.getElementById('codeInput').value.trim();
+  if(!phone){ alert('请输入新手机号'); return; }
+  if(!code){ alert('请输入验证码'); return; }
+  /* 模拟校验成功，更新显示 */
+  var masked = phone.replace(/(\+\d{2,3}\s?)(\d{3})(\d{4})(\d{4})/, '$1$2****$4');
+  document.getElementById('phoneDisplay').textContent = masked || phone;
+  closePhoneEdit();
+  showToast('手机号修改成功');
+}
+
 /* ── 解绑流程 ── */
 var _unbindPlatform = '';
 var _unbindRowId = '';
