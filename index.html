@@ -104,12 +104,16 @@
         <i class="ph ph-chat-circle-text" style="font-size:15px;color:var(--c-primary)"></i>
         今日话题总结
       </div>
-      <!-- 普通话题标签（默认 4 个） -->
+      <!-- 普通话题标签 -->
       <div class="keyword-tags">
+        <!-- 默认展示 4 个 -->
         <span class="keyword-tag">😊 #学校交了新朋友</span>
         <span class="keyword-tag">🎨 #画画课很开心</span>
         <span class="keyword-tag">🤔 #数学作业有点难</span>
         <span class="keyword-tag">🦕 #恐龙百科探索</span>
+        <!-- 折叠的更多标签（默认隐藏） -->
+        <span class="keyword-tag tag-extra" style="display:none">📚 #课外阅读很开心</span>
+        <span class="keyword-tag tag-extra" style="display:none">🌟 #老师表扬了我</span>
       </div>
     </div>
 
@@ -120,9 +124,21 @@
         检测到高危话题
       </div>
       <div class="keyword-tags">
+        <!-- 默认展示 2 个 -->
         <span class="keyword-tag-danger">🚨 #考试压力过大</span>
         <span class="keyword-tag-danger">🚨 #想离家出走</span>
+        <!-- 折叠的更多高危标签（默认隐藏） -->
+        <span class="keyword-tag-danger tag-extra" style="display:none">🚨 #说不想上学</span>
+        <span class="keyword-tag-danger tag-extra" style="display:none">🚨 #被同学排挤</span>
       </div>
+    </div>
+
+    <!-- 展开更多 / 收起 -->
+    <div style="margin-top:10px">
+      <button id="tags-toggle-btn" onclick="toggleTagsExpand()" style="display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:0;font-family:var(--font-cn)">
+        <i id="tags-toggle-icon" class="ph ph-caret-down" style="font-size:12px"></i>
+        更多话题
+      </button>
     </div>
 
     <!-- AI 建议区块（始终展示） -->
@@ -333,6 +349,25 @@
 <style>@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
 
 <script>
+/* 话题标签展开/收起 */
+var tagsExpanded = false;
+function toggleTagsExpand() {
+  tagsExpanded = !tagsExpanded;
+  var extras = document.querySelectorAll('.tag-extra');
+  var icon   = document.getElementById('tags-toggle-icon');
+  var btn    = document.getElementById('tags-toggle-btn');
+  extras.forEach(function(el) {
+    el.style.display = tagsExpanded ? 'inline-flex' : 'none';
+  });
+  if (tagsExpanded) {
+    icon.className = 'ph ph-caret-up';
+    btn.lastChild.textContent = ' 收起';
+  } else {
+    icon.className = 'ph ph-caret-down';
+    btn.lastChild.textContent = ' 更多话题';
+  }
+}
+
 /* 高危话题演示切换（只控制高危区块，AI建议始终展示） */
 var alertVisible = true;
 function toggleAlert() {
