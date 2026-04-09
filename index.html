@@ -104,7 +104,7 @@
         <i class="ph ph-chat-circle-text" style="font-size:15px;color:var(--c-primary)"></i>
         今日话题总结
       </div>
-      <!-- 普通话题标签 -->
+      <!-- 普通话题标签（默认 4 个） -->
       <div class="keyword-tags">
         <span class="keyword-tag">😊 #学校交了新朋友</span>
         <span class="keyword-tag">🎨 #画画课很开心</span>
@@ -113,10 +113,10 @@
       </div>
     </div>
 
-    <!-- 高危话题区块（命中时展示） -->
-    <div id="danger-tags-wrap" style="margin-top:14px">
-      <div class="keyword-section-title" style="color:#DC2626;margin-bottom:8px">
-        <i class="ph ph-warning-circle" style="font-size:15px;color:#DC2626"></i>
+    <!-- 高危话题区块（命中时展示，未命中时隐藏） -->
+    <div id="danger-tags-wrap" style="margin-top:12px">
+      <div class="keyword-section-title" style="color:#DC2626;margin-bottom:8px;font-size:12px">
+        <i class="ph ph-warning-circle" style="font-size:14px;color:#DC2626"></i>
         检测到高危话题
       </div>
       <div class="keyword-tags">
@@ -125,13 +125,11 @@
       </div>
     </div>
 
-    <!-- AI 建议区块 -->
-    <div id="alert-block-wrap">
-      <div class="divider" style="margin-top:14px"></div>
-      <div class="ai-advice-block">
-        <div class="ai-advice-icon"><i class="ph ph-sparkle" style="font-size:14px;color:white"></i></div>
-        <div class="ai-advice-text">晓梅今天提到了考试压力和想逃离的念头，情绪有些紧绷。<strong>建议今晚找个轻松的时机主动开口，让她知道家是最安全的地方，成绩不是最重要的事。</strong></div>
-      </div>
+    <!-- AI 建议区块（始终展示） -->
+    <div class="divider" style="margin-top:14px"></div>
+    <div class="ai-advice-block">
+      <div class="ai-advice-icon"><i class="ph ph-sparkle" style="font-size:14px;color:white"></i></div>
+      <div class="ai-advice-text">晓梅今天提到了考试压力和想逃离的念头，情绪有些紧绷。<strong>建议今晚找个轻松的时机主动开口，让她知道家是最安全的地方，成绩不是最重要的事。</strong></div>
     </div>
 
   </div>
@@ -335,16 +333,13 @@
 <style>@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
 
 <script>
-/* 高危话题演示切换 */
+/* 高危话题演示切换（只控制高危区块，AI建议始终展示） */
 var alertVisible = true;
 function toggleAlert() {
   alertVisible = !alertVisible;
-  var wrap  = document.getElementById('alert-block-wrap');
   var dtags = document.getElementById('danger-tags-wrap');
   var btn   = document.getElementById('demo-alert-btn');
-  var show  = alertVisible ? 'block' : 'none';
-  wrap.style.display  = show;
-  dtags.style.display = alertVisible ? 'flex' : 'none';
+  dtags.style.display = alertVisible ? 'block' : 'none';
   if (alertVisible) {
     btn.style.background = '#FEE2E2';
     btn.style.color = '#DC2626';
