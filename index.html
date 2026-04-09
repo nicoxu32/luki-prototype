@@ -26,16 +26,14 @@
 .keyword-tag{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--bg-muted);color:var(--text-body);transition:transform .15s}
 .keyword-tag:active{transform:scale(.95)}
 .divider{height:1px;background:var(--border-light);margin:0 0 14px}
-/* 高危话题区块 */
-.alert-block{background:#FFF5F5;border:1.5px solid #FECACA;border-radius:var(--r-lg);padding:14px 16px}
-.alert-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.alert-block-title{font-size:14px;font-weight:700;color:#DC2626;flex:1}
-.risk-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 10px;border-radius:var(--r-full);font-size:11px;font-weight:700;border:1px solid}
-.risk-watch{background:#FEF3C7;color:#D97706;border-color:#FDE68A}
-.risk-high{background:#FEE2E2;color:#DC2626;border-color:#FECACA}
-.alert-quote{font-size:12px;color:#B91C1C;background:#FEE2E2;border-radius:8px;padding:8px 12px;margin-bottom:10px;line-height:1.5;font-style:italic}
-.alert-advice{font-size:13px;color:var(--text-sub);line-height:1.65}
-.alert-advice strong{color:var(--text-h);font-weight:600}
+/* 高危话题标签（红色，与普通标签同行） */
+.keyword-tag-danger{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:#FEE2E2;color:#DC2626;border:1px solid #FECACA;transition:transform .15s}
+.keyword-tag-danger:active{transform:scale(.95)}
+/* 分割线下 AI 建议区块 */
+.ai-advice-block{display:flex;gap:10px;align-items:flex-start}
+.ai-advice-icon{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#F97316,#FB923C);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ai-advice-text{font-size:13px;color:var(--text-sub);line-height:1.6}
+.ai-advice-text strong{color:var(--text-h);font-weight:600}
 /* 演示切换 */
 .demo-row{display:flex;align-items:center;justify-content:flex-end;gap:5px;margin-bottom:10px}
 .demo-btn{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:var(--r-full);border:none;cursor:pointer;font-family:var(--font-cn)}
@@ -101,30 +99,31 @@
     </div>
 
     <!-- 今日话题总结 -->
-    <div class="keyword-section">
+    <div class="keyword-section" style="margin-bottom:0">
       <div class="keyword-section-title">
         <i class="ph ph-chat-circle-text" style="font-size:15px;color:var(--c-primary)"></i>
         今日话题总结
       </div>
-      <div class="keyword-tags">
+      <!-- 普通话题标签 -->
+      <div class="keyword-tags" style="margin-bottom:8px">
         <span class="keyword-tag">😊 #学校交了新朋友</span>
         <span class="keyword-tag">🎨 #画画课很开心</span>
         <span class="keyword-tag">🤔 #数学作业有点难</span>
         <span class="keyword-tag">🦕 #恐龙百科探索</span>
       </div>
+      <!-- 高危话题标签（命中时展示） -->
+      <div id="danger-tags-wrap" class="keyword-tags">
+        <span class="keyword-tag-danger">🚨 #考试压力过大</span>
+        <span class="keyword-tag-danger">🚨 #想离家出走</span>
+      </div>
     </div>
 
-    <!-- 高危话题区块（命中时展示，未命中时隐藏） -->
+    <!-- AI 建议区块（命中时展示） -->
     <div id="alert-block-wrap">
-      <div class="divider"></div>
-      <div class="alert-block">
-        <div class="alert-header">
-          <i class="ph ph-warning-circle" style="font-size:18px;color:#DC2626;flex-shrink:0"></i>
-          <span class="alert-block-title">检测到高危话题</span>
-          <span class="risk-badge risk-watch">⚠️ 需关注</span>
-        </div>
-        <div class="alert-quote">「考试好害怕，想要离家出走」</div>
-        <div class="alert-advice">晓梅今天提到了对考试的强烈恐惧，并表达了想逃离的念头。<strong>建议今晚找个轻松的时机，陪她聊聊考试前的感受，让她知道成绩不是最重要的事。</strong></div>
+      <div class="divider" style="margin-top:14px"></div>
+      <div class="ai-advice-block">
+        <div class="ai-advice-icon"><i class="ph ph-sparkle" style="font-size:14px;color:white"></i></div>
+        <div class="ai-advice-text">晓梅今天提到了考试压力和想逃离的念头，情绪有些紧绷。<strong>建议今晚找个轻松的时机主动开口，让她知道家是最安全的地方，成绩不是最重要的事。</strong></div>
       </div>
     </div>
 
@@ -333,15 +332,17 @@
 var alertVisible = true;
 function toggleAlert() {
   alertVisible = !alertVisible;
-  var wrap = document.getElementById('alert-block-wrap');
-  var btn  = document.getElementById('demo-alert-btn');
+  var wrap  = document.getElementById('alert-block-wrap');
+  var dtags = document.getElementById('danger-tags-wrap');
+  var btn   = document.getElementById('demo-alert-btn');
+  var show  = alertVisible ? 'block' : 'none';
+  wrap.style.display  = show;
+  dtags.style.display = alertVisible ? 'flex' : 'none';
   if (alertVisible) {
-    wrap.style.display = 'block';
     btn.style.background = '#FEE2E2';
     btn.style.color = '#DC2626';
     btn.innerHTML = '<i class="ph ph-warning" style="font-size:10px"></i> 有高危话题';
   } else {
-    wrap.style.display = 'none';
     btn.style.background = '#DCFCE7';
     btn.style.color = '#16A34A';
     btn.innerHTML = '<i class="ph ph-check-circle" style="font-size:10px"></i> 无高危话题';
