@@ -25,16 +25,20 @@
 .keyword-tags{display:flex;flex-wrap:wrap;gap:8px}
 .keyword-tag{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--bg-muted);color:var(--text-body);transition:transform .15s}
 .keyword-tag:active{transform:scale(.95)}
-.topic-summary{font-size:13px;color:var(--text-sub);line-height:1.65;margin-top:10px;padding:10px 12px;background:#FFF7ED;border-radius:10px;border-left:3px solid var(--c-primary)}
 .divider{height:1px;background:var(--border-light);margin:0 0 14px}
-.alert-section{position:relative;padding-bottom:4px}
-.alert-top-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.alert-danger-tag{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:var(--r-full);font-size:11px;font-weight:700;background:#FEE2E2;color:#DC2626;border:1px solid #FECACA}
-.alert-title-text{font-size:15px;font-weight:700;color:var(--text-h)}
-.alert-body{font-size:13px;color:var(--text-sub);line-height:1.6;margin-bottom:10px}
-.alert-action-row{display:flex;justify-content:flex-end}
-.alert-action-btn{display:inline-flex;align-items:center;gap:4px;padding:7px 14px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:#FEE2E2;color:#DC2626;cursor:pointer;border:none;transition:opacity .15s}
-.alert-action-btn:active{opacity:.75}
+/* 高危话题区块 */
+.alert-block{background:#FFF5F5;border:1.5px solid #FECACA;border-radius:var(--r-lg);padding:14px 16px}
+.alert-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.alert-block-title{font-size:14px;font-weight:700;color:#DC2626;flex:1}
+.risk-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 10px;border-radius:var(--r-full);font-size:11px;font-weight:700;border:1px solid}
+.risk-watch{background:#FEF3C7;color:#D97706;border-color:#FDE68A}
+.risk-high{background:#FEE2E2;color:#DC2626;border-color:#FECACA}
+.alert-quote{font-size:12px;color:#B91C1C;background:#FEE2E2;border-radius:8px;padding:8px 12px;margin-bottom:10px;line-height:1.5;font-style:italic}
+.alert-advice{font-size:13px;color:var(--text-sub);line-height:1.65}
+.alert-advice strong{color:var(--text-h);font-weight:600}
+/* 演示切换 */
+.demo-row{display:flex;align-items:center;justify-content:flex-end;gap:5px;margin-bottom:10px}
+.demo-btn{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:var(--r-full);border:none;cursor:pointer;font-family:var(--font-cn)}
 
 /* ── 情绪曲线 ── */
 .curve-section{margin-bottom:14px}
@@ -87,7 +91,16 @@
 
   <!-- ===== 今日话题总结 + 高危话题检测（合并卡片） ===== -->
   <div class="insight-card">
-    <!-- 上半：今日话题总结 -->
+
+    <!-- 演示切换（原型专用） -->
+    <div class="demo-row">
+      <span style="font-size:10px;color:var(--text-muted)">演示：</span>
+      <button id="demo-alert-btn" class="demo-btn" style="background:#FEE2E2;color:#DC2626" onclick="toggleAlert()">
+        <i class="ph ph-warning" style="font-size:10px"></i> 有高危话题
+      </button>
+    </div>
+
+    <!-- 今日话题总结 -->
     <div class="keyword-section">
       <div class="keyword-section-title">
         <i class="ph ph-chat-circle-text" style="font-size:15px;color:var(--c-primary)"></i>
@@ -100,15 +113,21 @@
         <span class="keyword-tag">🦕 #恐龙百科探索</span>
       </div>
     </div>
-    <div class="divider"></div>
-    <!-- 下半：高危话题检测 -->
-    <div class="alert-section">
-      <div class="alert-top-row">
-        <span class="alert-title-text">检测到高危话题</span>
-        <span class="alert-danger-tag">⚠️ 需关注</span>
+
+    <!-- 高危话题区块（命中时展示，未命中时隐藏） -->
+    <div id="alert-block-wrap">
+      <div class="divider"></div>
+      <div class="alert-block">
+        <div class="alert-header">
+          <i class="ph ph-warning-circle" style="font-size:18px;color:#DC2626;flex-shrink:0"></i>
+          <span class="alert-block-title">检测到高危话题</span>
+          <span class="risk-badge risk-watch">⚠️ 需关注</span>
+        </div>
+        <div class="alert-quote">「考试好害怕，想要离家出走」</div>
+        <div class="alert-advice">晓梅今天提到了对考试的强烈恐惧，并表达了想逃离的念头。<strong>建议今晚找个轻松的时机，陪她聊聊考试前的感受，让她知道成绩不是最重要的事。</strong></div>
       </div>
-      <div class="alert-body">孩子在对话中提到"考试好害怕，想要离家出走"，建议今晚陪她聊聊考试压力的感受。</div>
     </div>
+
   </div>
 
   <!-- ===== 指令3：今日情绪曲线（未到的时间无曲线） ===== -->
@@ -310,6 +329,24 @@
 <style>@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
 
 <script>
+/* 高危话题演示切换 */
+var alertVisible = true;
+function toggleAlert() {
+  alertVisible = !alertVisible;
+  var wrap = document.getElementById('alert-block-wrap');
+  var btn  = document.getElementById('demo-alert-btn');
+  if (alertVisible) {
+    wrap.style.display = 'block';
+    btn.style.background = '#FEE2E2';
+    btn.style.color = '#DC2626';
+    btn.innerHTML = '<i class="ph ph-warning" style="font-size:10px"></i> 有高危话题';
+  } else {
+    wrap.style.display = 'none';
+    btn.style.background = '#DCFCE7';
+    btn.style.color = '#16A34A';
+    btn.innerHTML = '<i class="ph ph-check-circle" style="font-size:10px"></i> 无高危话题';
+  }
+}
 /* 打开/关闭全局 Paywall */
 function openPaywall() {
   document.getElementById('paywallOverlay').style.display = 'flex';
