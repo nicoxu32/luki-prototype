@@ -87,16 +87,16 @@
     <div style="text-align:right;font-size:11px;color:var(--text-muted);margin-top:10px">截止时间：2026年04月03日 17:45</div>
   </div>
 
+  <!-- 演示切换（卡片外部） -->
+  <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:6px;gap:5px">
+    <span style="font-size:10px;color:var(--text-muted)">演示：</span>
+    <button id="demo-alert-btn" class="demo-btn" style="background:#FEE2E2;color:#DC2626" onclick="toggleAlert()">
+      <i class="ph ph-warning" style="font-size:10px"></i> 有高危话题
+    </button>
+  </div>
+
   <!-- ===== 今日话题总结 + 高危话题检测（合并卡片） ===== -->
   <div class="insight-card">
-
-    <!-- 演示切换（原型专用） -->
-    <div class="demo-row">
-      <span style="font-size:10px;color:var(--text-muted)">演示：</span>
-      <button id="demo-alert-btn" class="demo-btn" style="background:#FEE2E2;color:#DC2626" onclick="toggleAlert()">
-        <i class="ph ph-warning" style="font-size:10px"></i> 有高危话题
-      </button>
-    </div>
 
     <!-- 今日话题总结 -->
     <div class="keyword-section" style="margin-bottom:0">
